@@ -2,25 +2,24 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter} from 'react-router-dom'
+import Login from './components/Login'
 import { Route, Switch } from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+      <Switch>
+        <Route path={'/login'} component={Login} />
+        {/* <Route path={'/buckets/edit/:id'} component={BucketEdit} />
+        <Route path={'/buckets/new'} component={BucketForm} />
+        <Route path={'/buckets/:id'} component={ShowBucket} />
+        <Route path={'/buckets'} component={Buckets} />
+        <Route path={'/courses/:id'} component={ShowCourse} />
+        <Route path={'/courses'} component={Courses} /> */}
+        <Route path={'/'} component={Login} />
+      </Switch>
+      </BrowserRouter>
     </div>
   );
 }
