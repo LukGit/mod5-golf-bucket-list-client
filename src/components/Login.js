@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../actions'
+import { addCourse } from  '../actions'
 import { Form } from 'semantic-ui-react'
 
 
@@ -29,6 +30,7 @@ class Login extends Component {
     e.preventDefault()
     console.log(this.state.username, this.state.password)
     const USER_URL = 'http://localhost:3000/users'
+    const COURSE_URL = 'http://localhost:3000/courses'
     const reqObj = {
       method: 'POST',
       headers: {
@@ -41,7 +43,13 @@ class Login extends Component {
     .then(userData => {
       this.props.addUser(userData)
       console.log("login", userData)
-      // this.props.history.push('/buckets')
+      fetch(COURSE_URL)
+      .then(resp => resp.json())
+      .then(courses => {
+        this.props.addCourse(courses)
+        console.log("golf courses", courses)
+        this.props.history.push('/buckets')
+      })
     })
   }
 
@@ -65,4 +73,4 @@ class Login extends Component {
   }
 }
 
-export default connect(null, {addUser})(Login)
+export default connect(null, {addUser, addCourse})(Login)

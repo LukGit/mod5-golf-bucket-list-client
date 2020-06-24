@@ -4,3 +4,14 @@ export const addUser = userData => {
     userData
   };
 };
+export const logoutUser = () => {
+  return {
+    type: 'LOGOUT'
+  };
+};
+export const addCourse = courses => {
+  return {
+    type: 'ADD_COURSE',
+    courses
+  };
+};

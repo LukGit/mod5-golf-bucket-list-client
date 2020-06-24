@@ -2,7 +2,8 @@ import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   users: usersReducer,
-  buckets: bucketsReducer
+  buckets: bucketsReducer,
+  courses: coursesReducer
 });
 
 export default rootReducer;
@@ -34,6 +35,20 @@ function bucketsReducer(state = [], action) {
       })
       // return [...action.userData.buckets]
       return bucketCourses
+    case "LOGOUT":
+        return []
+    default:
+      return state
+  }
+}
+
+function coursesReducer(state = [], action) {
+  switch (action.type) {
+    case "ADD_COURSE":
+      console.log("courseReducer", action)
+      return [...action.courses]
+    case "LOGOUT":
+        return []
     default:
       return state
   }
