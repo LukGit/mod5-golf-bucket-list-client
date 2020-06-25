@@ -3,7 +3,8 @@ import Navbar from './Navbar';
 import MapContainer from './MapContainer'
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom'
-import { Icon, Label, Container, Grid, Segment, Dropdown } from 'semantic-ui-react'
+import { addBucket } from '../actions';
+import { Icon, Label, Container, Grid, Segment, Dropdown, Button } from 'semantic-ui-react'
 
 
 class ShowCourse extends Component {
@@ -13,7 +14,7 @@ class ShowCourse extends Component {
     gps2: {},
     zoom: 0,
     desc: "",
-    init: true
+    init: "c"
   }
 
   componentDidMount () {
@@ -24,7 +25,7 @@ class ShowCourse extends Component {
       gps2: {lat: courseSelect.lat, lng: courseSelect.lng},
       zoom: 18,
       desc: "",
-      init: true
+      init: "c"
     })
   }
 
@@ -36,7 +37,7 @@ class ShowCourse extends Component {
         gps2: {lat: this.state.thisCourse.lat, lng: this.state.thisCourse.lng},
         zoom: 19,
         desc: "",
-        init: false
+        init: "c"
       })
     } else {
       const hole = parseInt(value.split(" ")[1])
@@ -50,9 +51,31 @@ class ShowCourse extends Component {
         gps2: greenGps,
         zoom: 18,
         desc: desc,
-        init: false
+        init: "h"
       })
     }
+  }
+
+  addToBucket = () => {
+    const BUCKET_URL = 'http://localhost:3000/buckets'
+    const reqObj = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        course_id: this.state.thisCourse.id,
+        user_id: this.props.user.userId
+      })
+    }
+    console.log("adding to bucket", this.props)
+    fetch(BUCKET_URL, reqObj)
+    .then(resp => resp.json())
+    .then(data => {
+      this.props.addBucket(data, this.state.thisCourse.name)
+      this.props.history.push('/buckets')
+    })
+    
   }
 
   render () {
@@ -162,7 +185,7 @@ class ShowCourse extends Component {
       },
     ]
     return (
-      <div>
+      <div className="courses">
       <Navbar/>
         <Grid>
         <Label>
@@ -175,12 +198,15 @@ class ShowCourse extends Component {
         options={holeSeletion}
         style={{width: 200}}
         />
-        
+        <Button
+          onClick={this.addToBucket}>
+          Add to Bucket
+         </Button> 
         </Grid>
         <br></br>
         <MapContainer gps1={this.state.gps1} gps2={this.state.gps2} zoomLevel={this.state.zoom} init={this.state.init}/>
  
-      </div> 
+      </div>
     )
   }
  
@@ -193,4 +219,4 @@ const mapStateToProps = state => {
    }
 }
 
-export default connect(mapStateToProps)(ShowCourse) 
+export default connect(mapStateToProps, {addBucket})(ShowCourse) 

@@ -55,11 +55,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div className={`app`}>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      <div className="login">
+        
        <Form onSubmit={this.loginUser}>
         <Form.Group widths='equal' inline>
           <Form.Input label="User name" onChange={this.handleChangeUser} type='text' value={this.state.username} />

@@ -14,13 +14,13 @@ class CourseCard extends Component {
       <div>
        <Grid>
          <Grid.Row centered>
-          <Segment style={{width: 800}}>
-            <Segment raised >
+          <Segment style={{width: 800 }} inverted color="light grey">
+            <Segment raised inverted color="olive">
               {course.name}
             </Segment>   
           
           <Link to={link}>
-            <Button size='mini'>
+            <Button size='mini' inverted color="olive">
               <p>Research</p>
             </Button>
           </Link> 

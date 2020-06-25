@@ -1,11 +1,33 @@
 .App {
   text-align: center;
+  /* background-image: url("https://wallpaper.wiki/wp-content/uploads/2017/06/Gradient-Wallpaper.jpg"); */
+    /* background-image: url("./img/golf.jpg"); */
+    background: url("./img/golf.jpg") no-repeat center center fixed;
+    min-height: 100vh; 
+    
 }
-
-.App-logo {
+.login {
+  /* display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    height:100%; */
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+}
+/* .courses {
+  background-image: url("./img/golf.jpg");
+    padding: 50px 0 50px 0;
+} */
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

@@ -20,7 +20,7 @@ class Courses extends Component {
     }
     return (
       
-      <div>
+      <div className="courses">
         <Navbar/>
      
         {this.props.courses.map(course => <CourseCard course={course} key={course.id}/>)}

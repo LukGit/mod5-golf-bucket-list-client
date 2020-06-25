@@ -15,3 +15,10 @@ export const addCourse = courses => {
     courses
   };
 };
+export const addBucket = (bucket, courseName) => {
+  return {
+    type: 'ADD_BUCKET',
+    bucket,
+    courseName
+  };
+};

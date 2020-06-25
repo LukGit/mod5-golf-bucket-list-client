@@ -37,6 +37,10 @@ function bucketsReducer(state = [], action) {
       return bucketCourses
     case "LOGOUT":
         return []
+    case "ADD_BUCKET":
+        console.log("***add bucket", action)
+        const newBucket = {...action.bucket, course: action.courseName}
+        return state.concat(newBucket)
     default:
       return state
   }

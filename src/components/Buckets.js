@@ -20,7 +20,7 @@ class Buckets extends Component {
     }
     return (
       
-      <div>
+      <div className="courses">
         <Navbar/>
      
         {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)}
