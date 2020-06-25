@@ -22,3 +22,9 @@ export const addBucket = (bucket, courseName) => {
     courseName
   };
 };
+export const deleteBucket = bucket => {
+  return {
+    type: 'DELETE_BUCKET',
+    bucket
+  }
+}

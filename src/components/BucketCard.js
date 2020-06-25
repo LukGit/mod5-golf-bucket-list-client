@@ -14,13 +14,10 @@ class BucketCard extends Component {
       <div>
        <Grid>
          <Grid.Row centered>
-          <Segment style={{width: 800}} inverted color="light grey">
+          <Segment style={{width: 800}} inverted color="grey">
             <Segment raised inverted color="olive">
               {bucket.course}
           </Segment>   
-          <Segment>  
-            {bucket.score}
-          </Segment>
           <Link to={link}>
             <Button size='mini'>
               <p>View</p>

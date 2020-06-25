@@ -14,7 +14,7 @@ class CourseCard extends Component {
       <div>
        <Grid>
          <Grid.Row centered>
-          <Segment style={{width: 800 }} inverted color="light grey">
+          <Segment style={{width: 800 }} inverted color="grey">
             <Segment raised inverted color="olive">
               {course.name}
             </Segment>   

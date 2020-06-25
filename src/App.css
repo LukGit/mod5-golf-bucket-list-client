@@ -18,7 +18,18 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    border: 1px solid black;
+    /* border: 1px solid black; */
+}
+.pageTitle {
+  font-style: italic;
+}
+.segmentT {
+  opacity: 0.2;
+}
+.header {
+  margin: 5%;
+  font-weight: bold;
+  color: #000000;
 }
 /* .courses {
   background-image: url("./img/golf.jpg");

@@ -41,6 +41,20 @@ function bucketsReducer(state = [], action) {
         console.log("***add bucket", action)
         const newBucket = {...action.bucket, course: action.courseName}
         return state.concat(newBucket)
+    case 'DELETE_BUCKET':
+      const indexD = state.findIndex(bucket => bucket.id === action.bucket.id)
+      return [
+        ...state.slice(0, indexD),
+        ...state.slice(indexD + 1)
+        ]
+     case 'UPDATE_BUCKET':
+      const indexU = state.findIndex(bucket => bucket.id === action.bucket.id)
+      const updatedBucket = {...action.bucket, course: state[indexU].course}
+      return [
+        ...state.slice(0, indexU),
+        updatedBucket,
+        ...state.slice(indexU + 1)
+      ]
     default:
       return state
   }
