@@ -7,7 +7,10 @@ import ClubIcon from '../img/club.png'
 export class MapContainer extends Component {
   state = {
     lat: 0,
-    lng: 0
+    lng: 0,
+    toTee: 0,
+    toFlag: 0,
+    polyPath: []
   }
 
   getDistanceBetweenPoints = (mk1, mk2) => {
@@ -43,15 +46,19 @@ export class MapContainer extends Component {
       const clickLoc = {lat: clickEvent.latLng.lat(), lng: clickEvent.latLng.lng()}
       const dToTee = this.getDistanceBetweenPoints(this.props.gps1, clickLoc)
       const dToFlag = this.getDistanceBetweenPoints(this.props.gps2, clickLoc)
+      const teeGps = {lat: Number(this.props.gps1.lat), lng: Number(this.props.gps1.lng)}
+      const flagGps = {lat: Number(this.props.gps2.lat), lng: Number(this.props.gps2.lng)}
+      console.log("lat is", teeGps, flagGps)
       this.setState({
         lat: clickEvent.latLng.lat(),
         lng: clickEvent.latLng.lng(),
         toTee: dToTee,
-        toFlag: dToFlag
+        toFlag: dToFlag,
+        polyPath: [teeGps, clickLoc, flagGps]
       })
     }
   }
-
+  
   render() {
     console.log("******in map", this.props)
     const opt = this.props.init
@@ -86,7 +93,15 @@ export class MapContainer extends Component {
         }
         <Marker position={this.state}
           label={`From tee: ${Math.floor(this.state.toTee)}yd \n To flag: ${Math.floor(this.state.toFlag)}yd`}/>
-      
+        <Polyline 
+        path={this.state.polyPath} 
+        options={{
+          geodesic: true,
+          strokeColor: '#669DF6',
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+        }}/>
+        
         <InfoWindow >
             <div>
               <h1> </h1>

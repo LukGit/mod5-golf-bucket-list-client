@@ -9,7 +9,7 @@ class BucketCard extends Component {
   render() {
     const bucket = this.props.bucket
     const link = `/buckets/${bucket.id}`
-    const linkedit = `/bucket/edit/${bucket.id}`
+    const linkedit = `/buckets/edit/${bucket.id}`
     return (
       <div>
        <Grid>
@@ -23,11 +23,11 @@ class BucketCard extends Component {
               <p>View</p>
             </Button>
           </Link> 
-          <Link to={linkedit}>
+          {/* <Link to={linkedit}>
             <Button size='mini'>
               <p>Edit</p>
             </Button>
-          </Link> 
+          </Link>  */}
           </Segment>
           </Grid.Row>
           </Grid>

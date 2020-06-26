@@ -31,7 +31,9 @@ function bucketsReducer(state = [], action) {
     case "LOGIN":
       console.log("bucketReducer", action)
       const bucketCourses = action.userData.buckets.map((b, idex) => {
-        return {...b, course: action.userData.courses[idex].name}
+        const matchCourse = action.userData.courses.find(c => c.id === b.course_id)
+        console.log("matched course =", matchCourse.name)
+        return {...b, course: matchCourse.name}
       })
       // return [...action.userData.buckets]
       return bucketCourses

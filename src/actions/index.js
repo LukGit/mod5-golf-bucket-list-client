@@ -28,3 +28,9 @@ export const deleteBucket = bucket => {
     bucket
   }
 }
+export const updateBucket = bucket => {
+  return {
+    type: 'UPDATE_BUCKET',
+    bucket
+  }
+}

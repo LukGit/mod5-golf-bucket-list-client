@@ -21,7 +21,7 @@ class CourseCard extends Component {
           
           <Link to={link}>
             <Button size='mini' inverted color="olive">
-              <p>Research</p>
+              <p>Explore</p>
             </Button>
           </Link> 
           {/* <Link to={linkedit}>
