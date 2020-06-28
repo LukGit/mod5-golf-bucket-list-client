@@ -3,7 +3,8 @@ import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { deleteBucket } from '../actions';
-import { Header, Segment, Button, Grid, Input, Form, Modal, GridRow, Icon } from 'semantic-ui-react'
+import TeeIcon from '../img/tee.png'
+import { Header, Segment, Button, Grid, Input, Form, Modal, GridRow, Icon, Embed } from 'semantic-ui-react'
 
 
 
@@ -67,9 +68,8 @@ class ShowBucket extends Component {
             
             </Link> : null            
             }
-           
           </Segment> 
-         
+            
         </GridRow>
       </Grid>
       </div>

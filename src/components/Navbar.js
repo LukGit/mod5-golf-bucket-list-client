@@ -2,26 +2,53 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions';
-// import { withRouter } from 'react-router-dom'
-import { Menu } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
+import { Menu, Dropdown } from 'semantic-ui-react'
 
 
 class Navbar extends Component {
   // constructor(props) {
   //   super(props);
   // }
+  state = {
+    courseList:[]
+  }
+  componentDidMount () {
+    const courseSelection = [{key: "1", text: "Pinehurst No 2", value: "1"}, {key: "2", text: "TPC Sawgrass", value: "2"}]
+    const cSelect = this.props.courses.map(c => {
+      return {key: `${c.id}`, text: c.name, value: `${c.id}`}
+    })
+    this.setState({
+      courseList: cSelect
+    })
+  }
 
   handleLogout = event => {
     this.props.logoutUser()
   }
 
+  selectCourse = (e, { value }) => {
+    console.log("Courses****", value)
+    this.props.history.push(`/courses/${value}`)
+    // this.forceUpdate()
+  }
+
   render() {
     return (
       <Menu inverted size='mini'>
-        <Menu.Item>
-          <Link to={'/courses'} className="item">
+        <Menu.Item >
+          {/* <Link to={'/courses'} className="item">
             Courses
-          </Link>
+          </Link> */}
+          <Dropdown 
+          fluid
+          selection
+          onChange={this.selectCourse}
+          options={this.state.courseList}
+          style={{width: 200}}
+          size='medium'
+          placeholder='Select Course'/>
+           
         </Menu.Item>
         <Menu.Item >
           <Link to={'/buckets'} className="item">
@@ -39,7 +66,10 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    courses: state.courses,
+    user: state.users
+  }
 }
-export default connect(mapStateToProps, { logoutUser } )(Navbar);
-// export default connect(mapStateToProps, { logoutUser } )(withRouter(Navbar))
+// export default connect(mapStateToProps, { logoutUser } )(Navbar);
+export default connect(mapStateToProps, { logoutUser } )(withRouter(Navbar))

@@ -77,8 +77,8 @@ export class BucketEdit extends Component {
                   onChange={this.handleOnChange}
                 />
             </Form.Field>
-            <Form.Button>
-              Submit
+            <Form.Button inverted color="grey">
+              Check off
             </Form.Button>
           </Form>
           </GridRow>

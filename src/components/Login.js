@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../actions'
 import { addCourse } from  '../actions'
-import { Form, Header, Icon } from 'semantic-ui-react'
+import { Form, Header, Icon, Menu } from 'semantic-ui-react'
 
 
 class Login extends Component {
@@ -60,11 +60,12 @@ class Login extends Component {
         <Icon name="golf ball"/>
         Welcome To Golf Bucket List
       </Header>
+
        <Form onSubmit={this.loginUser}>
         <Form.Group widths='equal' inline>
           <Form.Input label="User name" onChange={this.handleChangeUser} type='text' value={this.state.username} />
           <Form.Input label="Password" onChange={this.handleChangePw} type='password' value={this.state.password} />
-          <Form.Input type='submit' value='Login'/>
+          <Form.Input type='submit' value='Login' />
         </Form.Group>
 
        </Form>

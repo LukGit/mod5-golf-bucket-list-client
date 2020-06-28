@@ -58,7 +58,7 @@ export class MapContainer extends Component {
       })
     }
   }
-  
+
   render() {
     console.log("******in map", this.props)
     const opt = this.props.init
@@ -74,21 +74,25 @@ export class MapContainer extends Component {
         {opt === "c" ? 
           <Marker position={this.props.gps1} 
             name=' '
-            icon={ClubIcon}>
+            icon={ClubIcon}
+            >
           </Marker> : 
           <Marker position={this.props.gps1} 
             name=' '
-            icon={TeeIcon}>
+            icon={TeeIcon}
+          >
           </Marker>
         }
         {opt === "c" ? 
           <Marker position={this.props.gps2} 
             name=' '
-            icon={ClubIcon}>
+            icon={ClubIcon}
+            >
           </Marker> : 
           <Marker position={this.props.gps2} 
             name=' '
-            icon={FlagIcon}>
+            icon={FlagIcon}
+            >
           </Marker>
         }
         <Marker position={this.state}

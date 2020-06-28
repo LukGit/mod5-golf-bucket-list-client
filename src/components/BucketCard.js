@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import { Segment, Grid, Button } from 'semantic-ui-react'
+import { Segment, Grid, Button, Header, Icon } from 'semantic-ui-react'
 
 
 
@@ -13,21 +13,14 @@ class BucketCard extends Component {
     return (
       <div>
        <Grid>
-         <Grid.Row centered>
-          <Segment style={{width: 800}} inverted color="grey">
-            <Segment raised inverted color="olive">
-              {bucket.course}
-          </Segment>   
-          <Link to={link}>
-            <Button size='mini'>
+         <Grid.Row centered verticalAlign="middle">
+         <Segment style={{width: 800}} inverted color="olive">
+         <Header as="h3">{bucket.course} {bucket.played_on ? <Icon name="check circle"/> : null}</Header> 
+            <Link to={link}>
+            <Button size='mini' floated='center' inverted color="grey">
               <p>View</p>
             </Button>
           </Link> 
-          {/* <Link to={linkedit}>
-            <Button size='mini'>
-              <p>Edit</p>
-            </Button>
-          </Link>  */}
           </Segment>
           </Grid.Row>
           </Grid>
