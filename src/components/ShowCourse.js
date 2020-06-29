@@ -219,13 +219,14 @@ class ShowCourse extends Component {
     return (
       <div className="courses">
       <Navbar/>
-      <Menu inverted color="olive"> 
-   
+      <Menu size='mini' inverted color="olive"> 
+        <Menu.Item>
         <Label size="medium">
         <Icon name='golf ball'/> 
           {this.state.desc}
         </Label>
-      
+        </Menu.Item>
+        <Menu.Item>
         <Dropdown onChange={this.selectFilter} placeholder='Select Hole'
         fluid
         selection
@@ -234,15 +235,23 @@ class ShowCourse extends Component {
         size='mini'
         value={this.state.init === "c" ? "Clubhouse" : null}
         />
-        
+        </Menu.Item>
+        <Menu.Item>
         <Button
           inverted color="grey"
           size='mini'
           onClick={this.addToBucket}>
           Add to Bucket
         </Button> 
-     
-        <Modal trigger={<Button size='mini' floated='right' inverted color="grey">Watch video</Button>} closeIcon>
+        </Menu.Item>
+  
+        <Modal size='tiny' trigger={<Menu.Item><Button onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='mini' floated='right' inverted color="grey">Weather</Button></Menu.Item>} closeIcon>
+          <Modal.Content>
+            <Label>{this.state.weather}</Label>
+          </Modal.Content>
+        </Modal>
+        
+        <Modal trigger={<Menu.Item><Button size='mini' position='right' inverted color="grey">Watch video</Button></Menu.Item>} closeIcon>
           <Modal.Content>
           <Embed
             id={this.state.thisCourse.video_id}
@@ -250,14 +259,9 @@ class ShowCourse extends Component {
             source='youtube'
             />
           </Modal.Content>
+         
         </Modal>
-   
-        <Modal size='tiny' trigger={<Button onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='mini' floated='right' inverted color="grey">Weather</Button>} closeIcon>
-          <Modal.Content>
-            <Label>{this.state.weather}</Label>
-          </Modal.Content>
-        </Modal>
-
+        
         </Menu> 
         <MapContainer gps1={this.state.gps1} gps2={this.state.gps2} zoomLevel={this.state.zoom} init={this.state.init}/>
  

@@ -99,16 +99,16 @@ class ShowBucket extends Component {
       </Modal> : null}
       <Grid>
         <GridRow centered>
-          <Segment style={{width: 800}} className="segmentT">
+          <Segment style={{width: 650}} className="segmentT">
             <Header as='h3'> Course: {bucketSelect.course} {bucketSelect.played_on ? <Icon name="check circle"/> : null}</Header>
           </Segment>
-          <Segment style={{width: 800}} inverted color="olive">
+          <Segment style={{width: 650}} inverted color="olive">
             <Header as='h3'> Played on: {bucketSelect.played_on ? fmtDate : "Not played yet"}</Header>
           </Segment>
-          <Segment style={{width: 800}} inverted color="olive">
+          <Segment style={{width: 650}} inverted color="olive">
             <Header as='h3'> Score: {bucketSelect.played_on ? bucketSelect.score : "No score"}</Header>
           </Segment>
-          <Segment style={{width: 800}} inverted color="olive">
+          <Segment style={{width: 650}} inverted color="olive">
           
             <Button onClick={() => this.deleteThisBucket(bucketSelect)} size='mini' inverted color="grey" disabled={played}>
               <p>Remove</p>

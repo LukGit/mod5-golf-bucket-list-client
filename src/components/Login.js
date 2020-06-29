@@ -41,6 +41,9 @@ class Login extends Component {
     fetch(USER_URL, reqObj)
     .then(resp => resp.json())
     .then(userData => {
+      if (userData.error) {
+        alert(userData.error)
+      } else {
       this.props.addUser(userData)
       console.log("login", userData)
       fetch(COURSE_URL)
@@ -50,6 +53,7 @@ class Login extends Component {
         console.log("golf courses", courses)
         this.props.history.push('/buckets')
       })
+    }
     })
   }
 

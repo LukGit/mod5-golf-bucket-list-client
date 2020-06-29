@@ -46,7 +46,7 @@ class Navbar extends Component {
           options={this.state.courseList}
           style={{width: 200}}
           size='medium'
-          placeholder='Select Course'/>
+          placeholder='Research Course'/>
            
         </Menu.Item>
         <Menu.Item >
