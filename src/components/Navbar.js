@@ -14,7 +14,6 @@ class Navbar extends Component {
     courseList:[]
   }
   componentDidMount () {
-    const courseSelection = [{key: "1", text: "Pinehurst No 2", value: "1"}, {key: "2", text: "TPC Sawgrass", value: "2"}]
     const cSelect = this.props.courses.map(c => {
       return {key: `${c.id}`, text: c.name, value: `${c.id}`}
     })

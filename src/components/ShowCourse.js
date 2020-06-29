@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import Navbar from './Navbar';
 import MapContainer from './MapContainer'
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom'
 import { addBucket } from '../actions';
 import TeeIcon from '../img/tee.png'
-import { Icon, Label, Menu, Grid, Segment, Dropdown, Button, Modal, Embed, GridRow, GridColumn } from 'semantic-ui-react'
+import { Icon, Label, Menu, Dropdown, Button, Modal, Embed } from 'semantic-ui-react'
 
 
 class ShowCourse extends Component {
@@ -99,13 +98,12 @@ class ShowCourse extends Component {
   }
 
   getWeather = (gps) => {
-    let weather = ""
     const W_URL = "http://api.weatherapi.com/v1/current.json?key=0def2099dc364881957133838202806&q=" + gps
     fetch(W_URL)
     .then(resp => resp.json())
     .then(weather => {
       console.log("**weather**", weather)
-      const weather_desc = `Temp: ${weather.current.temp_f}F ${weather.current.condition.text} Wind: ${weather.current.wind_mph}mph`
+      const weather_desc = `Temp: ${weather.current.temp_f}F | ${weather.current.condition.text} | Wind: ${weather.current.wind_mph}mph ${weather.current.wind_dir}`
       this.setState({
         weather: weather_desc
       })
@@ -254,7 +252,7 @@ class ShowCourse extends Component {
           </Modal.Content>
         </Modal>
    
-        <Modal trigger={<Button onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='mini' floated='right' inverted color="grey">Weather</Button>} closeIcon>
+        <Modal size='tiny' trigger={<Button onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='mini' floated='right' inverted color="grey">Weather</Button>} closeIcon>
           <Modal.Content>
             <Label>{this.state.weather}</Label>
           </Modal.Content>

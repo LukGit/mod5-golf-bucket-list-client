@@ -58,7 +58,7 @@ export class BucketEdit extends Component {
         <Navbar />
         <Grid>
           <GridRow centered>
-          <Form onSubmit={this.handleOnSubmit} style={{width: 800}}>
+          <Form onSubmit={this.handleOnSubmit} style={{width: 600}}>
             <Form.Field>
               <label>Played On</label>
                 <input

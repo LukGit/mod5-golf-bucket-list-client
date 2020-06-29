@@ -1,10 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter} from 'react-router-dom'
 import Login from './components/Login'
 import Buckets from './components/Buckets'
-import Courses from './components/Courses'
 import ShowCourse from './components/ShowCourse'
 import ShowBucket from './components/ShowBucket'
 import BucketEdit from './components/BucketEdit'
@@ -20,7 +18,6 @@ function App() {
         <Route path={'/buckets/:id'} component={ShowBucket} />
         <Route path={'/buckets'} component={Buckets} />
         <Route path={'/courses/:id'} component={ShowCourse} />
-        <Route path={'/courses'} component={Courses} />
         <Route path={'/'} component={Login} />
       </Switch>
       </BrowserRouter>

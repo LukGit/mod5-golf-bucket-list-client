@@ -3,13 +3,51 @@ import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { deleteBucket } from '../actions';
-import TeeIcon from '../img/tee.png'
-import { Header, Segment, Button, Grid, Input, Form, Modal, GridRow, Icon, Embed } from 'semantic-ui-react'
+import { Header, Segment, Button, Grid, Form, Modal, GridRow, Icon, Label } from 'semantic-ui-react'
 
 
 
 class ShowBucket extends Component {
+  state = {
+    email: "",
+    emailSuccess: false
+  }
   
+  handleChange = (e) => {
+    this.setState({
+      email: e.target.value
+    })
+  }
+
+  sendEmail = (event, bucket) => {
+    event.preventDefault()
+    
+    const serviceID = 'ivan.luk028@gmail.com'
+    const templateID = 'luk_email_for_react'
+    let fmtD 
+    const date1 = new Date(bucket.played_on)
+    fmtD = (date1.getMonth() + 1) + '/' + date1.getDate() + '/' +  date1.getFullYear()
+    const content = `I played ${bucket.course} on ${fmtD} and my score was ${bucket.score}!`
+    const templateParams = {
+      to: this.state.email,
+      subject: bucket.course,
+      html: content
+    }
+    this.setState({
+        email: '',
+        emailSuccess: true
+      })
+    
+    window.emailjs.send(
+      serviceID, templateID, 
+      templateParams
+      ).then(res => {
+        console.log('Email successfully sent!')
+      })
+      // Handle errors here however you like, or use a React error boundary
+      .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
+    }
+
   deleteThisBucket = (bucket) => {
     const BUCKET_URL = `http://localhost:3000/buckets/${bucket.id}`
     console.log("delete link is", BUCKET_URL)
@@ -19,6 +57,12 @@ class ShowBucket extends Component {
         this.props.history.push('/buckets')
         this.props.deleteBucket(data)
       })
+  }
+
+  closeModal = () => {
+    this.setState({
+      emailSuccess: false
+    })
   }
   
   render() {
@@ -44,6 +88,15 @@ class ShowBucket extends Component {
     return (
       <div>
       <Navbar/>
+      {this.state.emailSuccess ? 
+      <Modal open={this.state.emailSuccess} basic size='tiny'>
+        <Label>email sent</Label>
+        <Modal.Actions>
+        <Button size='mini' inverted color='grey' onClick={this.closeModal}>
+          OK
+        </Button>
+        </Modal.Actions>
+      </Modal> : null}
       <Grid>
         <GridRow centered>
           <Segment style={{width: 800}} className="segmentT">
@@ -66,7 +119,15 @@ class ShowBucket extends Component {
               <p>Check off</p>
             </Button>
             
-            </Link> : null            
+            </Link> : 
+             <Segment raised inverted color="grey">
+             <Form onSubmit={(event) => this.sendEmail(event, bucketSelect)}>
+             <Form.Group widths='equal' inline>
+               <Form.Input label="E-mail Address" onChange={this.handleChange} type='text' value={this.state.email} />
+               <Form.Input inverted type='submit' value='Share'/>
+             </Form.Group>
+             </Form>
+           </Segment>           
             }
           </Segment> 
             

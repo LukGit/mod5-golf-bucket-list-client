@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Navbar from './Navbar';
-import BucketCard from './BucketCard'
 import MapBuckets from './MapBuckets'
-// import { Radio, Segment } from 'semantic-ui-react'
-// import { sortNotes } from '../actions'
+import { Header } from 'semantic-ui-react'
 
 class Buckets extends Component {
   state = {}
@@ -27,8 +25,8 @@ class Buckets extends Component {
       
       <div className="courses">
         <Navbar/>
-     
-        {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)}
+        <Header inverted size='small'>Bucket List Courses</Header> 
+        {/* {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)} */}
         <MapBuckets buckets={newBuckets}/>
       </div>
     )
