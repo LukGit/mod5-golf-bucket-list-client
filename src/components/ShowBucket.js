@@ -51,7 +51,14 @@ class ShowBucket extends Component {
   deleteThisBucket = (bucket) => {
     const BUCKET_URL = `http://localhost:3000/buckets/${bucket.id}`
     console.log("delete link is", BUCKET_URL)
-    fetch(BUCKET_URL, {method: 'delete'})
+    const reqObj = {
+      method: 'delete',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+    fetch(BUCKET_URL, reqObj)
       .then(resp => resp.json())
       .then(data => {
         this.props.history.push('/buckets')

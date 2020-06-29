@@ -9,7 +9,7 @@ class Buckets extends Component {
 
   handleChange = (e, { value }) => {
     this.setState({ value })
-    // this.props.sortNotes(value)
+
   }
 
   render() {

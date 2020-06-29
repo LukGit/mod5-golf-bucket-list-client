@@ -11,6 +11,7 @@ export default rootReducer;
 function usersReducer(state = { user: '', userId: 0 }, action) {
   switch (action.type) {
     case "LOGIN":
+    case "CURRENT_USER":
       console.log("userReducer", action)
       return {
         user: action.userData.username,
@@ -29,6 +30,7 @@ function usersReducer(state = { user: '', userId: 0 }, action) {
 function bucketsReducer(state = [], action) {
   switch (action.type) {
     case "LOGIN":
+    case "CURRENT_USER":
       console.log("bucketReducer", action)
       const bucketCourses = action.userData.buckets.map((b, idex) => {
         const matchCourse = action.userData.courses.find(c => c.id === b.course_id)

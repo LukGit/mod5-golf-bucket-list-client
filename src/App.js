@@ -8,7 +8,8 @@ import ShowBucket from './components/ShowBucket'
 import BucketEdit from './components/BucketEdit'
 import { Route, Switch } from 'react-router-dom'
 
-function App() {
+const App = () => { 
+  
   return (
     <div className="App">
       <BrowserRouter>

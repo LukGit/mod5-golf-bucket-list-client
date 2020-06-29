@@ -19,6 +19,10 @@ class ShowCourse extends Component {
   }
 
   componentDidMount () {
+    if (!this.props.user.user){
+      this.props.history.push('/login')
+      return null
+    }
     console.log("**did mount**")
     const courseSelect = this.props.courses.find(course => course.id === parseInt(this.props.match.params.id))
     this.setState({
@@ -80,7 +84,8 @@ class ShowCourse extends Component {
     const reqObj = {
       method: 'POST',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify({
         course_id: this.state.thisCourse.id,
@@ -221,7 +226,7 @@ class ShowCourse extends Component {
       <Navbar/>
       <Menu size='mini' inverted color="olive"> 
         <Menu.Item>
-        <Label size="medium">
+        <Label size="Large">
         <Icon name='golf ball'/> 
           {this.state.desc}
         </Label>

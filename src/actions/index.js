@@ -34,3 +34,9 @@ export const updateBucket = bucket => {
     bucket
   }
 }
+export const currentUser = (userData) => {
+  return {
+    type: "CURRENT_USER",
+    userData
+  }
+}

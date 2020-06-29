@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../actions'
+import { currentUser } from '../actions'
 import { addCourse } from  '../actions'
 import { Form, Header, Icon } from 'semantic-ui-react'
 
@@ -11,6 +12,40 @@ class Login extends Component {
     this.state = {
       username: '',
       password: ''
+    }
+  }
+
+  componentDidMount () {
+    const token = localStorage.getItem('token')
+    const COURSE_URL = 'http://localhost:3000/courses'
+    if(!token) {
+      this.props.history.push('/login')
+    } else {
+      const reqObj = {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+      fetch('http://localhost:3000/current_user', reqObj)
+      .then(resp => resp.json())
+      .then(user => {
+        if (user.error) {
+          this.props.history.push('/login')
+        } else {
+          console.log("===current user====", user)
+          this.props.currentUser(user)
+          fetch(COURSE_URL, {headers: {'Authorization': `Bearer ${user.jwt}`}})
+      .then(resp => resp.json())
+      .then(courses => {
+        console.log(courses)
+        this.props.addCourse(courses)
+        console.log("golf courses", courses)
+        this.props.history.push('/buckets')
+      })
+          //update the redux store with the user
+        }
+      })
     }
   }
 
@@ -44,11 +79,14 @@ class Login extends Component {
       if (userData.error) {
         alert(userData.error)
       } else {
+      localStorage.setItem("token", userData.jwt)      
       this.props.addUser(userData)
-      console.log("login", userData)
-      fetch(COURSE_URL)
+      console.log("***login with token***", userData)
+      // fetch(COURSE_URL)
+      fetch(COURSE_URL, {headers: {'Authorization': `Bearer ${userData.jwt}`}})
       .then(resp => resp.json())
       .then(courses => {
+        console.log(courses)
         this.props.addCourse(courses)
         console.log("golf courses", courses)
         this.props.history.push('/buckets')
@@ -78,4 +116,4 @@ class Login extends Component {
   }
 }
 
-export default connect(null, {addUser, addCourse})(Login)
+export default connect(null, {addUser, addCourse, currentUser})(Login)

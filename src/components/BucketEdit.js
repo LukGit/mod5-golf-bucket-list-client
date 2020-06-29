@@ -37,7 +37,8 @@ export class BucketEdit extends Component {
     const reqObj = {
       method: 'PATCH',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify({
         played_on: this.state.played_on,
