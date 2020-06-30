@@ -25,7 +25,7 @@ class Buckets extends Component {
       
       <div className="courses">
         <Navbar/>
-        <Header inverted size='small'>Bucket List Courses</Header> 
+        <Header inverted size='small'> {this.props.user.user}, Your Bucket List Courses!</Header> 
         {/* {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)} */}
         <MapBuckets buckets={newBuckets}/>
       </div>

@@ -31,7 +31,8 @@ class ShowBucket extends Component {
     const templateParams = {
       to: this.state.email,
       subject: bucket.course,
-      html: content
+      html: content,
+      from: this.props.user.user
     }
     this.setState({
         email: '',
