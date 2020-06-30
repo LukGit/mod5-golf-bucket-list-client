@@ -15,7 +15,8 @@ class ShowCourse extends Component {
     zoom: 0,
     desc: "",
     init: "c",
-    weather: ""
+    weather: "",
+    inBkt: false
   }
 
   componentDidMount () {
@@ -25,6 +26,7 @@ class ShowCourse extends Component {
     }
     console.log("**did mount**")
     const courseSelect = this.props.courses.find(course => course.id === parseInt(this.props.match.params.id))
+    const foundB = this.inBucket(courseSelect)
     this.setState({
       thisCourse: courseSelect,
       gps1: {lat: courseSelect.lat, lng: courseSelect.lng},
@@ -32,7 +34,8 @@ class ShowCourse extends Component {
       zoom: 18,
       desc: "",
       init: "c",
-      weather: ""
+      weather: "",
+      inBkt: foundB
     })
   }
 
@@ -40,6 +43,7 @@ class ShowCourse extends Component {
     console.log("*** did update**")
     if (parseInt(this.props.match.params.id) !== parseInt(prevProps.match.params.id)){
       const courseSelect = this.props.courses.find(course => course.id === parseInt(this.props.match.params.id))
+      const foundB = this.inBucket(courseSelect)
       this.setState({
         thisCourse: courseSelect,
         gps1: {lat: courseSelect.lat, lng: courseSelect.lng},
@@ -47,7 +51,8 @@ class ShowCourse extends Component {
         zoom: 18,
         desc: "",
         init: "c",
-        weather: ""
+        weather: "",
+        inBkt: foundB
       })
     }
   }
@@ -108,11 +113,23 @@ class ShowCourse extends Component {
     .then(resp => resp.json())
     .then(weather => {
       console.log("**weather**", weather)
-      const weather_desc = `Temp: ${weather.current.temp_f}F | ${weather.current.condition.text} | Wind: ${weather.current.wind_mph}mph ${weather.current.wind_dir}`
+      const weather_desc = `Temp: ${weather.current.temp_f}F | ${weather.current.condition.text} | Humidity: ${weather.current.humidity}% | Wind: ${weather.current.wind_mph}mph ${weather.current.wind_dir} | Gust: ${weather.current.gust_mph}mph`
       this.setState({
         weather: weather_desc
       })
     })
+  }
+
+  inBucket = (course) => {
+    // const bucket = this.props.buckets.find(b =>  b.course_id === this.state.thisCourse.id)
+    // console.log ("this is the bucket", bucket)
+    if (this.props.buckets.find(b =>  b.course_id === course.id)) {
+      console.log("-----found in bucket------")
+      return true
+    } else {
+      console.log("-----not found in bucket------")
+      return false
+    }
   }
 
   render () {
@@ -243,6 +260,7 @@ class ShowCourse extends Component {
         </Menu.Item>
         <Menu.Item>
         <Button
+          disabled={this.state.inBkt}
           inverted color="grey"
           size='mini'
           onClick={this.addToBucket}>
@@ -279,7 +297,8 @@ class ShowCourse extends Component {
 const mapStateToProps = state => {
   return { 
     courses: state.courses,
-    user: state.users
+    user: state.users,
+    buckets: state.buckets
    }
 }
 

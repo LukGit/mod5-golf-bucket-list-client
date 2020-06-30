@@ -127,11 +127,11 @@ class ShowBucket extends Component {
             </Button>
             
             </Link> : 
-             <Segment raised inverted color="grey">
+             <Segment raised inverted color="olive">
              <Form onSubmit={(event) => this.sendEmail(event, bucketSelect)}>
              <Form.Group widths='equal' inline>
-               <Form.Input label="E-mail Address" onChange={this.handleChange} type='text' value={this.state.email} />
-               <Form.Input inverted type='submit' value='Share'/>
+               <Form.Input placeholder="E-mail Addresses" onChange={this.handleChange} type='text' value={this.state.email} />
+               <Form.Input type='submit' value='Share'/>
              </Form.Group>
              </Form>
            </Segment>           

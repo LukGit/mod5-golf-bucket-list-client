@@ -17,10 +17,9 @@ class Login extends Component {
 
   componentDidMount () {
     const token = localStorage.getItem('token')
-    const COURSE_URL = 'http://localhost:3000/courses'
     if(!token) {
       this.props.history.push('/login')
-    } else {
+    }else {
       const reqObj = {
         method: 'GET',
         headers: {
@@ -35,15 +34,7 @@ class Login extends Component {
         } else {
           console.log("===current user====", user)
           this.props.currentUser(user)
-          fetch(COURSE_URL, {headers: {'Authorization': `Bearer ${user.jwt}`}})
-      .then(resp => resp.json())
-      .then(courses => {
-        console.log(courses)
-        this.props.addCourse(courses)
-        console.log("golf courses", courses)
-        this.props.history.push('/buckets')
-      })
-          //update the redux store with the user
+          this.getCourses(user.jwt)
         }
       })
     }
@@ -65,7 +56,6 @@ class Login extends Component {
     e.preventDefault()
     console.log(this.state.username, this.state.password)
     const USER_URL = 'http://localhost:3000/users'
-    const COURSE_URL = 'http://localhost:3000/courses'
     const reqObj = {
       method: 'POST',
       headers: {
@@ -79,37 +69,39 @@ class Login extends Component {
       if (userData.error) {
         alert(userData.error)
       } else {
-      localStorage.setItem("token", userData.jwt)      
-      this.props.addUser(userData)
-      console.log("***login with token***", userData)
-      // fetch(COURSE_URL)
-      fetch(COURSE_URL, {headers: {'Authorization': `Bearer ${userData.jwt}`}})
+        localStorage.setItem("token", userData.jwt)      
+        this.props.addUser(userData)
+        console.log("***login with token***", userData)
+        this.getCourses(userData.jwt)
+      }
+    })
+  }
+
+  getCourses = (token) => {
+    const COURSE_URL = 'http://localhost:3000/courses'
+    fetch(COURSE_URL, {headers: {'Authorization': `Bearer ${token}`}})
       .then(resp => resp.json())
       .then(courses => {
         console.log(courses)
         this.props.addCourse(courses)
         console.log("golf courses", courses)
         this.props.history.push('/buckets')
-      })
-    }
     })
   }
 
   render() {
     return (
       <div className="login">
-      <Header className="pageTitle" as="h1" size="huge" icon inverted color="white">
+      <Header className="pageTitle" as="h1" size="huge" icon inverted>
         <Icon name="golf ball"/>
         Welcome To Golf Bucket List
       </Header>
-
-       <Form onSubmit={this.loginUser}>
-        <Form.Group widths='equal' inline>
-          <Form.Input label="User name" onChange={this.handleChangeUser} type='text' value={this.state.username} />
-          <Form.Input label="Password" onChange={this.handleChangePw} type='password' value={this.state.password} />
-          <Form.Input type='submit' value='Login' />
-        </Form.Group>
-
+        <Form onSubmit={this.loginUser}>
+        <Form.Group widths='equal' inline >
+          <Form.Input placeholder="User name" onChange={this.handleChangeUser} type='text' value={this.state.username} />
+          <Form.Input placeholder="Password" onChange={this.handleChangePw} type='password' value={this.state.password} />
+          <Form.Input type='submit' value='Login'/>
+        </Form.Group>        
        </Form>
       </div>
     )
