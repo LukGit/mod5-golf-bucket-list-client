@@ -19,6 +19,7 @@ class ShowBucket extends Component {
     })
   }
 
+  // this function is to send email via EmailJS service
   sendEmail = (event, bucket) => {
     event.preventDefault()
     
@@ -28,6 +29,11 @@ class ShowBucket extends Component {
     const date1 = new Date(bucket.played_on)
     fmtD = (date1.getMonth() + 1) + '/' + date1.getDate() + '/' +  date1.getFullYear()
     const content = `I played ${bucket.course} on ${fmtD} and my score was ${bucket.score}!`
+    // this object contains dynamic variables on EmailJS template
+    // to: destination email address(es)
+    // subject: subkect of email
+    // html: content of email
+    // from: sender name
     const templateParams = {
       to: this.state.email,
       subject: bucket.course,
@@ -39,6 +45,7 @@ class ShowBucket extends Component {
         emailSuccess: true
       })
     
+    // sends email via emailjs
     window.emailjs.send(
       serviceID, templateID, 
       templateParams
@@ -49,6 +56,7 @@ class ShowBucket extends Component {
       .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
     }
 
+  // this fucntion delete a bucket item from bucket list
   deleteThisBucket = (bucket) => {
     const BUCKET_URL = `http://localhost:3000/buckets/${bucket.id}`
     console.log("delete link is", BUCKET_URL)
@@ -67,6 +75,7 @@ class ShowBucket extends Component {
       })
   }
 
+  // this function sent the state so that the modal will close
   closeModal = () => {
     this.setState({
       emailSuccess: false
@@ -82,6 +91,7 @@ class ShowBucket extends Component {
     const linkedit = `/buckets/edit/${bucketSelect.id}`
     let played
     
+    // this is to check if the bucket course has been played
     let fmtDate
     if (bucketSelect.played_on){
       played = true
@@ -96,6 +106,7 @@ class ShowBucket extends Component {
     return (
       <div>
       <Navbar/>
+      {/* display modal after email sent. click ok to change state which closes modal */}
       {this.state.emailSuccess ? 
       <Modal open={this.state.emailSuccess} basic size='tiny'>
         <Label>email sent</Label>
@@ -117,10 +128,11 @@ class ShowBucket extends Component {
             <Header as='h3'> Score: {bucketSelect.played_on ? bucketSelect.score : "No score"}</Header>
           </Segment>
           <Segment style={{width: 650}} inverted color="olive">
-          
+            {/* disable the remove button if course is alreadt played */}
             <Button onClick={() => this.deleteThisBucket(bucketSelect)} size='mini' inverted color="grey" disabled={played}>
               <p>Remove</p>
             </Button>
+            {/* display checkoff button only if course is not played. Otherwise show email form */}
             {!played ?
             <Link to={linkedit} size='mini' >
             <Button size='mini' inverted color="grey">

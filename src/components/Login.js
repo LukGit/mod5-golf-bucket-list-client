@@ -15,6 +15,9 @@ class Login extends Component {
     }
   }
 
+  // this function is called when component is initially loaded
+  // it checks to see if there is a token in local storage.
+  // if token exists it fetch the user by sending the token to the current_user path
   componentDidMount () {
     const token = localStorage.getItem('token')
     if(!token) {
@@ -32,7 +35,6 @@ class Login extends Component {
         if (user.error) {
           this.props.history.push('/login')
         } else {
-          console.log("===current user====", user)
           this.props.currentUser(user)
           this.getCourses(user.jwt)
         }
@@ -52,6 +54,9 @@ class Login extends Component {
     })
   }
 
+  // this handles regular login by sending username and password to users path
+  // returned token is stored in local storage
+  // if username is not found, user is redirected to signup page
   loginUser = (e) => {
     e.preventDefault()
     console.log(this.state.username, this.state.password)
@@ -75,20 +80,18 @@ class Login extends Component {
       }else {
         localStorage.setItem("token", userData.jwt)      
         this.props.addUser(userData)
-        console.log("***login with token***", userData)
         this.getCourses(userData.jwt)
       }
     })
   }
 
+  // this function retrieves all the courses from backend and load them to store
   getCourses = (token) => {
     const COURSE_URL = 'http://localhost:3000/courses'
     fetch(COURSE_URL, {headers: {'Authorization': `Bearer ${token}`}})
       .then(resp => resp.json())
       .then(courses => {
-        console.log(courses)
         this.props.addCourse(courses)
-        console.log("golf courses", courses)
         this.props.history.push('/buckets')
     })
   }

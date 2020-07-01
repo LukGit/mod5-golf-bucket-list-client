@@ -10,7 +10,13 @@ import Signup from './components/Signup'
 import { Route, Switch } from 'react-router-dom'
 
 const App = () => { 
-  
+  // Login is to handle user login
+  // BuckerEdit is to handle editing of a bucket item
+  // ShowBucket is to display the content of a bucket item
+  // Buckets is to display a map that shows all the bucket items
+  // ShowCourse is to display a map of a course and allow navigation
+  // Signup is to handle user signup
+  // default path is Login
   return (
     <div className="App">
       <BrowserRouter>

@@ -13,6 +13,7 @@ class Navbar extends Component {
   state = {
     courseList:[]
   }
+  // when component is initially loaded, set local set with courses from store with course name and id
   componentDidMount () {
     const cSelect = this.props.courses.map(c => {
       return {key: `${c.id}`, text: c.name, value: `${c.id}`}
@@ -22,13 +23,14 @@ class Navbar extends Component {
     })
   }
 
+  // this handles logout by remocing the token in local storage and calling logoutUser in reducer
   handleLogout = event => {
     localStorage.removeItem('token')
     this.props.logoutUser()
   }
 
+  // this redirects the user to the course selected
   selectCourse = (e, { value }) => {
-    console.log("Courses****", value)
     this.props.history.push(`/courses/${value}`)
     // this.forceUpdate()
   }
@@ -37,9 +39,7 @@ class Navbar extends Component {
     return (
       <Menu inverted size='mini'>
         <Menu.Item >
-          {/* <Link to={'/courses'} className="item">
-            Courses
-          </Link> */}
+          {/* this dropdown list all the courses available */}
           <Dropdown 
           fluid
           selection
@@ -71,5 +71,5 @@ const mapStateToProps = state => {
     user: state.users
   }
 }
-// export default connect(mapStateToProps, { logoutUser } )(Navbar);
+// withRouter is need to route to course page because NavBar is not a component under BrowserRouter in App.js
 export default connect(mapStateToProps, { logoutUser } )(withRouter(Navbar))

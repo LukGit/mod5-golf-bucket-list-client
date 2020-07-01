@@ -17,44 +17,17 @@ class Signup extends Component {
     }
   }
 
-  // componentDidMount () {
-  //   const token = localStorage.getItem('token')
-  //   if(!token) {
-  //     this.props.history.push('/login')
-  //   }else {
-  //     const reqObj = {
-  //       method: 'GET',
-  //       headers: {
-  //         Authorization: `Bearer ${token}`
-  //       }
-  //     }
-  //     fetch('http://localhost:3000/current_user', reqObj)
-  //     .then(resp => resp.json())
-  //     .then(user => {
-  //       if (user.error) {
-  //         this.props.history.push('/login')
-  //       } else {
-  //         console.log("===current user====", user)
-  //         this.props.currentUser(user)
-  //         this.getCourses(user.jwt)
-  //       }
-  //     })
-  //   }
-  // }
-
   handleChangeUser = (e) => {
     this.setState({
       username: e.target.value
     })
   }
   handleChangePw = (e) => {
-    console.log("password is", e.target.value)
     this.setState({
       password: e.target.value
     })
   }
   handleRetype = (e) => {
-    console.log("retype is", e.target.value)
     this.setState({
       retype: e.target.value
     })
@@ -62,55 +35,54 @@ class Signup extends Component {
 
   signupUser = (e) => {
     e.preventDefault()
-    console.log(this.state.username, this.state.password)
     if (this.state.password !== this.state.retype) {
+      // clear state when passwords don't matach
       this.setState({
         badpw: true,
         password: "",
         retype: ""
       })
     } else {
-    const USER_URL = 'http://localhost:3000/signup'
-    const reqObj = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({username: this.state.username, password: this.state.password})
-    }
-    console.log("going to signup user", reqObj)
-    fetch(USER_URL, reqObj)
-    .then(resp => resp.json())
-    .then(userData => {
-      if (userData.error) {
-        alert(userData.error)
-      } else {
-        localStorage.setItem("token", userData.jwt)      
-        this.props.addUser(userData)
-        console.log("***login with token***", userData)
-        this.getCourses(userData.jwt)
+        // post to the signup endpoint 
+        const USER_URL = 'http://localhost:3000/signup'
+        const reqObj = {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({username: this.state.username, password: this.state.password})
+        }
+        fetch(USER_URL, reqObj)
+        .then(resp => resp.json())
+        .then(userData => {
+          if (userData.error) {
+            alert(userData.error)
+          } else {
+            // save the return token
+            localStorage.setItem("token", userData.jwt) 
+            // add user to the redux store
+            this.props.addUser(userData)
+            // get all courses from backend
+            this.getCourses(userData.jwt)
+          }
+        })
       }
-    })
-  }
   }
 
+  // this function is to use provided token to retrieve all courses from backend
   getCourses = (token) => {
     const COURSE_URL = 'http://localhost:3000/courses'
     fetch(COURSE_URL, {headers: {'Authorization': `Bearer ${token}`}})
       .then(resp => resp.json())
       .then(courses => {
-        console.log(courses)
+        // add all courses to the store
         this.props.addCourse(courses)
-        console.log("golf courses", courses)
+        // redirect to the buckets page
         this.props.history.push('/buckets')
     })
   }
 
   render() {
-    // if (!this.props.user.user){
-    //   this.props.history.push('/login')
-    //   return null
-    // }
     return (
       <div className="login">
       <Header className="pageTitle" as="h1" size="huge" icon inverted>

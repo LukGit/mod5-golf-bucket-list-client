@@ -13,6 +13,7 @@ export class MapContainer extends Component {
     polyPath: []
   }
 
+  // this function calculate distance between 2 gps locations in yards
   getDistanceBetweenPoints = (mk1, mk2) => {
     // The radius of the planet earth in meters
     console.log("calc dist", mk1, mk2)
@@ -20,7 +21,7 @@ export class MapContainer extends Component {
     const lng1 = mk1.lng
     const lat2 = mk2.lat
     const lng2 = mk2.lng
-    let R = 3958.8;
+    let R = 3958.8; //radius of earth in miles
     let dLat = (Math.PI/180)*(lat2 - lat1);
     let dLong = (Math.PI/180)*(lng2 - lng1);
     let a = Math.sin(dLat / 2)
@@ -39,16 +40,18 @@ export class MapContainer extends Component {
     let distance = R * c;
 
     return distance * 1760;
-}
+  }
+
+  // this function handles when a point on map is clicked
+  // if a hole was selected, it set local state with gps of the click point, the distance to tee and green, and polyline gps coordinances
   handleClick = (mapProps, map, clickEvent) => {
-    console.log("Clicked map", clickEvent.latLng.lat(), clickEvent.latLng.lng())
     if (this.props.init === "h"){
       const clickLoc = {lat: clickEvent.latLng.lat(), lng: clickEvent.latLng.lng()}
       const dToTee = this.getDistanceBetweenPoints(this.props.gps1, clickLoc)
       const dToFlag = this.getDistanceBetweenPoints(this.props.gps2, clickLoc)
       const teeGps = {lat: Number(this.props.gps1.lat), lng: Number(this.props.gps1.lng)}
       const flagGps = {lat: Number(this.props.gps2.lat), lng: Number(this.props.gps2.lng)}
-      console.log("lat is", teeGps, flagGps)
+      
       this.setState({
         lat: clickEvent.latLng.lat(),
         lng: clickEvent.latLng.lng(),
@@ -60,10 +63,8 @@ export class MapContainer extends Component {
   }
 
   render() {
-    console.log("******in map", this.props)
     const opt = this.props.init
     const d = this.getDistanceBetweenPoints(this.props.gps1, this.props.gps2)
-    console.log("distance is", d * 1760)
     return (
       <Map google={this.props.google} 
       zoom={this.props.zoomLevel}
@@ -95,8 +96,10 @@ export class MapContainer extends Component {
             >
           </Marker>
         }
+        {/* this marker will display when a point on map is clicked. it displays the distaince to tee and green */}
         <Marker position={this.state}
           label={`From tee: ${Math.floor(this.state.toTee)}yd \n To flag: ${Math.floor(this.state.toFlag)}yd`}/>
+        {/* this polyline connects the click point to tee and green marker */}
         <Polyline 
         path={this.state.polyPath} 
         options={{
@@ -116,6 +119,7 @@ export class MapContainer extends Component {
   }
 }
 
+// this is the apiKey generated on goople for maps
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyDAAA0HEZLvUa2hQ-54gAG5TXheH1-pEZY'
 })(MapContainer)

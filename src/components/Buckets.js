@@ -12,11 +12,13 @@ class Buckets extends Component {
 
   }
 
+  // this shows the NavBar and the MapBuckets which is also passed the bucket items to display on map
   render() {
     if (!this.props.user.user){
       this.props.history.push('/login')
       return null
     }
+    // the bucket items are modified to include the course clubhouse gps
     const newBuckets = this.props.buckets.map(b => {
       const course = this.props.courses.find(c => c.id === b.course_id)
       return {...b, course_lat: course.lat, course_lng: course.lng}

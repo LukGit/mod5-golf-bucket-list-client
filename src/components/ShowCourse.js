@@ -19,13 +19,14 @@ class ShowCourse extends Component {
     inBkt: false
   }
 
+  // when the component is initially loaded, set local state with course, gps, weather, and other info
   componentDidMount () {
     if (!this.props.user.user){
       this.props.history.push('/login')
       return null
     }
-    console.log("**did mount**")
     const courseSelect = this.props.courses.find(course => course.id === parseInt(this.props.match.params.id))
+    // see if course is already in bucket list
     const foundB = this.inBucket(courseSelect)
     this.setState({
       thisCourse: courseSelect,
@@ -39,8 +40,9 @@ class ShowCourse extends Component {
     })
   }
 
+  // this is called when user select a different course from dropdown
   componentDidUpdate (prevProps) {
-    console.log("*** did update**")
+    // if a different course, reload state with correct information
     if (parseInt(this.props.match.params.id) !== parseInt(prevProps.match.params.id)){
       const courseSelect = this.props.courses.find(course => course.id === parseInt(this.props.match.params.id))
       const foundB = this.inBucket(courseSelect)
@@ -57,9 +59,10 @@ class ShowCourse extends Component {
     }
   }
 
+  // this is called when use select different hole from the dropdown
   selectFilter = (e, { value }) => {
-    console.log("****", value)
     if (value === 'Clubhouse'){
+      // set clubhose gps
       this.setState({
         gps1: {lat: this.state.thisCourse.lat, lng: this.state.thisCourse.lng},
         gps2: {lat: this.state.thisCourse.lat, lng: this.state.thisCourse.lng},
@@ -68,6 +71,7 @@ class ShowCourse extends Component {
         init: "c"
       })
     } else {
+      //set tee and green gps
       const hole = parseInt(value)
       console.log("hole selected", hole - 1)
       console.log(this.state.thisCourse.holes[hole - 1])
@@ -84,6 +88,7 @@ class ShowCourse extends Component {
     }
   }
 
+  // this is called when user add the course to bucket list
   addToBucket = () => {
     const BUCKET_URL = 'http://localhost:3000/buckets'
     const reqObj = {
@@ -97,7 +102,7 @@ class ShowCourse extends Component {
         user_id: this.props.user.userId
       })
     }
-    console.log("adding to bucket", this.props)
+    // post course id and user id to buckets path to add bucket
     fetch(BUCKET_URL, reqObj)
     .then(resp => resp.json())
     .then(data => {
@@ -107,12 +112,12 @@ class ShowCourse extends Component {
     
   }
 
+  // this is called to obtain weather data from api based on gps location
   getWeather = (gps) => {
     const W_URL = "http://api.weatherapi.com/v1/current.json?key=0def2099dc364881957133838202806&q=" + gps
     fetch(W_URL)
     .then(resp => resp.json())
     .then(weather => {
-      console.log("**weather**", weather)
       const weather_desc = `Temp: ${weather.current.temp_f}F | ${weather.current.condition.text} | Humidity: ${weather.current.humidity}% | Wind: ${weather.current.wind_mph}mph ${weather.current.wind_dir} | Gust: ${weather.current.gust_mph}mph`
       this.setState({
         weather: weather_desc
@@ -120,14 +125,11 @@ class ShowCourse extends Component {
     })
   }
 
+  // this function determines if the course is already in bucket list
   inBucket = (course) => {
-    // const bucket = this.props.buckets.find(b =>  b.course_id === this.state.thisCourse.id)
-    // console.log ("this is the bucket", bucket)
     if (this.props.buckets.find(b =>  b.course_id === course.id)) {
-      console.log("-----found in bucket------")
       return true
     } else {
-      console.log("-----not found in bucket------")
       return false
     }
   }
@@ -137,10 +139,6 @@ class ShowCourse extends Component {
       this.props.history.push('/login')
       return null
     }
-    // const courseSelect = this.props.courses.find(course => course.id === parseInt(this.props.match.params.id))
-    // console.log("A Course", courseSelect)
-    // const gps1 = {lat: courseSelect.lat, lng: courseSelect.lng}
-    // const zoomLevel = 16
     const holeSeletion = [
       {
         key: 'Clubhouse',

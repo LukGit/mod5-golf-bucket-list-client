@@ -1,5 +1,9 @@
 import { combineReducers } from "redux";
 
+// this combined reducer contains three redux store items
+// users contains the logged in user info
+// buckets contains the bucket items of the logged in user
+// courses contains all the available golf courses
 const rootReducer = combineReducers({
   users: usersReducer,
   buckets: bucketsReducer,
@@ -10,13 +14,14 @@ export default rootReducer;
 
 function usersReducer(state = { user: '', userId: 0 }, action) {
   switch (action.type) {
+    // when login and current_user return the username and id
     case "LOGIN":
     case "CURRENT_USER":
-      console.log("userReducer", action)
       return {
         user: action.userData.username,
         userId: action.userData.id
       }
+    // when logout clear store
     case "LOGOUT":
       return {
         user: '',
@@ -29,29 +34,31 @@ function usersReducer(state = { user: '', userId: 0 }, action) {
 
 function bucketsReducer(state = [], action) {
   switch (action.type) {
+    // when login and current_user return all bucket items for the user
     case "LOGIN":
     case "CURRENT_USER":
-      console.log("bucketReducer", action)
+    //  add course name to the store
       const bucketCourses = action.userData.buckets.map((b, idex) => {
         const matchCourse = action.userData.courses.find(c => c.id === b.course_id)
-        console.log("matched course =", matchCourse.name)
         return {...b, course: matchCourse.name}
       })
-      // return [...action.userData.buckets]
       return bucketCourses
+    // when logout clear store
     case "LOGOUT":
         return []
+    // when add_bucket attach new bucket plus ccourse name to store
     case "ADD_BUCKET":
-        console.log("***add bucket", action)
         const newBucket = {...action.bucket, course: action.courseName}
         return state.concat(newBucket)
+    // when delete_bucket find bucket deleted and remove from store
     case 'DELETE_BUCKET':
       const indexD = state.findIndex(bucket => bucket.id === action.bucket.id)
       return [
         ...state.slice(0, indexD),
         ...state.slice(indexD + 1)
         ]
-     case 'UPDATE_BUCKET':
+    // when update_bucket find updated bucket and update store
+    case 'UPDATE_BUCKET':
       const indexU = state.findIndex(bucket => bucket.id === action.bucket.id)
       const updatedBucket = {...action.bucket, course: state[indexU].course}
       return [
@@ -66,9 +73,10 @@ function bucketsReducer(state = [], action) {
 
 function coursesReducer(state = [], action) {
   switch (action.type) {
+    // then add_course return all courses to store
     case "ADD_COURSE":
-      console.log("courseReducer", action)
       return [...action.courses]
+    // when logout clear store
     case "LOGOUT":
         return []
     default:

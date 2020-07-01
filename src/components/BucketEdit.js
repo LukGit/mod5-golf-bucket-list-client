@@ -10,6 +10,7 @@ export class BucketEdit extends Component {
     score: 0
   }
 
+  // this is to set local state with played on date and score when component is initally loaded
   componentDidMount () {
     if (!this.props.userId){
       this.props.history.push('/login')
@@ -25,12 +26,12 @@ export class BucketEdit extends Component {
 
   handleOnChange = event => {
     const { value, name } = event.target;
-    console.log("update bucket", event.target)
     this.setState({
       [name]: value
     });
   }
 
+  // this is to send updated bucket info to backend to update
   handleOnSubmit = event => {
     event.preventDefault();
     const BUCKET_URL = `http://localhost:3000/buckets/${this.props.match.params.id}`

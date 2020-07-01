@@ -5,13 +5,14 @@ import { withRouter } from 'react-router-dom'
 
 export class MapBuckets extends Component {
   
+  //this redirects to the bucket item page when bucket item on map is clicked
   handleClick = (b_id) => {
     this.props.history.push(`/buckets/${b_id}`)
   }
-
+  // this shows a map with all the bucket items as markers on map
+  // each bucket item from store is mapped to a marker on map based on gps of item course
   render() {
-    console.log("******in map", this.props)
-
+    
     return (
       <Map google={this.props.google} 
       zoom={3}
