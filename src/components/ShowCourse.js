@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import MapContainer from './MapContainer'
 import { connect } from 'react-redux';
 import { addBucket } from '../actions';
-import TeeIcon from '../img/tee.png'
+import Golfimg from '../img/golf.jpg'
 import { Icon, Label, Menu, Dropdown, Button, Modal, Embed } from 'semantic-ui-react'
 
 
@@ -81,7 +81,7 @@ class ShowCourse extends Component {
       this.setState({
         gps1: teeGps,
         gps2: greenGps,
-        zoom: 18,
+        zoom: 17,
         desc: desc,
         init: "h"
       })
@@ -241,7 +241,7 @@ class ShowCourse extends Component {
       <Navbar/>
       <Menu size='mini' inverted color="olive"> 
         <Menu.Item>
-        <Label size="Large">
+        <Label size="large">
         <Icon name='golf ball'/> 
           {this.state.desc}
         </Label>
@@ -276,7 +276,7 @@ class ShowCourse extends Component {
           <Modal.Content>
           <Embed
             id={this.state.thisCourse.video_id}
-            placeholder={TeeIcon}
+            placeholder={Golfimg}
             source='youtube'
             />
           </Modal.Content>

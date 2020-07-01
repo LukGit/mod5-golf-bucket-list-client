@@ -16,7 +16,7 @@ export class MapBuckets extends Component {
     return (
       <Map google={this.props.google} 
       zoom={3}
-      initialCenter={{lat: 41.014313, lng: -95.972535}}
+      initialCenter={{lat: 25.014313, lng: -95.972535}}
       >
         {this.props.buckets.map(b => {
           return <Marker

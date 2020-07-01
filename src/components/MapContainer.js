@@ -3,6 +3,8 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper, Polyline} from 'google-maps-r
 import TeeIcon from '../img/tee.png'
 import FlagIcon from '../img/flag.png'
 import ClubIcon from '../img/club.png'
+import CartIcon from '../img/golfcart.png'
+import GolferIcon from '../img/golfer.png'
 
 export class MapContainer extends Component {
   state = {
@@ -10,13 +12,26 @@ export class MapContainer extends Component {
     lng: 0,
     toTee: 0,
     toFlag: 0,
+    icon: CartIcon,
     polyPath: []
+  }
+
+  // this is to clear last hole's marker and polyline
+  componentDidUpdate (preProps) {
+    
+    if (this.props.gps1 !== preProps.gps1){
+      this.setState({
+        lat: 0,
+        lng: 0,
+        polyPath: []
+      })
+    }
+
   }
 
   // this function calculate distance between 2 gps locations in yards
   getDistanceBetweenPoints = (mk1, mk2) => {
     // The radius of the planet earth in meters
-    console.log("calc dist", mk1, mk2)
     const lat1 = mk1.lat
     const lng1 = mk1.lng
     const lat2 = mk2.lat
@@ -51,25 +66,26 @@ export class MapContainer extends Component {
       const dToFlag = this.getDistanceBetweenPoints(this.props.gps2, clickLoc)
       const teeGps = {lat: Number(this.props.gps1.lat), lng: Number(this.props.gps1.lng)}
       const flagGps = {lat: Number(this.props.gps2.lat), lng: Number(this.props.gps2.lng)}
-      
+      const markerIcon = (dToFlag > 35 ? CartIcon : GolferIcon)
       this.setState({
         lat: clickEvent.latLng.lat(),
         lng: clickEvent.latLng.lng(),
         toTee: dToTee,
         toFlag: dToFlag,
-        polyPath: [teeGps, clickLoc, flagGps]
+        polyPath: [teeGps, clickLoc, flagGps],
+        icon: markerIcon
       })
     }
   }
 
   render() {
     const opt = this.props.init
-    const d = this.getDistanceBetweenPoints(this.props.gps1, this.props.gps2)
+    const center = {lat: (Number(this.props.gps1.lat) + Number(this.props.gps2.lat)) / 2, lng: (Number(this.props.gps1.lng) + Number(this.props.gps2.lng)) / 2}
     return (
       <Map google={this.props.google} 
       zoom={this.props.zoomLevel}
-      initialCenter={this.props.gps1}
-      center={this.props.gps1}
+      initialCenter={center}
+      center={center}
       onClick={this.handleClick}
       >
         {opt === "c" ? 
@@ -98,17 +114,18 @@ export class MapContainer extends Component {
         }
         {/* this marker will display when a point on map is clicked. it displays the distaince to tee and green */}
         <Marker position={this.state}
-          label={`From tee: ${Math.floor(this.state.toTee)}yd \n To flag: ${Math.floor(this.state.toFlag)}yd`}/>
+          icon={this.state.icon}
+          label={`From tee: ${Math.floor(this.state.toTee)}yd \n To flag: ${Math.floor(this.state.toFlag)}yd`}
+          />
         {/* this polyline connects the click point to tee and green marker */}
-        <Polyline 
+        <Polyline
         path={this.state.polyPath} 
         options={{
           geodesic: true,
           strokeColor: '#669DF6',
           strokeOpacity: 1.0,
           strokeWeight: 2,
-        }}/>
-        
+        }}/> 
         <InfoWindow >
             <div>
               <h1> </h1>

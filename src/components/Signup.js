@@ -91,13 +91,13 @@ class Signup extends Component {
       </Header>
         <Form onSubmit={this.signupUser}>
         <Form.Group widths='equal' inline >
-          <Form.Input placeholder="User name" onChange={this.handleChangeUser} type='text' value={this.state.username} />
+          <Form.Input placeholder="User name" onChange={this.handleChangeUser} type='text' value={this.state.username} autoFocus/>
           <Form.Input placeholder="Password" onChange={this.handleChangePw} type='password' value={this.state.password} />
-          <Form.Input placeholder="Retype password" onChange={this.handleRetype} type='password' value={this.state.retype} />
+          <Form.Input placeholder="Retype password" onChange={this.handleRetype} type='password' value={this.state.retype}/>
           <Form.Input type='submit' value='Signup'/>
         </Form.Group>        
        </Form>
-       {this.state.badpw ? <Label>Passwords not matched. Try again.</Label> : null}
+       {this.state.badpw ? <Label inverted color='red' pointing>Passwords not matched. Try again.</Label> : null}
       </div>
     )
   }
