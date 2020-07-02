@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Navbar from './Navbar';
 import MapBuckets from './MapBuckets'
-import { Header } from 'semantic-ui-react'
+import { Header, Icon } from 'semantic-ui-react'
 
 class Buckets extends Component {
   state = {}
@@ -27,7 +27,10 @@ class Buckets extends Component {
       
       <div className="courses">
         <Navbar/>
-        <Header inverted size='small'> {this.props.user.user}, Your Bucket List Courses!</Header> 
+        <Header inverted size='medium'> 
+        <Icon name='bitbucket square'/>
+        {this.props.user.user}, Your Bucket List Courses!
+        </Header> 
         {/* {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)} */}
         <MapBuckets buckets={newBuckets}/>
       </div>

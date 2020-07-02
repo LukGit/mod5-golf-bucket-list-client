@@ -129,14 +129,16 @@ class ShowBucket extends Component {
           </Segment>
           <Segment style={{width: 650}} inverted color="olive">
             {/* disable the remove button if course is alreadt played */}
-            <Button onClick={() => this.deleteThisBucket(bucketSelect)} size='mini' inverted color="grey" disabled={played}>
-              <p>Remove</p>
+            <Button icon onClick={() => this.deleteThisBucket(bucketSelect)} size='medium' inverted color="grey" disabled={played}>
+              <Icon name='trash alternate'/>
+              {/* <p>Remove</p> */}
             </Button>
             {/* display checkoff button only if course is not played. Otherwise show email form */}
             {!played ?
             <Link to={linkedit} size='mini' >
-            <Button size='mini' inverted color="grey">
-              <p>Check off</p>
+            <Button icon size='medium' inverted color="grey">
+              <Icon name='check circle'/>
+              {/* <p>Check off</p> */}
             </Button>
             
             </Link> : 
@@ -144,7 +146,9 @@ class ShowBucket extends Component {
              <Form onSubmit={(event) => this.sendEmail(event, bucketSelect)}>
              <Form.Group widths='equal' inline>
                <Form.Input placeholder="E-mail Addresses" onChange={this.handleChange} type='text' value={this.state.email} />
-               <Form.Input type='submit' value='Share'/>
+               <Form.Input icon type='submit' size='massive' value='Share'>
+                 <Icon name='mail outline'/>
+               </Form.Input>
              </Form.Group>
              </Form>
            </Segment>           

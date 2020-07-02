@@ -32,7 +32,7 @@ class ShowCourse extends Component {
       thisCourse: courseSelect,
       gps1: {lat: courseSelect.lat, lng: courseSelect.lng},
       gps2: {lat: courseSelect.lat, lng: courseSelect.lng},
-      zoom: 18,
+      zoom: 19,
       desc: "",
       init: "c",
       weather: "",
@@ -50,7 +50,7 @@ class ShowCourse extends Component {
         thisCourse: courseSelect,
         gps1: {lat: courseSelect.lat, lng: courseSelect.lng},
         gps2: {lat: courseSelect.lat, lng: courseSelect.lng},
-        zoom: 18,
+        zoom: 19,
         desc: "",
         init: "c",
         weather: "",
@@ -258,21 +258,43 @@ class ShowCourse extends Component {
         </Menu.Item>
         <Menu.Item>
         <Button
+          animated='fade'
           disabled={this.state.inBkt}
           inverted color="grey"
-          size='mini'
+          size='medium'
           onClick={this.addToBucket}>
-          Add to Bucket
+          <Button.Content visible>
+            <Icon name='bitbucket square'/>
+          </Button.Content>
+          <Button.Content hidden>
+          Add
+          </Button.Content>
         </Button> 
         </Menu.Item>
   
-        <Modal size='tiny' trigger={<Menu.Item><Button onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='mini' floated='right' inverted color="grey">Weather</Button></Menu.Item>} closeIcon>
+        <Modal size='tiny' trigger={<Menu.Item>
+          <Button animated='fade' onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='medium' floated='right' inverted color="grey">
+            <Button.Content visible>
+              <Icon name='sun'/>
+              </Button.Content>
+            <Button.Content hidden>
+            Weather
+            </Button.Content>
+          </Button></Menu.Item>} closeIcon>
           <Modal.Content>
             <Label>{this.state.weather}</Label>
           </Modal.Content>
         </Modal>
         
-        <Modal trigger={<Menu.Item><Button size='mini' position='right' inverted color="grey">Watch video</Button></Menu.Item>} closeIcon>
+        <Modal trigger={<Menu.Item>
+          <Button animated='fade' size='medium' position='right' inverted color="grey">
+            <Button.Content visible>
+              <Icon name='video camera'/>
+              </Button.Content>
+            <Button.Content hidden>
+            Video
+            </Button.Content>
+          </Button></Menu.Item>} closeIcon>
           <Modal.Content>
           <Embed
             id={this.state.thisCourse.video_id}

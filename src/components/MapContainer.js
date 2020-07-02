@@ -66,7 +66,7 @@ export class MapContainer extends Component {
       const dToFlag = this.getDistanceBetweenPoints(this.props.gps2, clickLoc)
       const teeGps = {lat: Number(this.props.gps1.lat), lng: Number(this.props.gps1.lng)}
       const flagGps = {lat: Number(this.props.gps2.lat), lng: Number(this.props.gps2.lng)}
-      const markerIcon = (dToFlag > 35 ? CartIcon : GolferIcon)
+      const markerIcon = (dToFlag > 45 ? CartIcon : GolferIcon)
       this.setState({
         lat: clickEvent.latLng.lat(),
         lng: clickEvent.latLng.lng(),
