@@ -7,7 +7,8 @@ import { combineReducers } from "redux";
 const rootReducer = combineReducers({
   users: usersReducer,
   buckets: bucketsReducer,
-  courses: coursesReducer
+  courses: coursesReducer,
+  foursomes: foursomesReducer
 });
 
 export default rootReducer;
@@ -79,6 +80,43 @@ function coursesReducer(state = [], action) {
     // when logout clear store
     case "LOGOUT":
         return []
+    default:
+      return state
+  }
+}
+
+function foursomesReducer(state = [], action) {
+  console.log("in foursome reducer", action)
+  switch (action.type) {
+    // when login and current_user return all foursome items for the user
+    case "LOGIN":
+    case "CURRENT_USER":
+      console.log("in current user foursome reducer", action.foursomes)
+      // return action.foursomes
+    // when logout clear store
+    case "LOGOUT":
+      return []
+    // when add_bucket attach new bucket plus ccourse name to store
+    case "ADD_FOURSOME":
+      return state.concat(action.foursome)
+    // when delete_bucket find bucket deleted and remove from store
+    case 'DELETE_FOURSOME':
+      const indexD = state.findIndex(foursome => foursome.id === action.foursome.id)
+      return [
+        ...state.slice(0, indexD),
+        ...state.slice(indexD + 1)
+        ]
+    // when update_bucket find updated bucket and update store
+    case 'UPDATE_FOURSOME':
+      const indexU = state.findIndex(foursome => foursome.id === action.foursome.id)
+      return [
+        ...state.slice(0, indexU),
+        action.foursome,
+        ...state.slice(indexU + 1)
+      ]
+    // then add_course return all courses to store
+    case "ADD_ALL_FOUR":
+      return [...action.foursomes]
     default:
       return state
   }

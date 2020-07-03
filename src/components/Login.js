@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addUser } from '../actions'
 import { currentUser } from '../actions'
 import { addCourse } from  '../actions'
+import { addAllFoursomes } from '../actions'
 import { Form, Header, Icon } from 'semantic-ui-react'
 
 
@@ -37,6 +38,7 @@ class Login extends Component {
         } else {
           this.props.currentUser(user)
           this.getCourses(user.jwt)
+          this.getFoursomes(user.jwt)
         }
       })
     }
@@ -81,6 +83,7 @@ class Login extends Component {
         localStorage.setItem("token", userData.jwt)      
         this.props.addUser(userData)
         this.getCourses(userData.jwt)
+        this.getFoursomes(userData.jwt)
       }
     })
   }
@@ -93,6 +96,17 @@ class Login extends Component {
       .then(courses => {
         this.props.addCourse(courses)
         this.props.history.push('/buckets')
+    })
+  }
+
+  getFoursomes = (token) => {
+    const FOUR_URL = 'http://localhost:3000/foursomes'
+    fetch(FOUR_URL, {headers: {'Authorization': `Bearer ${token}`}})
+      .then(resp => resp.json())
+      .then(foursomes => {
+        console.log("fetch foursomes", foursomes)
+        this.props.addAllFoursomes(foursomes)
+        // this.props.history.push('/foursomes')
     })
   }
 
@@ -115,4 +129,4 @@ class Login extends Component {
   }
 }
 
-export default connect(null, {addUser, addCourse, currentUser})(Login)
+export default connect(null, {addUser, addCourse, currentUser, addAllFoursomes})(Login)

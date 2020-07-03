@@ -18,7 +18,7 @@ export const addCourse = courses => {
     courses
   };
 };
-// add bucker item
+// add bucket item
 export const addBucket = (bucket, courseName) => {
   return {
     type: 'ADD_BUCKET',
@@ -47,3 +47,22 @@ export const currentUser = (userData) => {
     userData
   }
 }
+// add foursome item
+export const addFoursome = (foursome) => {
+  return {
+    type: 'ADD_FOURSOME',
+    foursome
+  };
+};
+export const addAllFoursomes = foursomes => {
+  return {
+    type: 'ADD_ALL_FOUR',
+    foursomes
+  };
+};
+export const joinFoursome = (foursome) => {
+  return {
+    type: 'JOIN_FOURSOME',
+    foursome
+  };
+};

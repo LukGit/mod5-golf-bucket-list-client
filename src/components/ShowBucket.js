@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom'
 import { deleteBucket } from '../actions';
+import { addFoursome } from '../actions'
 import { Header, Segment, Button, Grid, Form, Modal, GridRow, Icon, Label } from 'semantic-ui-react'
 
 
@@ -10,15 +11,36 @@ import { Header, Segment, Button, Grid, Form, Modal, GridRow, Icon, Label } from
 class ShowBucket extends Component {
   state = {
     email: "",
-    emailSuccess: false
+    emailSuccess: false,
+    bucket: {},
+    pDate: "",
+    handicap: ""
   }
   
+  componentDidMount () {
+    const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
+    this.setState({
+      bucket: bucketSelect
+    })
+  }
+
   handleChange = (e) => {
     this.setState({
       email: e.target.value
     })
   }
 
+  handleChangeDate = (e) => {
+    this.setState({
+      pDate: e.target.value
+    })
+  }
+
+  handleChangeHand = (e) => {
+    this.setState({
+      handicap: e.target.value
+    })
+  }
   // this function is to send email via EmailJS service
   sendEmail = (event, bucket) => {
     event.preventDefault()
@@ -81,6 +103,42 @@ class ShowBucket extends Component {
       emailSuccess: false
     })
   }
+
+  // addFoursome = () => {
+  //   console.log("add Foursome")
+  // }
+
+  createFoursome = (e, bucket) => {
+    console.log("create foursome", bucket, this.state.pDate, this.state.handicap)
+    const FOURSOME_URL = 'http://localhost:3000/foursomes'
+    const pDate = new Date(this.state.pDate)
+    const handi = parseInt(this.state.handicap)
+    const reqObj1 = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        course_id: this.state.bucket.course_id,
+        user_id: this.state.bucket.user_id,
+        play_date: pDate,
+        handicap: handi,
+        player1_id: this.state.bucket.user_id,
+        player1_name: this.props.user.user
+      })
+    }
+    console.log("forusome obj", reqObj1)
+    // post course id and user id to buckets path to add bucket
+    fetch(FOURSOME_URL, reqObj1)
+    .then(resp => resp.json())
+    .then(data => {
+      console.log("**** added foursome", data)
+      this.props.addFoursome(data)
+      this.props.history.push('/foursomes')
+    })
+    
+  }
   
   render() {
     if (!this.props.user.user){
@@ -88,14 +146,14 @@ class ShowBucket extends Component {
       return null
     }
     const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
-    const linkedit = `/buckets/edit/${bucketSelect.id}`
+    const linkedit = `/buckets/edit/${this.state.bucket.id}`
     let played
     
     // this is to check if the bucket course has been played
     let fmtDate
-    if (bucketSelect.played_on){
+    if (this.state.bucket.played_on){
       played = true
-      const date = new Date(bucketSelect.played_on)
+      const date = new Date(this.state.bucket.played_on)
       fmtDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()
     } else {
       played = false
@@ -119,20 +177,43 @@ class ShowBucket extends Component {
       <Grid>
         <GridRow centered>
           <Segment style={{width: 650}} className="segmentT">
-            <Header as='h3'> Course: {bucketSelect.course} {bucketSelect.played_on ? <Icon name="check circle"/> : null}</Header>
+            <Header as='h3'> Course: {this.state.bucket.course} {this.state.bucket.played_on ? <Icon name="check circle"/> : null}</Header>
           </Segment>
           <Segment style={{width: 650}} inverted color="olive">
-            <Header as='h3'> Played on: {bucketSelect.played_on ? fmtDate : "Not played yet"}</Header>
+            <Header as='h3'> Played on: {this.state.bucket.played_on ? fmtDate : "Not played yet"}</Header>
           </Segment>
           <Segment style={{width: 650}} inverted color="olive">
-            <Header as='h3'> Score: {bucketSelect.played_on ? bucketSelect.score : "No score"}</Header>
+            <Header as='h3'> Score: {this.state.bucket.played_on ? this.state.bucket.score : "No score"}</Header>
           </Segment>
           <Segment style={{width: 650}} inverted color="olive">
             {/* disable the remove button if course is alreadt played */}
-            <Button icon onClick={() => this.deleteThisBucket(bucketSelect)} size='medium' inverted color="grey" disabled={played}>
+            <Button icon onClick={() => this.deleteThisBucket(this.state.bucket)} size='medium' inverted color="grey" disabled={played}>
               <Icon name='trash alternate'/>
               {/* <p>Remove</p> */}
             </Button>
+            <Modal size='medium' trigger={
+          <Button animated='fade' size='medium' inverted color="grey">
+            <Button.Content visible>
+              Create
+              </Button.Content>
+            <Button.Content hidden>
+              Foursome
+            </Button.Content>
+          </Button>} closeIcon>
+          <Modal.Content>
+            <Label>{this.state.bucket.course}</Label>
+            <Segment raised inverted color="olive">
+             <Form onSubmit={(event) => this.createFoursome(event, this.state.bucket)}>
+             <Form.Group widths='equal' inline>
+               <Form.Input placeholder="Date" onChange={this.handleChangeDate} type='date' value={this.state.pDate} />
+               <Form.Input placeholder="handicap" onChange={this.handleChangeHand} type='text' value={this.state.handicap} />
+               <Form.Input type='submit' size='medium' value='Create' />
+             </Form.Group>
+             </Form>
+           </Segment>  
+          </Modal.Content>
+        </Modal>
+  
             {/* display checkoff button only if course is not played. Otherwise show email form */}
             {!played ?
             <Link to={linkedit} size='mini' >
@@ -143,7 +224,7 @@ class ShowBucket extends Component {
             
             </Link> : 
              <Segment raised inverted color="olive">
-             <Form onSubmit={(event) => this.sendEmail(event, bucketSelect)}>
+             <Form onSubmit={(event) => this.sendEmail(event, this.state.bucket)}>
              <Form.Group widths='equal' inline>
                <Form.Input placeholder="E-mail Addresses" onChange={this.handleChange} type='text' value={this.state.email} />
                <Form.Input icon type='submit' size='massive' value='Share'>
@@ -169,4 +250,4 @@ const mapStateToProps = state => {
    }
 }
 
-export default connect(mapStateToProps, {deleteBucket})(ShowBucket)
+export default connect(mapStateToProps, {deleteBucket, addFoursome})(ShowBucket)

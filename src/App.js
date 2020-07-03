@@ -6,6 +6,7 @@ import Buckets from './components/Buckets'
 import ShowCourse from './components/ShowCourse'
 import ShowBucket from './components/ShowBucket'
 import BucketEdit from './components/BucketEdit'
+import Foursomes from './components/Foursomes'
 import Signup from './components/Signup'
 import { Route, Switch } from 'react-router-dom'
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path={'/buckets/:id'} component={ShowBucket} />
         <Route path={'/buckets'} component={Buckets} />
         <Route path={'/courses/:id'} component={ShowCourse} />
+        <Route path={'/foursomes'} component={Foursomes} />
         <Route path={'/signup'} component={Signup}/>
         <Route path={'/'} component={Login} />
       </Switch>

@@ -55,6 +55,11 @@ class Navbar extends Component {
             My List
           </Link>
         </Menu.Item>
+        <Menu.Item >
+          <Link to={'/foursomes'} className="item">
+            Foursomes
+          </Link>
+        </Menu.Item>
         <Menu.Item position='right'>
           <Link onClick={this.handleLogout}to={'/login'} className="item">
             Sign Out
