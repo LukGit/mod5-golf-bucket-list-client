@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom'
 import { joinFoursome } from '../actions'
 import { withRouter } from 'react-router-dom'
-import { Header, Segment, Button, Grid, Form, Modal, GridRow, Icon, Label } from 'semantic-ui-react'
+import { Header, Segment, Button, Icon } from 'semantic-ui-react'
 
 
 
 class ShowFoursome extends Component {
   state = {
-    cantJoin: false
+    
   }
   
   componentDidMount () {
@@ -17,16 +16,16 @@ class ShowFoursome extends Component {
     // this.setState({
     //   bucket: bucketSelect
     // })
-    console.log ("in showfoursome", this.props)
-    if ((this.props.user.userId === this.props.foursome.player1_id || 
-      this.props.user.userId === this.props.foursome.player2_id ||
-      this.props.user.userId === this.props.foursome.player3_id ||
-      this.props.user.userId === this.props.foursome.player4_id) || 
-      (this.props.foursome.player2_id && this.props.foursome.player3_id && this.props.foursome.player4_id ) ) {
-      this.setState({
-        cantJoin: true
-      })
-    }
+    // console.log ("in showfoursome", this.props)
+    // if ((this.props.user.userId === this.props.foursome.player1_id || 
+    //   this.props.user.userId === this.props.foursome.player2_id ||
+    //   this.props.user.userId === this.props.foursome.player3_id ||
+    //   this.props.user.userId === this.props.foursome.player4_id) || 
+    //   (this.props.foursome.player2_id && this.props.foursome.player3_id && this.props.foursome.player4_id ) ) {
+    //   this.setState({
+    //     cantJoin: true
+    //   })
+    // }
   }
 
   handleChange = (e) => {
@@ -110,6 +109,14 @@ class ShowFoursome extends Component {
     const date = new Date(this.props.foursome.play_date)
     fmtDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()
 
+    let cannotJoin = false
+    if ((this.props.user.userId === this.props.foursome.player1_id || 
+      this.props.user.userId === this.props.foursome.player2_id ||
+      this.props.user.userId === this.props.foursome.player3_id ||
+      this.props.user.userId === this.props.foursome.player4_id) || 
+      (this.props.foursome.player2_id && this.props.foursome.player3_id && this.props.foursome.player4_id ) ) {
+      cannotJoin = true
+    }
 
     return (
       <div>
@@ -125,7 +132,7 @@ class ShowFoursome extends Component {
             <Header as='h5'> Player 4: {this.props.foursome.player4_name ? this.props.foursome.player4_name : "Available"}</Header>
           </Segment> 
           <Segment style={{width: 280}} inverted color="olive">
-            <Button animated='fade' onClick={this.joinThisFoursome} size='medium' inverted color="grey" disabled={this.state.cantJoin}>
+            <Button animated='fade' onClick={this.joinThisFoursome} size='medium' inverted color="grey" disabled={cannotJoin}>
               <Button.Content visible>
               <Icon name='add user'/>
               </Button.Content>

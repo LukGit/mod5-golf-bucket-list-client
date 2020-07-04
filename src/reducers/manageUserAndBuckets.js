@@ -89,9 +89,9 @@ function foursomesReducer(state = [], action) {
   console.log("in foursome reducer", action)
   switch (action.type) {
     // when login and current_user return all foursome items for the user
-    case "LOGIN":
-    case "CURRENT_USER":
-      console.log("in current user foursome reducer", action.foursomes)
+    // case "LOGIN":
+    // case "CURRENT_USER":
+    //   console.log("in current user foursome reducer", action.foursomes)
       // return action.foursomes
     // when logout clear store
     case "LOGOUT":

@@ -145,7 +145,7 @@ class ShowBucket extends Component {
       this.props.history.push('/login')
       return null
     }
-    const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
+    // const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
     const linkedit = `/buckets/edit/${this.state.bucket.id}`
     let played
     
