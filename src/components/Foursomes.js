@@ -35,7 +35,7 @@ class Foursomes extends Component {
       <div className="courses">
         <Navbar/>
         <Header inverted size='medium'> 
-        <Icon name='bitbucket square'/>
+        <Icon name='add user'/>
         {this.props.user.user}, Here are the foursomes!
         </Header> 
         {/* {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)} */}

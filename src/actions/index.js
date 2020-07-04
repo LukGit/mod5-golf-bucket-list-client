@@ -62,7 +62,7 @@ export const addAllFoursomes = foursomes => {
 };
 export const joinFoursome = (foursome) => {
   return {
-    type: 'JOIN_FOURSOME',
+    type: 'UPDATE_FOURSOME',
     foursome
   };
 };
