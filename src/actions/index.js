@@ -60,9 +60,15 @@ export const addAllFoursomes = foursomes => {
     foursomes
   };
 };
-export const joinFoursome = (foursome) => {
+export const updateFoursome = (foursome) => {
   return {
     type: 'UPDATE_FOURSOME',
     foursome
   };
 };
+export const deleteFoursome = foursome => {
+  return {
+    type: 'DELETE_FOURSOME',
+    foursome
+  }
+}

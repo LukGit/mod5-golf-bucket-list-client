@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { joinFoursome } from '../actions'
-import { withRouter } from 'react-router-dom'
+import { updateFoursome } from '../actions'
+import { deleteFoursome } from '../actions'
+import { withRouter, NavLink } from 'react-router-dom'
 import { Header, Segment, Button, Icon } from 'semantic-ui-react'
 
 
@@ -27,31 +28,11 @@ class ShowFoursome extends Component {
     //   })
     // }
   }
-
-  handleChange = (e) => {
-    this.setState({
-      email: e.target.value
-    })
-  }
-
- 
-  // this fucntion delete a bucket item from bucket list
-  // deleteThisBucket = (bucket) => {
-  //   const BUCKET_URL = `http://localhost:3000/buckets/${bucket.id}`
-  //   console.log("delete link is", BUCKET_URL)
-  //   const reqObj = {
-  //     method: 'delete',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       'Authorization': `Bearer ${localStorage.getItem('token')}`
-  //     }
-  //   }
-  //   fetch(BUCKET_URL, reqObj)
-  //     .then(resp => resp.json())
-  //     .then(data => {
-  //       this.props.history.push('/buckets')
-  //       this.props.deleteBucket(data)
-  //     })
+  // componentDidUpdate () {
+  //   const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
+  //   this.setState({
+  //     bucket: bucketSelect
+  //   })
   // }
 
   joinThisFoursome = () => {
@@ -93,9 +74,71 @@ class ShowFoursome extends Component {
     .then(resp => resp.json())
     .then(foursomeData => {
       console.log('*** updated foursome', foursomeData)
-      this.props.joinFoursome(foursomeData)
+      this.props.updateFoursome(foursomeData)
       this.props.history.push('/buckets')
     })
+  }
+
+  leaveThisFoursome = () => {
+    console.log("*** join foursome")
+    const FOURSOME_URL = `http://localhost:3000/foursomes/${this.props.foursome.id}`
+    let fourObj 
+    if (this.props.user.userId === this.props.foursome.player2_id) {
+      fourObj = {
+        player2_id: null,
+        player2_name: null
+      }
+    } else {
+      if (this.props.user.userId === this.props.foursome.player3_id) {
+        fourObj = {
+          player3_id: null,
+          player3_name: null
+        } 
+      } else {
+          if (this.props.user.userId === this.props.foursome.player4_id) {
+            fourObj = {
+              player4_id: null,
+              player4_name: null
+            } 
+          }
+      }
+    }
+    
+    console.log("**** leave 4some ***", fourObj)
+  
+    const reqObj = {
+      method: 'PATCH',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(fourObj)
+    }
+    fetch(FOURSOME_URL, reqObj)
+    .then(resp => resp.json())
+    .then(foursomeData => {
+      console.log('*** updated foursome', foursomeData)
+      this.props.updateFoursome(foursomeData)
+      this.props.history.push('/buckets')
+    })
+  }
+
+  removeThisFoursome = () => {
+    const FOUR_URL = `http://localhost:3000/foursomes/${this.props.foursome.id}`
+    console.log("delete link is", FOUR_URL)
+    const reqObj = {
+      method: 'delete',
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
+    fetch(FOUR_URL, reqObj)
+      .then(resp => resp.json())
+      .then(data => {
+        this.props.history.push('/buckets')
+        this.props.deleteFoursome(data)
+      })    
   }
 
   render() {
@@ -117,6 +160,12 @@ class ShowFoursome extends Component {
       (this.props.foursome.player2_id && this.props.foursome.player3_id && this.props.foursome.player4_id ) ) {
       cannotJoin = true
     }
+    let canLeave = false
+    if (this.props.user.userId === this.props.foursome.player2_id ||
+      this.props.user.userId === this.props.foursome.player3_id ||
+      this.props.user.userId === this.props.foursome.player4_id) {
+        canLeave = true
+    }
 
     return (
       <div>
@@ -137,10 +186,27 @@ class ShowFoursome extends Component {
               <Icon name='add user'/>
               </Button.Content>
               <Button.Content hidden>
-                Foursome
+                Join
               </Button.Content>
             </Button>
-
+            <Button animated='fade' onClick={this.leaveThisFoursome} size='medium' inverted color="grey" disabled={!canLeave}>
+              <Button.Content visible>
+              <Icon name='user times'/>
+              </Button.Content>
+              <Button.Content hidden>
+                Leave
+              </Button.Content>
+            </Button>
+            {this.props.user.userId === this.props.foursome.user_id ?
+              <Button animated='fade' onClick={this.removeThisFoursome} size='medium' inverted color="grey" >
+              <Button.Content visible>
+              <Icon name='trash alternate'/>
+              </Button.Content>
+              <Button.Content hidden>
+                Remove
+              </Button.Content>
+            </Button> : null
+            }
           </Segment> 
       </div>
     )
@@ -153,4 +219,4 @@ const mapStateToProps = state => {
    }
 }
 
-export default connect(mapStateToProps, {joinFoursome})(withRouter(ShowFoursome))
+export default connect(mapStateToProps, {updateFoursome, deleteFoursome})(withRouter(ShowFoursome))
