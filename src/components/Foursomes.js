@@ -4,12 +4,14 @@ import Navbar from './Navbar';
 import ShowFoursome from './ShowFoursome'
 import { Header, Icon, Grid, Menu, Button, Checkbox, Dropdown } from 'semantic-ui-react'
 // import NumberPicker from 'semantic-ui-react-numberpicker'
+import { DatesRangeInput } from 'semantic-ui-calendar-react'
 
 class Foursomes extends Component {
   state = {
     foursomes: [],
     meOnly: false,
-    courseList:[]
+    courseList:[],
+    datesRange: ""
   }
 
   componentDidMount () {
@@ -21,14 +23,35 @@ class Foursomes extends Component {
       courseList: cSelect
     })
   }
-  // handleChange = (e, { value }) => {
-  //   this.setState({ value })
+  handleChange = (event, {name, value}) => {
+      console.log("*** date range", value)
+      this.setState({ [name]: value });
+  }
 
-  // }
+  blurDates = () => {
+    
+    const dateRanges = this.state.datesRange.split(" - ")
+    const fromADate = new Date(dateRanges[0])
+    const toADate = new Date(dateRanges[1])
+    
+    const myDates = this.props.foursomes.filter(f => {
+      const fDate = new Date(f.play_date) 
+      if (fDate >= fromADate && fDate <= toADate){
+        return f
+      }
+    })
+    this.setState({
+      foursomes: myDates
+    })
+
+    // this.setState({ [name]: value });
+}
+
   resetFilter = () => {
     this.setState({
       foursomes: this.props.foursomes,
-      meOnly: false
+      meOnly: false,
+      datesRange: ""
     })
   }
 
@@ -138,7 +161,19 @@ class Foursomes extends Component {
           style={{width: 120}}
           size='mini'
           placeholder='Min handicap'/>
-        </Menu.Item>
+          </Menu.Item>
+          <Menu.Item>
+            <DatesRangeInput
+            name="datesRange"
+            placeholder="From - To"
+            value={this.state.datesRange}
+            iconPosition="left"
+            onChange={this.handleChange}
+            dateFormat={"MM/DD/YYYY"}
+            onBlur={this.blurDates}
+            style={{width: 180}}
+          />
+          </Menu.Item>
           <Menu.Item>
             <Button size='mini' onClick={this.resetFilter} inverted color='grey'>
               Reset

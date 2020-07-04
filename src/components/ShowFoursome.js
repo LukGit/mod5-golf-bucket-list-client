@@ -6,7 +6,6 @@ import { withRouter, NavLink } from 'react-router-dom'
 import { Header, Segment, Button, Icon } from 'semantic-ui-react'
 
 
-
 class ShowFoursome extends Component {
   state = {
     
@@ -169,10 +168,10 @@ class ShowFoursome extends Component {
 
     return (
       <div>
-          <Segment style={{width: 280}} className="segmentT">
+          <Segment style={{width: 290}} className="segmentT">
             <Header as='h5'> {this.props.foursome.course.name} </Header>
           </Segment>
-          <Segment style={{width: 280}} inverted color="olive">
+          <Segment style={{width: 290}} inverted color="olive">
             <Header as='h5'> Foursome date: {fmtDate}</Header>
             <Header as='h5'> Min Handicape: {this.props.foursome.handicap}</Header>
             <Header as='h5'> Player 1: {this.props.foursome.player1_name}</Header>
@@ -180,7 +179,7 @@ class ShowFoursome extends Component {
             <Header as='h5'> Player 3: {this.props.foursome.player3_name ? this.props.foursome.player3_name : "Available"}</Header>
             <Header as='h5'> Player 4: {this.props.foursome.player4_name ? this.props.foursome.player4_name : "Available"}</Header>
           </Segment> 
-          <Segment style={{width: 280}} inverted color="olive">
+          <Segment style={{width: 290}} inverted color="olive">
             <Button animated='fade' onClick={this.joinThisFoursome} size='medium' inverted color="grey" disabled={cannotJoin}>
               <Button.Content visible>
               <Icon name='add user'/>
