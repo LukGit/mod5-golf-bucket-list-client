@@ -11,7 +11,8 @@ class Navbar extends Component {
   //   super(props);
   // }
   state = {
-    courseList:[]
+    courseList:[],
+    courseName: ""
   }
   // when component is initially loaded, set local set with courses from store with course name and id
   componentDidMount () {
@@ -31,6 +32,10 @@ class Navbar extends Component {
 
   // this redirects the user to the course selected
   selectCourse = (e, { value }) => {
+    const cName = this.props.courses.find(f => f.id === parseInt(value)).name
+    this.setState({
+      courseName: cName
+    })
     this.props.history.push(`/courses/${value}`)
     // this.forceUpdate()
   }
@@ -47,8 +52,8 @@ class Navbar extends Component {
           options={this.state.courseList}
           style={{width: 200}}
           size='medium'
-          placeholder='Research Course'/>
-           
+          placeholder='Research Course'
+          /> 
         </Menu.Item>
         <Menu.Item >
           <Link to={'/buckets'} className="item">

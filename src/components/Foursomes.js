@@ -11,7 +11,9 @@ class Foursomes extends Component {
     foursomes: [],
     meOnly: false,
     courseList:[],
-    datesRange: ""
+    datesRange: "",
+    sCourse: "",
+    handiNum: ""
   }
 
   componentDidMount () {
@@ -51,7 +53,9 @@ class Foursomes extends Component {
     this.setState({
       foursomes: this.props.foursomes,
       meOnly: false,
-      datesRange: ""
+      datesRange: "",
+      sCourse: "",
+      handiNum: ""
     })
   }
 
@@ -67,6 +71,7 @@ class Foursomes extends Component {
   }
 
   selectCourse = (e, { value }) => {
+    // const cName = this.props.courses.find(f => f.id === parseInt(value)).name
     let filterF = []
     if (this.state.meOnly) {
       const myFour = this.props.foursomes.filter(f => (f.player1_id === this.props.user.userId || f.player2_id === this.props.user.userId || f.player3_id === this.props.user.userId || f.player4_id === this.props.user.userId))
@@ -82,7 +87,8 @@ class Foursomes extends Component {
   selectHandicap = (e, { value }) => {
     const myHandiFour = this.props.foursomes.filter(f => f.handicap <= parseInt(value))
     this.setState({
-      foursomes: myHandiFour
+      foursomes: myHandiFour,
+      handiNum: value
     })
   }
 
@@ -146,7 +152,9 @@ class Foursomes extends Component {
           options={this.state.courseList}
           style={{width: 200}}
           size='mini'
-          placeholder='Filter Course'/>
+          placeholder='Filter Course'
+          value={this.state.sCourse}
+          />
         </Menu.Item> 
         {/* <Menu.Item>
           <NumberPicker style={{width: 100}} min={0} placeholder='min handicap'/>
@@ -160,7 +168,9 @@ class Foursomes extends Component {
           options={handicapMin}
           style={{width: 120}}
           size='mini'
-          placeholder='Min handicap'/>
+          placeholder='Min handicap'
+          value={this.state.handiNum}
+          />
           </Menu.Item>
           <Menu.Item>
             <DatesRangeInput

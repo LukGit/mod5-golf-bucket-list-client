@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import { updateBucket } from '../actions';
-import { Form, Grid, GridRow, Icon } from 'semantic-ui-react'
+import { Form, Grid, GridRow, Icon, Label } from 'semantic-ui-react'
 
 export class BucketEdit extends Component {
   state = {
@@ -60,9 +60,9 @@ export class BucketEdit extends Component {
         <Navbar />
         <Grid>
           <GridRow centered>
-          <Form onSubmit={this.handleOnSubmit} style={{width: 600}}>
+          <Form onSubmit={this.handleOnSubmit} style={{width: 400}}>
+          <Label inverted color='olive'>Played On</Label>
             <Form.Field>
-              <label>Played On</label>
                 <input
                   type="date"
                   name="played_on"
@@ -70,8 +70,9 @@ export class BucketEdit extends Component {
                   onChange={this.handleOnChange}
                 />
             </Form.Field>
+            <Label inverted color='olive'>Score</Label>
             <Form.Field>
-              <label>Score</label>
+              
                 <input
                   type="text"
                   name="score"
