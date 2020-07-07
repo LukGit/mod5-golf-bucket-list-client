@@ -18,13 +18,13 @@
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    /* border: 1px solid black; */
+    /* border: 2px solid white;  */
 }
 .pageTitle {
   font-style: italic;
 }
 .segmentT {
-  opacity: 0.2;
+  opacity: 0.35;
 }
 .header {
   margin: 5%;

@@ -174,8 +174,8 @@ class ShowBucket extends Component {
         </Button>
         </Modal.Actions>
       </Modal> : null}
-      <Grid>
-        <GridRow centered>
+      <Grid columns={1} centered>
+        {/* <Grid.Row  > */}
           <Segment style={{width: 650}} className="segmentT">
             <Header as='h3'> Course: {this.state.bucket.course} {this.state.bucket.played_on ? <Icon name="check circle"/> : null}</Header>
           </Segment>
@@ -227,16 +227,16 @@ class ShowBucket extends Component {
              <Form onSubmit={(event) => this.sendEmail(event, this.state.bucket)}>
              <Form.Group widths='equal' inline>
                <Form.Input placeholder="E-mail Addresses" onChange={this.handleChange} type='text' value={this.state.email} />
-               <Form.Input icon type='submit' size='massive' value='Share'>
-                 <Icon name='mail outline'/>
-               </Form.Input>
+               <Form.Button icon type='submit' size='massive' value='Share' size='medium' inverted color='grey'>
+                  <Icon name='mail outline'/>
+               </Form.Button>
              </Form.Group>
              </Form>
            </Segment>           
             }
           </Segment> 
             
-        </GridRow>
+        {/* </Grid.Row> */}
       </Grid>
       </div>
     )

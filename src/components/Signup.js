@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addUser } from '../actions'
 import { currentUser } from '../actions'
 import { addCourse } from  '../actions'
+import { addAllFoursomes } from  '../actions'
 import { Form, Header, Icon, Label} from 'semantic-ui-react'
 
 
@@ -64,6 +65,7 @@ class Signup extends Component {
             this.props.addUser(userData)
             // get all courses from backend
             this.getCourses(userData.jwt)
+            this.getFoursomes(userData.jwt)
           }
         })
       }
@@ -79,6 +81,17 @@ class Signup extends Component {
         this.props.addCourse(courses)
         // redirect to the buckets page
         this.props.history.push('/buckets')
+    })
+  }
+
+  getFoursomes = (token) => {
+    const FOUR_URL = 'http://localhost:3000/foursomes'
+    fetch(FOUR_URL, {headers: {'Authorization': `Bearer ${token}`}})
+      .then(resp => resp.json())
+      .then(foursomes => {
+        console.log("fetch foursomes", foursomes)
+        this.props.addAllFoursomes(foursomes)
+        // this.props.history.push('/foursomes')
     })
   }
 
@@ -103,4 +116,4 @@ class Signup extends Component {
   }
 }
 
-export default connect(null, {addUser, addCourse, currentUser})(Signup)
+export default connect(null, {addUser, addCourse, currentUser, addAllFoursomes})(Signup)

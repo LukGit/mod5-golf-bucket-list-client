@@ -73,19 +73,19 @@ class Foursomes extends Component {
   selectCourse = (e, { value }) => {
     // const cName = this.props.courses.find(f => f.id === parseInt(value)).name
     let filterF = []
-    if (this.state.meOnly) {
-      const myFour = this.props.foursomes.filter(f => (f.player1_id === this.props.user.userId || f.player2_id === this.props.user.userId || f.player3_id === this.props.user.userId || f.player4_id === this.props.user.userId))
-      filterF = myFour.filter(f => f.course_id === parseInt(value)) 
-    } else {
+    // if (this.state.meOnly) {
+    //   const myFour = this.props.foursomes.filter(f => (f.player1_id === this.props.user.userId || f.player2_id === this.props.user.userId || f.player3_id === this.props.user.userId || f.player4_id === this.props.user.userId))
+    //   filterF = myFour.filter(f => f.course_id === parseInt(value)) 
+    // } else {
       filterF = this.props.foursomes.filter(f => f.course_id === parseInt(value))
-    }
+    // }
     this.setState({
       foursomes: filterF
     })
   }
 
   selectHandicap = (e, { value }) => {
-    const myHandiFour = this.props.foursomes.filter(f => f.handicap <= parseInt(value))
+    const myHandiFour = this.props.foursomes.filter(f => Math.abs(f.handicap - parseInt(value)) <= 5)
     this.setState({
       foursomes: myHandiFour,
       handiNum: value
@@ -148,6 +148,7 @@ class Foursomes extends Component {
           <Dropdown 
           fluid
           selection
+          search
           onChange={this.selectCourse}
           options={this.state.courseList}
           style={{width: 200}}

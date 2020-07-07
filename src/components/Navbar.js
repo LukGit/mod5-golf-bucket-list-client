@@ -48,6 +48,7 @@ class Navbar extends Component {
           <Dropdown 
           fluid
           selection
+          search
           onChange={this.selectCourse}
           options={this.state.courseList}
           style={{width: 200}}

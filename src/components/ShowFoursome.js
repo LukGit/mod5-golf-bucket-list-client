@@ -8,7 +8,7 @@ import { Header, Segment, Button, Icon } from 'semantic-ui-react'
 
 class ShowFoursome extends Component {
   state = {
-    
+    something: false
   }
   
   componentDidMount () {
@@ -27,11 +27,14 @@ class ShowFoursome extends Component {
     //   })
     // }
   }
-  // componentDidUpdate () {
-  //   const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
-  //   this.setState({
-  //     bucket: bucketSelect
-  //   })
+  // componentDidUpdate (preProps) {
+  //   console.log("did update",preProps.foursome, this.props.foursome)
+  //   if (this.props.foursome !== preProps.foursome) {
+  //     console.log ("something changed")
+  //     this.setState({
+  //       something: true
+  //     })
+  //   }
   // }
 
   joinThisFoursome = () => {
@@ -180,7 +183,7 @@ class ShowFoursome extends Component {
             <Header as='h5'> Player 4: {this.props.foursome.player4_name ? this.props.foursome.player4_name : "Available"}</Header>
           </Segment> 
           <Segment style={{width: 290}} inverted color="olive">
-            <Button animated='fade' onClick={this.joinThisFoursome} size='medium' inverted color="grey" disabled={cannotJoin}>
+            <Button animated='fade' onClick={this.joinThisFoursome} size='mini' inverted color="grey" disabled={cannotJoin}>
               <Button.Content visible>
               <Icon name='add user'/>
               </Button.Content>
@@ -188,7 +191,7 @@ class ShowFoursome extends Component {
                 Join
               </Button.Content>
             </Button>
-            <Button animated='fade' onClick={this.leaveThisFoursome} size='medium' inverted color="grey" disabled={!canLeave}>
+            <Button animated='fade' onClick={this.leaveThisFoursome} size='mini' inverted color="grey" disabled={!canLeave}>
               <Button.Content visible>
               <Icon name='user times'/>
               </Button.Content>
@@ -197,7 +200,7 @@ class ShowFoursome extends Component {
               </Button.Content>
             </Button>
             {this.props.user.userId === this.props.foursome.user_id ?
-              <Button animated='fade' onClick={this.removeThisFoursome} size='medium' inverted color="grey" >
+              <Button animated='fade' onClick={this.removeThisFoursome} size='mini' inverted color="grey" >
               <Button.Content visible>
               <Icon name='trash alternate'/>
               </Button.Content>
