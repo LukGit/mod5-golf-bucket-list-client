@@ -175,29 +175,35 @@ class ShowBucket extends Component {
         </Modal.Actions>
       </Modal> : null}
       <Grid columns={1} centered>
-        {/* <Grid.Row  > */}
-          <Segment style={{width: 650}} className="segmentT">
-            <Header as='h3'> Course: {this.state.bucket.course} {this.state.bucket.played_on ? <Icon name="check circle"/> : null}</Header>
+        <GridRow centered >
+          <Segment inverted color="olive" style={{width: 600}}>
+          <Segment style={{width: 570}} className="segmentT">
+            <Header as='h3'> {this.state.bucket.course} {this.state.bucket.played_on ? <Icon name="check circle"/> : null}</Header>
           </Segment>
-          <Segment style={{width: 650}} inverted color="olive">
+          <Segment style={{width: 570}} className="segmentT">
             <Header as='h3'> Played on: {this.state.bucket.played_on ? fmtDate : "Not played yet"}</Header>
           </Segment>
-          <Segment style={{width: 650}} inverted color="olive">
+          <Segment style={{width: 570}} className="segmentT">
             <Header as='h3'> Score: {this.state.bucket.played_on ? this.state.bucket.score : "No score"}</Header>
           </Segment>
-          <Segment style={{width: 650}} inverted color="olive">
+          <Segment style={{width: 570}} inverted color="olive">
             {/* disable the remove button if course is alreadt played */}
-            <Button icon onClick={() => this.deleteThisBucket(this.state.bucket)} size='medium' inverted color="grey" disabled={played}>
+            <Button animated='fade' onClick={() => this.deleteThisBucket(this.state.bucket)} size='medium' inverted color="grey" disabled={played}>
+            <Button.Content visible>
               <Icon name='trash alternate'/>
+            </Button.Content>
+            <Button.Content hidden>
+              Remove
+            </Button.Content>
               {/* <p>Remove</p> */}
             </Button>
             <Modal size='medium' trigger={
           <Button animated='fade' size='medium' inverted color="grey">
             <Button.Content visible>
-              Create
+              <Icon name='plus circle'/>
               </Button.Content>
             <Button.Content hidden>
-              Foursome
+              4some
             </Button.Content>
           </Button>} closeIcon>
           <Modal.Content>
@@ -217,8 +223,13 @@ class ShowBucket extends Component {
             {/* display checkoff button only if course is not played. Otherwise show email form */}
             {!played ?
             <Link to={linkedit} size='mini' >
-            <Button icon size='medium' inverted color="grey">
+            <Button animated='fade' size='medium' inverted color="grey">
+              <Button.Content visible>
               <Icon name='check circle'/>
+              </Button.Content>
+              <Button.Content hidden>
+              Off
+              </Button.Content>
               {/* <p>Check off</p> */}
             </Button>
             
@@ -227,7 +238,7 @@ class ShowBucket extends Component {
              <Form onSubmit={(event) => this.sendEmail(event, this.state.bucket)}>
              <Form.Group widths='equal' inline>
                <Form.Input placeholder="E-mail Addresses" onChange={this.handleChange} type='text' value={this.state.email} />
-               <Form.Button icon type='submit' size='massive' value='Share' size='medium' inverted color='grey'>
+               <Form.Button icon type='submit' size='medium' value='Share' inverted color='grey'>
                   <Icon name='mail outline'/>
                </Form.Button>
              </Form.Group>
@@ -235,8 +246,8 @@ class ShowBucket extends Component {
            </Segment>           
             }
           </Segment> 
-            
-        {/* </Grid.Row> */}
+          </Segment>  
+        </GridRow>
       </Grid>
       </div>
     )

@@ -42,7 +42,7 @@ class Navbar extends Component {
 
   render() {
     return (
-      <Menu inverted size='mini'>
+      <Menu inverted color='brown' size='mini'>
         <Menu.Item >
           {/* this dropdown list all the courses available */}
           <Dropdown 

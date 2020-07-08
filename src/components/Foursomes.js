@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Navbar from './Navbar';
 import ShowFoursome from './ShowFoursome'
-import { Header, Icon, Grid, Menu, Button, Checkbox, Dropdown } from 'semantic-ui-react'
+import { Header, Grid, Menu, Button, Checkbox, Dropdown } from 'semantic-ui-react'
 // import NumberPicker from 'semantic-ui-react-numberpicker'
 import { DatesRangeInput } from 'semantic-ui-calendar-react'
 
@@ -92,6 +92,37 @@ class Foursomes extends Component {
     })
   }
 
+  updateThisFoursome = (updatedFoursome) => {
+    console.log("updating foursome")
+    const indexU = this.state.foursomes.findIndex(foursome => foursome.id === updatedFoursome.id)
+    const newF = [
+      ...this.state.foursomes.slice(0, indexU),
+      updatedFoursome,
+      ...this.state.foursomes.slice(indexU + 1)
+    ]
+    let newFour = []
+    if (this.state.meOnly) {
+      newFour = newF.filter(f => (f.player1_id === this.props.user.userId || f.player2_id === this.props.user.userId || f.player3_id === this.props.user.userId || f.player4_id === this.props.user.userId))
+    } else {
+      newFour = newF
+    }
+    this.setState({
+      foursomes: newFour
+    })
+  }
+
+  removeThisFoursome = (removedFoursome) => {
+    console.log("updating foursome")
+    const indexU = this.state.foursomes.findIndex(foursome => foursome.id === removedFoursome.id)
+    const newF = [
+      ...this.state.foursomes.slice(0, indexU),
+      ...this.state.foursomes.slice(indexU + 1)
+    ]
+    this.setState({
+      foursomes: newF
+    })
+  }
+
 
   // this shows the NavBar and the MapBuckets which is also passed the bucket items to display on map
   render() {
@@ -131,6 +162,17 @@ class Foursomes extends Component {
         value: '25'
       }
     ]
+    const sortedF = this.state.foursomes.sort((a,b) => {
+      let dateA = a.play_date
+      let dateB = b.play_date
+      if (dateA < dateB) {
+        return -1;
+      }
+      if (dateA > dateB) {
+        return 1;
+      }
+      return 0;
+    })
     return (
       
       <div className="courses">
@@ -191,14 +233,21 @@ class Foursomes extends Component {
              </Button> 
           </Menu.Item>  
         </Menu>
+        {sortedF.length > 0 ? 
         <Header inverted size='medium'> 
-        <Icon name='add user'/>
+        {/* <Icon name='add user'/> */}
         {this.props.user.user}, Here are the foursomes!
-        </Header> 
+        </Header> : 
+        <Header inverted size='medium'> 
+        {/* <Icon name='add user'/> */}
+        There are no foursomes found!
+        </Header>
+        }
+        <br></br> 
         {/* {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)} */}
         <Grid columns="4">
-        {this.state.foursomes.map(fSome => {
-          return <ShowFoursome foursome={fSome} key={fSome.id}/>
+        {sortedF.map(fSome => {
+          return <ShowFoursome foursome={fSome} key={fSome.id} updateThisFoursome={this.updateThisFoursome} removeThisFoursome={this.removeThisFoursome}/>
         })}
         </Grid>
       </div>

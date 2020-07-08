@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateFoursome } from '../actions'
 import { deleteFoursome } from '../actions'
-import { withRouter, NavLink } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Header, Segment, Button, Icon } from 'semantic-ui-react'
 
 
@@ -77,7 +77,8 @@ class ShowFoursome extends Component {
     .then(foursomeData => {
       console.log('*** updated foursome', foursomeData)
       this.props.updateFoursome(foursomeData)
-      this.props.history.push('/buckets')
+      this.props.updateThisFoursome(foursomeData)
+      // this.props.history.push('/buckets')
     })
   }
 
@@ -121,7 +122,8 @@ class ShowFoursome extends Component {
     .then(foursomeData => {
       console.log('*** updated foursome', foursomeData)
       this.props.updateFoursome(foursomeData)
-      this.props.history.push('/buckets')
+      this.props.updateThisFoursome(foursomeData)
+      // this.props.history.push('/buckets')
     })
   }
 
@@ -138,8 +140,9 @@ class ShowFoursome extends Component {
     fetch(FOUR_URL, reqObj)
       .then(resp => resp.json())
       .then(data => {
-        this.props.history.push('/buckets')
+        // this.props.history.push('/buckets')
         this.props.deleteFoursome(data)
+        this.props.removeThisFoursome(data)
       })    
   }
 
@@ -148,7 +151,7 @@ class ShowFoursome extends Component {
       this.props.history.push('/login')
       return null
     }
-  
+    
     // this is to check if the bucket course has been played
     let fmtDate
     const date = new Date(this.props.foursome.play_date)
@@ -171,10 +174,10 @@ class ShowFoursome extends Component {
 
     return (
       <div>
-          <Segment style={{width: 290}} className="segmentT">
+          <Segment style={{width: 295}} className="segmentT">
             <Header as='h5'> {this.props.foursome.course.name} </Header>
           </Segment>
-          <Segment style={{width: 290}} inverted color="olive">
+          <Segment style={{width: 295}} inverted color="olive">
             <Header as='h5'> Foursome date: {fmtDate}</Header>
             <Header as='h5'> Min Handicape: {this.props.foursome.handicap}</Header>
             <Header as='h5'> Player 1: {this.props.foursome.player1_name}</Header>
@@ -182,7 +185,7 @@ class ShowFoursome extends Component {
             <Header as='h5'> Player 3: {this.props.foursome.player3_name ? this.props.foursome.player3_name : "Available"}</Header>
             <Header as='h5'> Player 4: {this.props.foursome.player4_name ? this.props.foursome.player4_name : "Available"}</Header>
           </Segment> 
-          <Segment style={{width: 290}} inverted color="olive">
+          <Segment style={{width: 295}} inverted color="olive">
             <Button animated='fade' onClick={this.joinThisFoursome} size='mini' inverted color="grey" disabled={cannotJoin}>
               <Button.Content visible>
               <Icon name='add user'/>
@@ -199,16 +202,16 @@ class ShowFoursome extends Component {
                 Leave
               </Button.Content>
             </Button>
-            {this.props.user.userId === this.props.foursome.user_id ?
-              <Button animated='fade' onClick={this.removeThisFoursome} size='mini' inverted color="grey" >
+            {/* {this.props.user.userId === this.props.foursome.user_id ? */}
+              <Button animated='fade' onClick={this.removeThisFoursome} size='mini' inverted color="grey" disabled={this.props.user.userId === this.props.foursome.user_id ? false : true} >
               <Button.Content visible>
               <Icon name='trash alternate'/>
               </Button.Content>
               <Button.Content hidden>
                 Remove
               </Button.Content>
-            </Button> : null
-            }
+            </Button> 
+            {/* } */}
           </Segment> 
       </div>
     )
