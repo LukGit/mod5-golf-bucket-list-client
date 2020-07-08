@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
 import { updateBucket } from '../actions';
-import { Form, Grid, GridRow, Icon, Label, Segment } from 'semantic-ui-react'
+import { Form, Grid, GridRow, Icon, Label, Segment, Button } from 'semantic-ui-react'
 
 export class BucketEdit extends Component {
   state = {
@@ -81,9 +81,16 @@ export class BucketEdit extends Component {
                   onChange={this.handleOnChange}
                 />
             </Form.Field>
-            <Form.Button icon inverted color="grey" size='medium'>
+            <Form.Field>
+            <Button animated='fade' inverted color="grey" size='medium'>
+              <Button.Content visible>
               <Icon name='check circle'/>
-            </Form.Button>
+              </Button.Content>
+              <Button.Content hidden>
+                Off
+              </Button.Content>
+            </Button>
+           </Form.Field>
           </Form>
           </Segment>
           </GridRow>

@@ -34,11 +34,17 @@ class Foursomes extends Component {
     
     const dateRanges = this.state.datesRange.split(" - ")
     const fromADate = new Date(dateRanges[0])
+    let userTimezoneOffset = fromADate.getTimezoneOffset() * 60000
+    const offsetfromADate = new Date(fromADate.getTime() + userTimezoneOffset)
     const toADate = new Date(dateRanges[1])
+    userTimezoneOffset = toADate.getTimezoneOffset() * 60000
+    const offsettoADate = new Date(toADate.getTime() + userTimezoneOffset)
     
     const myDates = this.props.foursomes.filter(f => {
       const fDate = new Date(f.play_date) 
-      if (fDate >= fromADate && fDate <= toADate){
+      userTimezoneOffset = fDate.getTimezoneOffset() * 60000
+      const offsetfDate = new Date(fDate.getTime() + userTimezoneOffset)
+      if (offsetfDate > offsetfromADate && offsetfDate <= offsettoADate){
         return f
       }
     })

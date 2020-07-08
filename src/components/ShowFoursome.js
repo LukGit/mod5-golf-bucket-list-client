@@ -155,7 +155,9 @@ class ShowFoursome extends Component {
     // this is to check if the bucket course has been played
     let fmtDate
     const date = new Date(this.props.foursome.play_date)
-    fmtDate = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear()
+    const userTimezoneOffset = date.getTimezoneOffset() * 60000
+    const offsetDate = new Date(date.getTime() + userTimezoneOffset)
+    fmtDate = (offsetDate.getMonth() + 1) + '/' + offsetDate.getDate() + '/' +  offsetDate.getFullYear()
 
     let cannotJoin = false
     if ((this.props.user.userId === this.props.foursome.player1_id || 
