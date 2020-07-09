@@ -183,9 +183,9 @@ class ShowFoursome extends Component {
             <Header as='h5'> Foursome date: {fmtDate}</Header>
             <Header as='h5'> Min Handicape: {this.props.foursome.handicap}</Header>
             <Header as='h5'> Player 1: {this.props.foursome.player1_name}</Header>
-            <Header as='h5'> Player 2: {this.props.foursome.player2_name ? this.props.foursome.player2_name : "Available"}</Header>
-            <Header as='h5'> Player 3: {this.props.foursome.player3_name ? this.props.foursome.player3_name : "Available"}</Header>
-            <Header as='h5'> Player 4: {this.props.foursome.player4_name ? this.props.foursome.player4_name : "Available"}</Header>
+            <Header as='h5'> Player 2: {this.props.foursome.player2_name ? this.props.foursome.player2_name : "Open"}</Header>
+            <Header as='h5'> Player 3: {this.props.foursome.player3_name ? this.props.foursome.player3_name : "Open"}</Header>
+            <Header as='h5'> Player 4: {this.props.foursome.player4_name ? this.props.foursome.player4_name : "Open"}</Header>
           </Segment> 
           <Segment style={{width: 295}} inverted color="olive">
             <Button animated='fade' onClick={this.joinThisFoursome} size='mini' inverted color="grey" disabled={cannotJoin}>

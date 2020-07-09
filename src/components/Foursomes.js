@@ -91,7 +91,7 @@ class Foursomes extends Component {
   }
 
   selectHandicap = (e, { value }) => {
-    const myHandiFour = this.props.foursomes.filter(f => Math.abs(f.handicap - parseInt(value)) <= 5)
+    const myHandiFour = this.props.foursomes.filter(f => Math.abs(f.handicap - parseInt(value)) <= 3)
     this.setState({
       foursomes: myHandiFour,
       handiNum: value
