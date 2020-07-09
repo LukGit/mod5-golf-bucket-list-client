@@ -11,34 +11,8 @@ class ShowFoursome extends Component {
     something: false
   }
   
-  componentDidMount () {
-    // const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
-    // this.setState({
-    //   bucket: bucketSelect
-    // })
-    // console.log ("in showfoursome", this.props)
-    // if ((this.props.user.userId === this.props.foursome.player1_id || 
-    //   this.props.user.userId === this.props.foursome.player2_id ||
-    //   this.props.user.userId === this.props.foursome.player3_id ||
-    //   this.props.user.userId === this.props.foursome.player4_id) || 
-    //   (this.props.foursome.player2_id && this.props.foursome.player3_id && this.props.foursome.player4_id ) ) {
-    //   this.setState({
-    //     cantJoin: true
-    //   })
-    // }
-  }
-  // componentDidUpdate (preProps) {
-  //   console.log("did update",preProps.foursome, this.props.foursome)
-  //   if (this.props.foursome !== preProps.foursome) {
-  //     console.log ("something changed")
-  //     this.setState({
-  //       something: true
-  //     })
-  //   }
-  // }
-
+  // this function executes when user joins a foursome
   joinThisFoursome = () => {
-    console.log("*** join foursome")
     const FOURSOME_URL = `http://localhost:3000/foursomes/${this.props.foursome.id}`
     let fourObj 
     if (!this.props.foursome.player2_id) {
@@ -62,8 +36,6 @@ class ShowFoursome extends Component {
       }
     }
     
-    console.log("**** join 4some ***", fourObj)
-  
     const reqObj = {
       method: 'PATCH',
       headers: {
@@ -72,18 +44,20 @@ class ShowFoursome extends Component {
       },
       body: JSON.stringify(fourObj)
     }
+    // updateFoursome is called to update the foresome in the redux store
+    // updateThisFoursome is called to update the state in the parent node (Foursomes) 
+    // that triggers the reload of the updated foresomes
     fetch(FOURSOME_URL, reqObj)
     .then(resp => resp.json())
     .then(foursomeData => {
-      console.log('*** updated foursome', foursomeData)
       this.props.updateFoursome(foursomeData)
       this.props.updateThisFoursome(foursomeData)
       // this.props.history.push('/buckets')
     })
   }
 
+  // this function executes when user leaves a foursome
   leaveThisFoursome = () => {
-    console.log("*** join foursome")
     const FOURSOME_URL = `http://localhost:3000/foursomes/${this.props.foursome.id}`
     let fourObj 
     if (this.props.user.userId === this.props.foursome.player2_id) {
@@ -107,8 +81,6 @@ class ShowFoursome extends Component {
       }
     }
     
-    console.log("**** leave 4some ***", fourObj)
-  
     const reqObj = {
       method: 'PATCH',
       headers: {
@@ -117,10 +89,12 @@ class ShowFoursome extends Component {
       },
       body: JSON.stringify(fourObj)
     }
+    // updateFoursome is called to update the foresome in the redux store
+    // updateThisFoursome is called to update the state in the parent node (Foursomes) 
+    // that triggers the reload of the updated foresomes
     fetch(FOURSOME_URL, reqObj)
     .then(resp => resp.json())
     .then(foursomeData => {
-      console.log('*** updated foursome', foursomeData)
       this.props.updateFoursome(foursomeData)
       this.props.updateThisFoursome(foursomeData)
       // this.props.history.push('/buckets')
@@ -129,7 +103,6 @@ class ShowFoursome extends Component {
 
   removeThisFoursome = () => {
     const FOUR_URL = `http://localhost:3000/foursomes/${this.props.foursome.id}`
-    console.log("delete link is", FOUR_URL)
     const reqObj = {
       method: 'delete',
       headers: {
@@ -137,6 +110,9 @@ class ShowFoursome extends Component {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     }
+    // deleteFoursome is called to remove the foresome in the redux store
+    // removeThisFoursome is called to update the state in the parent node (Foursomes) 
+    // that triggers the reload of the updated foresomes
     fetch(FOUR_URL, reqObj)
       .then(resp => resp.json())
       .then(data => {

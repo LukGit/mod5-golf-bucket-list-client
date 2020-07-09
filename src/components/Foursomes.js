@@ -16,6 +16,7 @@ class Foursomes extends Component {
     handiNum: ""
   }
 
+  // this is to load all the foursomes and the available courses in state when component is mounted
   componentDidMount () {
     const cSelect = this.props.courses.map(c => {
       return {key: `${c.id}`, text: c.name, value: `${c.id}`}
@@ -25,11 +26,13 @@ class Foursomes extends Component {
       courseList: cSelect
     })
   }
+  // this handle the change in date range values
   handleChange = (event, {name, value}) => {
-      console.log("*** date range", value)
       this.setState({ [name]: value });
   }
 
+  // this function executes when user is off focus from date range picker
+  // it filters the foursome list by the date range
   blurDates = () => {
     
     const dateRanges = this.state.datesRange.split(" - ")
@@ -51,10 +54,9 @@ class Foursomes extends Component {
     this.setState({
       foursomes: myDates
     })
-
-    // this.setState({ [name]: value });
 }
 
+  // this reset the filtered foursome lists to all
   resetFilter = () => {
     this.setState({
       foursomes: this.props.foursomes,
@@ -65,6 +67,7 @@ class Foursomes extends Component {
     })
   }
 
+  // this filtered the list to those user is playing
   handleMeOnly = (e, { checked }) => {
     let newFour = this.props.foursomes
     if (checked) {
@@ -76,20 +79,16 @@ class Foursomes extends Component {
     })
   }
 
+  // this filter the list by the selected course
   selectCourse = (e, { value }) => {
-    // const cName = this.props.courses.find(f => f.id === parseInt(value)).name
     let filterF = []
-    // if (this.state.meOnly) {
-    //   const myFour = this.props.foursomes.filter(f => (f.player1_id === this.props.user.userId || f.player2_id === this.props.user.userId || f.player3_id === this.props.user.userId || f.player4_id === this.props.user.userId))
-    //   filterF = myFour.filter(f => f.course_id === parseInt(value)) 
-    // } else {
-      filterF = this.props.foursomes.filter(f => f.course_id === parseInt(value))
-    // }
+    filterF = this.props.foursomes.filter(f => f.course_id === parseInt(value))
     this.setState({
       foursomes: filterF
     })
   }
 
+  // this filter the list by handicap value - 3 of either side of handicap
   selectHandicap = (e, { value }) => {
     const myHandiFour = this.props.foursomes.filter(f => Math.abs(f.handicap - parseInt(value)) <= 3)
     this.setState({
@@ -98,8 +97,9 @@ class Foursomes extends Component {
     })
   }
 
+  // this update the foursome in the list when user join or leave
+  // this function is passed to the ShowFoursome class as prop
   updateThisFoursome = (updatedFoursome) => {
-    console.log("updating foursome")
     const indexU = this.state.foursomes.findIndex(foursome => foursome.id === updatedFoursome.id)
     const newF = [
       ...this.state.foursomes.slice(0, indexU),
@@ -117,8 +117,9 @@ class Foursomes extends Component {
     })
   }
 
+  // this remove the foursome from the list after user clicks remove
+  // this function is passed to the ShowFoursome class as prop
   removeThisFoursome = (removedFoursome) => {
-    console.log("updating foursome")
     const indexU = this.state.foursomes.findIndex(foursome => foursome.id === removedFoursome.id)
     const newF = [
       ...this.state.foursomes.slice(0, indexU),

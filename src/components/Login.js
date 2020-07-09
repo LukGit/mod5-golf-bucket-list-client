@@ -50,7 +50,6 @@ class Login extends Component {
     })
   }
   handleChangePw = (e) => {
-    console.log("password is", e.target.value)
     this.setState({
       password: e.target.value
     })
