@@ -114,7 +114,7 @@ class Login extends Component {
       <div className="login">
       <Header className="pageTitle" as="h1" size="huge" icon inverted>
         <Icon name="golf ball"/>
-        Welcome To Golf Bucket List
+        Welcome To The Golf Bucket List
       </Header>
         <Form onSubmit={this.loginUser}>
         <Form.Group widths='equal' inline >

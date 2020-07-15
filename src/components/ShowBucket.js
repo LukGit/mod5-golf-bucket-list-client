@@ -49,7 +49,9 @@ class ShowBucket extends Component {
     const templateID = 'luk_email_for_react'
     let fmtD 
     const date1 = new Date(bucket.played_on)
-    fmtD = (date1.getMonth() + 1) + '/' + date1.getDate() + '/' +  date1.getFullYear()
+    const userTimezoneOffset = date1.getTimezoneOffset() * 60000
+    const offsetDate = new Date(date1.getTime() + userTimezoneOffset)
+    fmtD = (offsetDate.getMonth() + 1) + '/' + offsetDate.getDate() + '/' +  offsetDate.getFullYear()
     const content = `I played ${bucket.course} on ${fmtD} and my score was ${bucket.score}!`
     // this object contains dynamic variables on EmailJS template
     // to: destination email address(es)
