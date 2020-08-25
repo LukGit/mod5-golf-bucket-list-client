@@ -83,7 +83,6 @@ class ShowBucket extends Component {
   // this fucntion delete a bucket item from bucket list
   deleteThisBucket = (bucket) => {
     const BUCKET_URL = `http://localhost:3000/buckets/${bucket.id}`
-    console.log("delete link is", BUCKET_URL)
     const reqObj = {
       method: 'delete',
       headers: {
@@ -105,10 +104,6 @@ class ShowBucket extends Component {
       emailSuccess: false
     })
   }
-
-  // addFoursome = () => {
-  //   console.log("add Foursome")
-  // }
 
   createFoursome = (e, bucket) => {
     console.log("create foursome", bucket, this.state.pDate, this.state.handicap)
