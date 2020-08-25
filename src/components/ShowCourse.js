@@ -73,8 +73,6 @@ class ShowCourse extends Component {
     } else {
       //set tee and green gps
       const hole = parseInt(value)
-      console.log("hole selected", hole - 1)
-      console.log(this.state.thisCourse.holes[hole - 1])
       const teeGps = {lat: this.state.thisCourse.holes[hole - 1].tee_lat, lng: this.state.thisCourse.holes[hole - 1].tee_lng}
       const greenGps = {lat: this.state.thisCourse.holes[hole - 1].green_lat, lng: this.state.thisCourse.holes[hole - 1].green_lng}
       const desc = ` Hole: ${hole}    Par  ${this.state.thisCourse.holes[hole - 1].par}   ${this.state.thisCourse.holes[hole - 1].yardage} yds`
