@@ -31,7 +31,6 @@ class Buckets extends Component {
         <Icon name='bitbucket square'/>
         {this.props.user.user}, {this.props.buckets.length > 0 ? "Your Bucket List Courses!" : "No Course in Your Bucket!"}
         </Header> 
-        {/* {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)} */}
         <MapBuckets buckets={newBuckets}/>
       </div>
     )

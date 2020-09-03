@@ -116,7 +116,6 @@ class ShowFoursome extends Component {
     fetch(FOUR_URL, reqObj)
       .then(resp => resp.json())
       .then(data => {
-        // this.props.history.push('/buckets')
         this.props.deleteFoursome(data)
         this.props.removeThisFoursome(data)
       })    
@@ -180,7 +179,6 @@ class ShowFoursome extends Component {
                 Leave
               </Button.Content>
             </Button>
-            {/* {this.props.user.userId === this.props.foursome.user_id ? */}
               <Button animated='fade' onClick={this.removeThisFoursome} size='mini' inverted color="grey" disabled={this.props.user.userId === this.props.foursome.user_id ? false : true} >
               <Button.Content visible>
               <Icon name='trash alternate'/>
@@ -189,7 +187,6 @@ class ShowFoursome extends Component {
                 Remove
               </Button.Content>
             </Button> 
-            {/* } */}
           </Segment> 
       </div>
     )

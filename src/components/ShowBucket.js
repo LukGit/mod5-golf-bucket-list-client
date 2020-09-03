@@ -142,7 +142,6 @@ class ShowBucket extends Component {
       this.props.history.push('/login')
       return null
     }
-    // const bucketSelect = this.props.buckets.find(bucket => bucket.id === parseInt(this.props.match.params.id))
     const linkedit = `/buckets/edit/${this.state.bucket.id}`
     let played
     
@@ -192,7 +191,6 @@ class ShowBucket extends Component {
             <Button.Content hidden>
               Remove
             </Button.Content>
-              {/* <p>Remove</p> */}
             </Button>
             <Modal size='medium' trigger={
           <Button animated='fade' size='medium' inverted color="grey">
@@ -227,7 +225,6 @@ class ShowBucket extends Component {
               <Button.Content hidden>
               Off
               </Button.Content>
-              {/* <p>Check off</p> */}
             </Button>
             
             </Link> : 

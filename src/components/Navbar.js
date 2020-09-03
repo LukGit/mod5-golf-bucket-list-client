@@ -7,9 +7,6 @@ import { Menu, Dropdown } from 'semantic-ui-react'
 
 
 class Navbar extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
   state = {
     courseList:[],
     courseName: ""

@@ -91,8 +91,7 @@ class Signup extends Component {
       .then(foursomes => {
         console.log("fetch foursomes", foursomes)
         this.props.addAllFoursomes(foursomes)
-        // this.props.history.push('/foursomes')
-    })
+        })
   }
 
   render() {
