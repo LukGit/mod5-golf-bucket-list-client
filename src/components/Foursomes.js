@@ -49,6 +49,8 @@ class Foursomes extends Component {
       const offsetfDate = new Date(fDate.getTime() + userTimezoneOffset)
       if (offsetfDate > offsetfromADate && offsetfDate <= offsettoADate){
         return f
+      } else {
+        return null
       }
     })
     this.setState({
