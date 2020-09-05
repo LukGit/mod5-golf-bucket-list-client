@@ -5,12 +5,6 @@ import MapBuckets from './MapBuckets'
 import { Header, Icon } from 'semantic-ui-react'
 
 class Buckets extends Component {
-  state = {}
-
-  handleChange = (e, { value }) => {
-    this.setState({ value })
-
-  }
 
   // this shows the NavBar and the MapBuckets which is also passed the bucket items to display on map
   render() {
