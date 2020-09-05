@@ -64,7 +64,7 @@ class Foursomes extends Component {
       foursomes: this.props.foursomes,
       meOnly: false,
       datesRange: "",
-      sCourse: "",
+      sCourse: "Filter Course",
       handiNum: ""
     })
   }
@@ -83,10 +83,13 @@ class Foursomes extends Component {
 
   // this filter the list by the selected course
   selectCourse = (e, { value }) => {
+    console.log("event", e, "value", value)
     let filterF = []
     filterF = this.props.foursomes.filter(f => f.course_id === parseInt(value))
+    const courseSelect = this.props.courses.filter(c => c.course_id === value)
     this.setState({
-      foursomes: filterF
+      foursomes: filterF,
+      sCourse: courseSelect.name
     })
   }
 
