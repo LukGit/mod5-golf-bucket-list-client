@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import TeeIcon from '../img/tee.png'
 import { withRouter } from 'react-router-dom'
 
@@ -28,11 +28,11 @@ export class MapBuckets extends Component {
           >
           </Marker>
         })}
-        <InfoWindow >
+        {/* <InfoWindow >
             <div>
               <h1> </h1>
             </div>
-        </InfoWindow>
+        </InfoWindow> */}
       </Map>
     );
   }

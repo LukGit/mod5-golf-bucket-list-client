@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper, Polyline} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper, Polyline} from 'google-maps-react';
 import TeeIcon from '../img/tee.png'
 import FlagIcon from '../img/flag.png'
 import ClubIcon from '../img/club.png'
@@ -126,11 +126,6 @@ export class MapContainer extends Component {
           strokeOpacity: 1.0,
           strokeWeight: 2,
         }}/> 
-        <InfoWindow >
-            <div>
-              <h1> </h1>
-            </div>
-        </InfoWindow>
       </Map>
     );
   }

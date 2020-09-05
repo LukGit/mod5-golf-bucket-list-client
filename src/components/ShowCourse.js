@@ -16,6 +16,7 @@ class ShowCourse extends Component {
     desc: "",
     init: "c",
     weather: "",
+    hole: "",
     inBkt: false
   }
 
@@ -76,12 +77,14 @@ class ShowCourse extends Component {
       const teeGps = {lat: this.state.thisCourse.holes[hole - 1].tee_lat, lng: this.state.thisCourse.holes[hole - 1].tee_lng}
       const greenGps = {lat: this.state.thisCourse.holes[hole - 1].green_lat, lng: this.state.thisCourse.holes[hole - 1].green_lng}
       const desc = ` Hole: ${hole}    Par  ${this.state.thisCourse.holes[hole - 1].par}   ${this.state.thisCourse.holes[hole - 1].yardage} yds`
+      const holeInfo = `Hole ${hole}`
       this.setState({
         gps1: teeGps,
         gps2: greenGps,
         zoom: 17,
         desc: desc,
-        init: "h"
+        init: "h",
+        hole: holeInfo
       })
     }
   }
@@ -251,7 +254,7 @@ class ShowCourse extends Component {
         options={holeSeletion}
         style={{width: 140}}
         size='mini'
-        value={this.state.init === "c" ? "Clubhouse" : null}
+        value={this.state.init === "c" ? "Clubhouse" : this.state.holeInfo}
         />
         </Menu.Item>
         <Menu.Item>
