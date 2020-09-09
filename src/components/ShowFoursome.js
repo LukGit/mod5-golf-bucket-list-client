@@ -8,7 +8,8 @@ import { Header, Segment, Button, Icon } from 'semantic-ui-react'
 
 class ShowFoursome extends Component {
   state = {
-    something: false
+    something: false,
+    emailList: ""
   }
   
   // this function executes when user joins a foursome
@@ -121,6 +122,47 @@ class ShowFoursome extends Component {
       })    
   }
 
+  remindFoursome = () => {
+    const FOUR_URL = `http://localhost:3000/foursomes/${this.props.foursome.id}`
+    fetch(FOUR_URL, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
+      .then(resp => resp.json())
+      .then(emails => {
+        console.log("fetched emails", emails)
+        this.setState({
+          emailList: `${emails.email2}, ${emails.email3}, ${emails.email4}`
+        })
+        const serviceID = 'ivan.luk028@gmail.com'
+        const templateID = 'luk_email_for_react'
+        let fmtD 
+        const date1 = new Date(this.props.foursome.play_date)
+        const userTimezoneOffset = date1.getTimezoneOffset() * 60000
+        const offsetDate = new Date(date1.getTime() + userTimezoneOffset)
+        fmtD = (offsetDate.getMonth() + 1) + '/' + offsetDate.getDate() + '/' +  offsetDate.getFullYear()
+        const content = `This is to remind you that you will be playing ${this.props.foursome.course.name} on ${fmtD}!`
+    // this object contains dynamic variables on EmailJS template
+    // to: destination email address(es)
+    // subject: subkect of email
+    // html: content of email
+    // from: sender name
+        const templateParams = {
+          to: this.state.emailList,
+          subject: this.props.foursome.course.name,
+          html: content,
+          from: this.props.user.user
+        }
+        console.log(templateParams)
+        window.emailjs.send(
+          serviceID, templateID, 
+          templateParams
+          ).then(res => {
+            console.log('Email successfully sent!')
+          })
+      // Handle errors here however you like, or use a React error boundary
+          .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))
+
+      })
+  }
+
   render() {
     if (!this.props.user.user){
       this.props.history.push('/login')
@@ -179,12 +221,20 @@ class ShowFoursome extends Component {
                 Leave
               </Button.Content>
             </Button>
-              <Button animated='fade' onClick={this.removeThisFoursome} size='mini' inverted color="grey" disabled={this.props.user.userId === this.props.foursome.user_id ? false : true} >
+            <Button animated='fade' onClick={this.removeThisFoursome} size='mini' inverted color="grey" disabled={this.props.user.userId === this.props.foursome.user_id ? false : true} >
               <Button.Content visible>
               <Icon name='trash alternate'/>
               </Button.Content>
               <Button.Content hidden>
                 Remove
+              </Button.Content>
+            </Button> 
+            <Button animated='fade' onClick={this.remindFoursome} size='mini' inverted color="grey" disabled={this.props.user.userId === this.props.foursome.user_id ? false : true} >
+              <Button.Content visible>
+              <Icon name='mail outline'/>
+              </Button.Content>
+              <Button.Content hidden>
+                Reminder
               </Button.Content>
             </Button> 
           </Segment> 
