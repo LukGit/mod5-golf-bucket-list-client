@@ -15,7 +15,8 @@ class Signup extends Component {
       password: '',
       retype: "",
       email: '',
-      badpw: false
+      badpw: false,
+      bademail: false
     }
   }
 
@@ -49,30 +50,36 @@ class Signup extends Component {
         retype: ""
       })
     } else {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email)) {
         // post to the signup endpoint 
-        const USER_URL = 'http://localhost:3000/signup'
-        const reqObj = {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify({username: this.state.username, password: this.state.password, email: this.state.email})
-        }
-        fetch(USER_URL, reqObj)
-        .then(resp => resp.json())
-        .then(userData => {
-          if (userData.error) {
-            alert(userData.error)
-          } else {
-            // save the return token
-            localStorage.setItem("token", userData.jwt) 
-            // add user to the redux store
-            this.props.addUser(userData)
-            // get all courses from backend
-            this.getCourses(userData.jwt)
-            this.getFoursomes(userData.jwt)
+          const USER_URL = 'http://localhost:3000/signup'
+          const reqObj = {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({username: this.state.username, password: this.state.password, email: this.state.email})
           }
-        })
+          fetch(USER_URL, reqObj)
+          .then(resp => resp.json())
+          .then(userData => {
+            if (userData.error) {
+              alert(userData.error)
+            } else {
+              // save the return token
+              localStorage.setItem("token", userData.jwt) 
+              // add user to the redux store
+              this.props.addUser(userData)
+              // get all courses from backend
+              this.getCourses(userData.jwt)
+              this.getFoursomes(userData.jwt)
+            }
+          })
+        } else {
+          this.setState ({
+            bademail: true
+          })
+        }
       }
   }
 
@@ -116,6 +123,7 @@ class Signup extends Component {
         </Form.Group>        
        </Form>
        {this.state.badpw ? <Label inverted color='red' pointing>Passwords not matched. Try again.</Label> : null}
+       {this.state.bademail ? <Label inverted color='red' pointing>Please enter valid email address.</Label> : null}
       </div>
     )
   }
