@@ -20,7 +20,8 @@ function usersReducer(state = { user: '', userId: 0 }, action) {
     case "CURRENT_USER":
       return {
         user: action.userData.username,
-        userId: action.userData.id
+        userId: action.userData.id,
+        email: action.userData.email
       }
     // when logout clear store
     case "LOGOUT":

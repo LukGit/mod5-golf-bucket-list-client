@@ -72,6 +72,7 @@ class Login extends Component {
     fetch(USER_URL, reqObj)
     .then(resp => resp.json())
     .then(userData => {
+      console.log("userdata", userData)
       if (userData.error) {
         if (userData.error === "Invalid username"){
           this.props.history.push('/signup')

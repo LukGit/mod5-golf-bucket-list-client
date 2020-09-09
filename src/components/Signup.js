@@ -14,6 +14,7 @@ class Signup extends Component {
       username: '',
       password: '',
       retype: "",
+      email: '',
       badpw: false
     }
   }
@@ -33,7 +34,11 @@ class Signup extends Component {
       retype: e.target.value
     })
   }
-
+  handleChangeEmail = (e) => {
+    this.setState({
+      email: e.target.value
+    })
+  }
   signupUser = (e) => {
     e.preventDefault()
     if (this.state.password !== this.state.retype) {
@@ -51,7 +56,7 @@ class Signup extends Component {
           headers: {
             'content-type': 'application/json'
           },
-          body: JSON.stringify({username: this.state.username, password: this.state.password})
+          body: JSON.stringify({username: this.state.username, password: this.state.password, email: this.state.email})
         }
         fetch(USER_URL, reqObj)
         .then(resp => resp.json())
@@ -106,6 +111,7 @@ class Signup extends Component {
           <Form.Input placeholder="User name" onChange={this.handleChangeUser} type='text' value={this.state.username} autoFocus/>
           <Form.Input placeholder="Password" onChange={this.handleChangePw} type='password' value={this.state.password} />
           <Form.Input placeholder="Retype password" onChange={this.handleRetype} type='password' value={this.state.retype}/>
+          <Form.Input placeholder="Email address" onChange={this.handleChangeEmail} type='text' value={this.state.email} />
           <Form.Input type='submit' value='Signup'/>
         </Form.Group>        
        </Form>
