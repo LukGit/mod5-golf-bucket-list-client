@@ -63,6 +63,11 @@ class Navbar extends Component {
             Foursomes
           </Link>
         </Menu.Item>
+        <Menu.Item >
+          <Link to={`/users/edit/${this.props.user.id}`} className="item">
+            Edit Profile
+          </Link>
+        </Menu.Item>
         <Menu.Item position='right'>
           <Link onClick={this.handleLogout}to={'/login'} className="item">
             Sign Out

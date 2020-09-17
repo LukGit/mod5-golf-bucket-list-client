@@ -36,14 +36,14 @@ export class ProfileEdit extends Component {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify({
-        played_on: this.state.played_on,
-        score: this.state.score
+        email: this.state.email,
+        my_handicap: this.state.handicap
       })
     }
     fetch(BUCKET_URL, reqObj)
     .then(resp => resp.json())
-    .then(bucketData => {
-      this.props.updateBucket(bucketData)
+    .then(userData => {
+      this.props.updateUser(userData)
       this.props.history.push('/buckets')
     })
   }
