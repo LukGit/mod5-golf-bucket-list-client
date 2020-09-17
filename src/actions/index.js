@@ -40,6 +40,13 @@ export const updateBucket = bucket => {
     bucket
   }
 }
+// update user profile
+export const updateUser = userProfile => {
+  return {
+    type: 'UPDATE_USER',
+    userProfile
+  }
+}
 // to get current user via token
 export const currentUser = (userData) => {
   return {

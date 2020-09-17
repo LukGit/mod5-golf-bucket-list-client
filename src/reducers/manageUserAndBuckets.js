@@ -21,7 +21,8 @@ function usersReducer(state = { user: '', userId: 0 }, action) {
       return {
         user: action.userData.username,
         userId: action.userData.id,
-        email: action.userData.email
+        email: action.userData.email,
+        handicap: action.userData.handicap
       }
     // when logout clear store
     case "LOGOUT":
@@ -68,6 +69,8 @@ function bucketsReducer(state = [], action) {
         updatedBucket,
         ...state.slice(indexU + 1)
       ]
+    case 'UPDATE_USER':
+      return [action.userProfile]
     default:
       return state
   }
