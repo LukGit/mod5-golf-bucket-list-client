@@ -6,8 +6,8 @@ import { Form, Grid, GridRow, Icon, Label, Segment, Button } from 'semantic-ui-r
 
 export class ProfileEdit extends Component {
   state = {
-    played_on: '',
-    score: 0
+    email: "",
+    handicap: 0
   }
 
   // this is to set local state with played on date and score when component is initally loaded
@@ -56,32 +56,32 @@ export class ProfileEdit extends Component {
           <GridRow centered>
           <Segment inverted color="olive">
           <Form onSubmit={this.handleOnSubmit} style={{width: 400}}>
-          <Label inverted color='olive'>Played On</Label>
+          <Label inverted color='olive'>Email Address</Label>
             <Form.Field>
                 <input
-                  type="date"
-                  name="played_on"
-                  value={this.state.played_on}
+                  type="text"
+                  name="email"
+                  value={this.state.email}
                   onChange={this.handleOnChange}
                 />
             </Form.Field>
-            <Label inverted color='olive'>Score</Label>
+            <Label inverted color='olive'>My Handicap</Label>
             <Form.Field>
               
                 <input
                   type="text"
-                  name="score"
-                  value={this.state.score}
+                  name="handicap"
+                  value={this.state.handicap}
                   onChange={this.handleOnChange}
                 />
             </Form.Field>
             <Form.Field>
             <Button animated='fade' inverted color="grey" size='medium'>
               <Button.Content visible>
-              <Icon name='check circle'/>
+              <Icon name='user circle'/>
               </Button.Content>
               <Button.Content hidden>
-                Off
+                Update
               </Button.Content>
             </Button>
            </Form.Field>
