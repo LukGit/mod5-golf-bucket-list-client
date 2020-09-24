@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
 
-// this combined reducer contains three redux store items
+// this combined reducer contains four redux store items
 // users contains the logged in user info
 // buckets contains the bucket items of the logged in user
-// courses contains all the available golf courses
+// courses contains all the available golf courses 
+// foursomes contains all the foursomes created by users
 const rootReducer = combineReducers({
   users: usersReducer,
   buckets: bucketsReducer,

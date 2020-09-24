@@ -15,6 +15,12 @@ export class ProfileEdit extends Component {
     if (!this.props.userId){
       this.props.history.push('/login')
       return null
+    } else {
+      console.log(this.props.email)
+      this.setState({
+        email: this.props.email,
+        handicap: this.props.handicap
+      })
     }
   }
 
@@ -28,7 +34,7 @@ export class ProfileEdit extends Component {
   // this is to send updated bucket info to backend to update
   handleOnSubmit = event => {
     event.preventDefault();
-    const BUCKET_URL = `http://localhost:3000/buckets/${this.props.match.params.id}`
+    const USER_URL = `http://localhost:3000/users/${this.props.match.params.id}`
     const reqObj = {
       method: 'PATCH',
       headers: {
@@ -40,7 +46,7 @@ export class ProfileEdit extends Component {
         my_handicap: this.state.handicap
       })
     }
-    fetch(BUCKET_URL, reqObj)
+    fetch(USER_URL, reqObj)
     .then(resp => resp.json())
     .then(userData => {
       this.props.updateUser(userData)
@@ -97,6 +103,8 @@ export class ProfileEdit extends Component {
 const mapStateToProps = state => {
   return { 
     userId: state.users.userId,
+    email: state.users.email,
+    handicap: state.users.handicap,
     buckets: state.buckets 
   }
 }
