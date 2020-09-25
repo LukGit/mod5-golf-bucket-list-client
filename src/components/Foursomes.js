@@ -13,7 +13,7 @@ class Foursomes extends Component {
     courseList:[],
     datesRange: "",
     sCourse: "",
-    handiNum: ""
+    applyHandicap: false
   }
 
   // this is to load all the foursomes and the available courses in state when component is mounted
@@ -65,7 +65,7 @@ class Foursomes extends Component {
       meOnly: false,
       datesRange: "",
       sCourse: "Filter Course",
-      handiNum: ""
+      applyHandicap: false
     })
   }
 
@@ -94,11 +94,14 @@ class Foursomes extends Component {
   }
 
   // this filter the list by handicap value - 3 of either side of handicap
-  selectHandicap = (e, { value }) => {
-    const myHandiFour = this.props.foursomes.filter(f => Math.abs(f.handicap - parseInt(value)) <= 3)
+  selectHandicap = (e, { checked }) => {
+    let myHandiFour = this.props.foursomes
+    if (checked) {
+      myHandiFour = this.props.foursomes.filter(f => Math.abs(f.handicap - this.props.user.handicap) <= 3)
+    }
     this.setState({
       foursomes: myHandiFour,
-      handiNum: value
+      applyHandicap: checked
     })
   }
 
@@ -142,38 +145,6 @@ class Foursomes extends Component {
       this.props.history.push('/login')
       return null
     }
-    const handicapMin = [
-      {
-        key: '0',
-        text: '0',
-        value: '0'
-      },
-      {
-        key: '5',
-        text: '5',
-        value: '5'
-      },
-      {
-        key: '10',
-        text: '10',
-        value: '10'
-      },
-      {
-        key: '15',
-        text: '15',
-        value: '15'
-      },
-      {
-        key: '20',
-        text: '20',
-        value: '20'
-      },
-      {
-        key: '25',
-        text: '25',
-        value: '25'
-      }
-    ]
     const sortedF = this.state.foursomes.sort((a,b) => {
       let dateA = a.play_date
       let dateB = b.play_date
@@ -216,16 +187,11 @@ class Foursomes extends Component {
         </Menu.Item> */}
          <Menu.Item >
           {/* this dropdown list all the courses available */}
-          <Dropdown 
-          fluid
-          selection
-          onChange={this.selectHandicap}
-          options={handicapMin}
-          style={{width: 120}}
-          size='mini'
-          placeholder='Min handicap'
-          value={this.state.handiNum}
-          />
+          <Checkbox 
+              checked={this.state.applyHandicap}
+              label='Apply handicap'
+              onClick={this.selectHandicap}
+            />
           </Menu.Item>
           <Menu.Item>
             <DatesRangeInput

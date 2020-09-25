@@ -31,7 +31,7 @@ function usersReducer(state = { user: '', userId: 0, email: '', handicap: 0 }, a
         user: action.userProfile.username,
         userId: action.userProfile.id,
         email: action.userProfile.email,
-        handicap: action.userProfile.handicap
+        handicap: action.userProfile.my_handicap
       }
     // when logout clear store
     case "LOGOUT":
