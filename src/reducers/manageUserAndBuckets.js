@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 
 export default rootReducer;
 
-function usersReducer(state = { user: '', userId: 0 }, action) {
+function usersReducer(state = { user: '', userId: 0, email: '', handicap: 0 }, action) {
   switch (action.type) {
     // when login and current_user return the username and id
     case "LOGIN":
@@ -24,6 +24,14 @@ function usersReducer(state = { user: '', userId: 0 }, action) {
         userId: action.userData.id,
         email: action.userData.email,
         handicap: action.userData.handicap
+      }
+    case 'UPDATE_USER':
+      // return [action.userProfile]
+      return {
+        user: action.userProfile.username,
+        userId: action.userProfile.id,
+        email: action.userProfile.email,
+        handicap: action.userProfile.handicap
       }
     // when logout clear store
     case "LOGOUT":
@@ -70,8 +78,6 @@ function bucketsReducer(state = [], action) {
         updatedBucket,
         ...state.slice(indexU + 1)
       ]
-    case 'UPDATE_USER':
-      return [action.userProfile]
     default:
       return state
   }

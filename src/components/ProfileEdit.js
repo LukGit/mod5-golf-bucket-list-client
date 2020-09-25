@@ -34,7 +34,7 @@ export class ProfileEdit extends Component {
   // this is to send updated bucket info to backend to update
   handleOnSubmit = event => {
     event.preventDefault();
-    const USER_URL = `http://localhost:3000/users/${this.props.match.params.id}`
+    const USER_URL = `http://localhost:3000/users/${this.props.userId}`
     const reqObj = {
       method: 'PATCH',
       headers: {
@@ -47,8 +47,9 @@ export class ProfileEdit extends Component {
       })
     }
     fetch(USER_URL, reqObj)
-    .then(resp => resp.json())
+    .then(resp => resp.json(console.log("updated resp", resp)))
     .then(userData => {
+      console.log("update user", userData)
       this.props.updateUser(userData)
       this.props.history.push('/buckets')
     })
