@@ -125,12 +125,10 @@ class ShowBucket extends Component {
         player1_name: this.props.user.user
       })
     }
-    console.log("forusome obj", reqObj1)
     // post course id and user id to buckets path to add bucket
     fetch(FOURSOME_URL, reqObj1)
     .then(resp => resp.json())
     .then(data => {
-      console.log("**** added foursome", data)
       this.props.addFoursome(data)
       this.props.history.push('/foursomes')
     })

@@ -49,7 +49,6 @@ export class ProfileEdit extends Component {
     fetch(USER_URL, reqObj)
     .then(resp => resp.json(console.log("updated resp", resp)))
     .then(userData => {
-      console.log("update user", userData)
       this.props.updateUser(userData)
       this.props.history.push('/buckets')
     })

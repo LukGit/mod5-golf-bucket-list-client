@@ -34,7 +34,6 @@ class Navbar extends Component {
       courseName: cName
     })
     this.props.history.push(`/courses/${value}`)
-    // this.forceUpdate()
   }
 
   render() {

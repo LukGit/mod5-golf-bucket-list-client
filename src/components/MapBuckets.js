@@ -28,11 +28,6 @@ export class MapBuckets extends Component {
           >
           </Marker>
         })}
-        {/* <InfoWindow >
-            <div>
-              <h1> </h1>
-            </div>
-        </InfoWindow> */}
       </Map>
     );
   }

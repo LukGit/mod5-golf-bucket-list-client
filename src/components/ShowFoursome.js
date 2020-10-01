@@ -127,7 +127,6 @@ class ShowFoursome extends Component {
     fetch(FOUR_URL, {headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}})
       .then(resp => resp.json())
       .then(emails => {
-        console.log("fetched emails", emails)
         this.setState({
           emailList: `${emails.email2}, ${emails.email3}, ${emails.email4}`
         })
@@ -150,7 +149,6 @@ class ShowFoursome extends Component {
           html: content,
           from: this.props.user.user
         }
-        console.log(templateParams)
         window.emailjs.send(
           serviceID, templateID, 
           templateParams
