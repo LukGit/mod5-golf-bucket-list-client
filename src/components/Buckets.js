@@ -23,7 +23,8 @@ class Buckets extends Component {
         <Navbar/>
         <Header inverted size='medium'> 
         <Icon name='bitbucket square'/>
-        {this.props.user.user}, {this.props.buckets.length > 0 ? "Your Bucket List Courses!" : "No Course in Your Bucket!"}
+        {this.props.user.user}, 
+        {this.props.buckets.length > 0 ? "Your Bucket List Courses!" : "No Course in Your Bucket!"}
         </Header> 
         <MapBuckets buckets={newBuckets}/>
       </div>

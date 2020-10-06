@@ -101,11 +101,7 @@ export class MapContainer extends Component {
           </Marker>
         }
         {opt === "c" ? 
-          <Marker position={this.props.gps2} 
-            name=' '
-            icon={ClubIcon}
-            >
-          </Marker> : 
+          null : 
           <Marker position={this.props.gps2} 
             name=' '
             icon={FlagIcon}

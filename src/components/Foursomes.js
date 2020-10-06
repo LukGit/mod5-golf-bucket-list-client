@@ -212,16 +212,13 @@ class Foursomes extends Component {
         </Menu>
         {sortedF.length > 0 ? 
         <Header inverted size='medium'> 
-        {/* <Icon name='add user'/> */}
         {this.props.user.user}, Here are the foursomes!
         </Header> : 
         <Header inverted size='medium'> 
-        {/* <Icon name='add user'/> */}
         There are no foursomes found!
         </Header>
         }
         <br></br> 
-        {/* {this.props.buckets.map(bucket => <BucketCard bucket={bucket} key={bucket.id}/>)} */}
         <Grid columns="4">
         {sortedF.map(fSome => {
           return <ShowFoursome foursome={fSome} key={fSome.id} updateThisFoursome={this.updateThisFoursome} removeThisFoursome={this.removeThisFoursome}/>
