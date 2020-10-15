@@ -7,7 +7,9 @@ import { Form, Grid, GridRow, Icon, Label, Segment, Button } from 'semantic-ui-r
 export class ProfileEdit extends Component {
   state = {
     email: "",
-    handicap: 0
+    handicap: 0,
+    club1: "",
+    club1Carry: 0
   }
 
   // this is to set local state with played on date and score when component is initally loaded
@@ -16,10 +18,12 @@ export class ProfileEdit extends Component {
       this.props.history.push('/login')
       return null
     } else {
-      console.log(this.props.email)
+      console.log(this.props.clubs.length)
+      let clubsState = (this.props.clubs.length > 0 ? {club1: this.props.clubs.club_1, club1Carry: this.props.clubs.club1_carry} : {club1: "", club1Carry: 0})
       this.setState({
         email: this.props.email,
-        handicap: this.props.handicap
+        handicap: this.props.handicap,
+        clubs: clubsState
       })
     }
   }
@@ -55,6 +59,7 @@ export class ProfileEdit extends Component {
   }
 
   render() {
+    console.log(this.state.clubs)
     return (
       <div>
         <Navbar />
@@ -81,6 +86,26 @@ export class ProfileEdit extends Component {
                   onChange={this.handleOnChange}
                 />
             </Form.Field>
+            <Segment>
+            <Label inverted color='olive'>Club 1</Label>
+              <Form.Field>
+              <input
+                  type="text"
+                  name="club1"
+                  value={this.state.club1}
+                  onChange={this.handleOnChange}
+                />
+              </Form.Field>
+              <Label inverted color='olive'>Club 1 Carry</Label>
+              <Form.Field>
+              <input
+                  type="text"
+                  name="club1"
+                  value={this.state.club1Carry}
+                  onChange={this.handleOnChange}
+                />
+              </Form.Field>
+            </Segment>
             <Form.Field>
             <Button animated='fade' inverted color="grey" size='medium'>
               <Button.Content visible>
@@ -105,7 +130,8 @@ const mapStateToProps = state => {
     userId: state.users.userId,
     email: state.users.email,
     handicap: state.users.handicap,
-    buckets: state.buckets 
+    buckets: state.buckets,
+    clubs: state.users.clubs
   }
 }
 

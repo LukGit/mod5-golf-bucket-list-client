@@ -23,7 +23,8 @@ function usersReducer(state = { user: '', userId: 0, email: '', handicap: 0 }, a
         user: action.userData.username,
         userId: action.userData.id,
         email: action.userData.email,
-        handicap: action.userData.handicap
+        handicap: action.userData.handicap,
+        clubs: action.userData.clubs
       }
     case 'UPDATE_USER':
       // return [action.userProfile]
