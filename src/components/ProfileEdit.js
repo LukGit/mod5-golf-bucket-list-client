@@ -8,7 +8,32 @@ export class ProfileEdit extends Component {
   state = {
     email: "",
     handicap: 0,
-    clubs: {}
+    club1: "",
+    club1Carry: 0,
+    club2: "",
+    club2Carry: 0,
+    club3: "",
+    club3Carry: 0,
+    club4: "",
+    club4Carry: 0,
+    club5: "",
+    club5Carry: 0,
+    club6: "",
+    club6Carry: 0,
+    club7: "",
+    club7Carry: 0,
+    club8: "",
+    club8Carry: 0,
+    club9: "",
+    club9Carry: 0,
+    club10: "",
+    club10Carry: 0,
+    club11: "",
+    club11Carry: 0,
+    club12: "",
+    club12Carry: 0,
+    club13: "",
+    club13Carry: 0
   }
 
   // this is to set local state with played on date and score when component is initally loaded
@@ -49,7 +74,32 @@ export class ProfileEdit extends Component {
       this.setState({
         email: this.props.email,
         handicap: this.props.handicap,
-        clubs: clubsState
+        club1: clubsState.club1,
+        club1Carry: clubsState.club1Carry,
+        club2: clubsState.club2,
+        club2Carry: clubsState.club2Carry,
+        club3: clubsState.club3,
+        club3Carry: clubsState.club3Carry,
+        club4: clubsState.club4,
+        club4Carry: clubsState.club4Carry,
+        club5: clubsState.club5,
+        club5Carry: clubsState.club5Carry,
+        club6: clubsState.club6,
+        club6Carry: clubsState.club6Carry,
+        club7: clubsState.club7,
+        club7Carry: clubsState.club7Carry,
+        club8: clubsState.club8,
+        club8Carry: clubsState.club8Carry,
+        club9: clubsState.club9,
+        club9Carry: clubsState.club9Carry,
+        club10: clubsState.club10,
+        club10Carry: clubsState.club10Carry,
+        club11: clubsState.club11,
+        club11Carry: clubsState.club11Carry,
+        club12: clubsState.club12,
+        club12Carry: clubsState.club12Carry,
+        club13: clubsState.club13,
+        club13Carry: clubsState.club13Carry
       })
     }
   }
@@ -164,7 +214,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club1"
-                  value={this.state.clubs.club1}
+                  value={this.state.club1}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -173,7 +223,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club1Carry"
-                  value={this.state.clubs.club1Carry}
+                  value={this.state.club1Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -184,7 +234,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club2"
-                  value={this.state.clubs.club2}
+                  value={this.state.club2}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -193,7 +243,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club2Carry"
-                  value={this.state.clubs.club2Carry}
+                  value={this.state.club2Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -204,7 +254,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club3"
-                  value={this.state.clubs.club3}
+                  value={this.state.club3}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -213,7 +263,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club3Carry"
-                  value={this.state.clubs.club3Carry}
+                  value={this.state.club3Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -224,7 +274,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club4"
-                  value={this.state.clubs.club4}
+                  value={this.state.club4}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -233,7 +283,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club4Carry"
-                  value={this.state.clubs.club4Carry}
+                  value={this.state.club4Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -244,7 +294,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club5"
-                  value={this.state.clubs.club5}
+                  value={this.state.club5}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -253,7 +303,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club5Carry"
-                  value={this.state.clubs.club5Carry}
+                  value={this.state.club5Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -264,7 +314,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club6"
-                  value={this.state.clubs.club6}
+                  value={this.state.club6}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -273,7 +323,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club6Carry"
-                  value={this.state.clubs.club6Carry}
+                  value={this.state.club6Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -284,7 +334,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club7"
-                  value={this.state.clubs.club7}
+                  value={this.state.club7}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -293,7 +343,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club7Carry"
-                  value={this.state.clubs.club7Carry}
+                  value={this.state.club7Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -304,7 +354,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club8"
-                  value={this.state.clubs.club8}
+                  value={this.state.club8}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -313,7 +363,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club8Carry"
-                  value={this.state.clubs.club8Carry}
+                  value={this.state.club8Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -324,7 +374,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club9"
-                  value={this.state.clubs.club9}
+                  value={this.state.club9}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -333,7 +383,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club9Carry"
-                  value={this.state.clubs.club9Carry}
+                  value={this.state.club9Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -344,7 +394,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club10"
-                  value={this.state.clubs.club10}
+                  value={this.state.club10}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -353,7 +403,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club10Carry"
-                  value={this.state.clubs.club10Carry}
+                  value={this.state.club10Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -364,7 +414,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club11"
-                  value={this.state.clubs.club11}
+                  value={this.state.club11}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -373,7 +423,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club11Carry"
-                  value={this.state.clubs.club11Carry}
+                  value={this.state.club11Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -384,7 +434,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club12"
-                  value={this.state.clubs.club12}
+                  value={this.state.club12}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -393,7 +443,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club12Carry"
-                  value={this.state.clubs.club12Carry}
+                  value={this.state.club12Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -404,7 +454,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club13"
-                  value={this.state.clubs.club13}
+                  value={this.state.club13}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
@@ -413,7 +463,7 @@ export class ProfileEdit extends Component {
               <input
                   type="text"
                   name="club13Carry"
-                  value={this.state.clubs.club13Carry}
+                  value={this.state.club13Carry}
                   onChange={this.handleOnChange}
                 />
               </Form.Field>
