@@ -40,6 +40,29 @@ function usersReducer(state = { user: '', userId: 0, email: '', handicap: 0 }, a
         user: '',
         userId: 0
       }
+    case "ADD_CLUBS":
+      //add clubs to user in store
+      let newUserClubs = [{club1: action.clubsUser.clubs.club_1, club1Carry: action.clubsUser.clubs.club1_carry,
+        club2: action.clubsUser.clubs.club_2, club2Carry: action.clubsUser.clubs.club2_carry,
+        club3: action.clubsUser.clubs.club_3, club3Carry: action.clubsUser.clubs.club3_carry,
+        club4: action.clubsUser.clubs.club_4, club4Carry: action.clubsUser.clubs.club4_carry,
+        club5: action.clubsUser.clubs.club_5, club5Carry: action.clubsUser.clubs.club5_carry,
+        club6: action.clubsUser.clubs.club_6, club6Carry: action.clubsUser.clubs.club6_carry,
+        club7: action.clubsUser.clubs.club_7, club7Carry: action.clubsUser.clubs.club7_carry,
+        club8: action.clubsUser.clubs.club_8, club8Carry: action.clubsUser.clubs.club8_carry,
+        club9: action.clubsUser.clubs.club_9, club9Carry: action.clubsUser.clubs.club9_carry,
+        club10: action.clubsUser.clubs.club_10, club10Carry: action.clubsUser.clubs.club10_carry,
+        club11: action.clubsUser.clubs.club_11, club11Carry: action.clubsUser.clubs.club11_carry,
+        club12: action.clubsUser.clubs.club_12, club12Carry: action.clubsUser.clubs.club12_carry,
+        club13: action.clubsUser.clubs.club_13, club13Carry: action.clubsUser.clubs.club13_carry}]
+      console.log("add club payload", newUserClubs)
+      return {
+        user: this.props.users.user,
+        userId: this.props.users.userId,
+        email: this.props.users.email,
+        handicap: this.props.users.handicap,
+        clubs: newUserClubs
+      }
     default:
       return state
   }

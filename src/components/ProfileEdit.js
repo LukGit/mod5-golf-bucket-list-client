@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
 import { connect } from 'react-redux';
-import { updateUser } from '../actions';
+import { updateUser, addClubs } from '../actions';
 import { Form, Grid, GridRow, Icon, Label, Segment, Button } from 'semantic-ui-react'
 
 export class ProfileEdit extends Component {
@@ -182,7 +182,6 @@ export class ProfileEdit extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Navbar />
@@ -502,4 +501,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {updateUser})(ProfileEdit)
+export default connect(mapStateToProps, {updateUser, addClubs})(ProfileEdit)
