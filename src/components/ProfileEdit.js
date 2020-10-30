@@ -174,7 +174,11 @@ export class ProfileEdit extends Component {
       })
     }
     fetch(CLUB_URL, reqObj)
-    .then(resp => resp.json(console.log("updated resp", resp)))
+    .then(resp => resp.json())
+    .then(clubsData => {
+        console.log("updated clubs", clubsData)
+        this.props.addClubs(clubsData)
+    })
   }
 
   render() {

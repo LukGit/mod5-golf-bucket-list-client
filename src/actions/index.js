@@ -79,3 +79,9 @@ export const deleteFoursome = foursome => {
     foursome
   }
 }
+export const addClubs = clubsUser => {
+  return {
+    type: 'ADD_CLUBS',
+    clubsUser
+  }
+}
