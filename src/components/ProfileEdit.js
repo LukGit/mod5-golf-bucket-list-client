@@ -174,10 +174,15 @@ export class ProfileEdit extends Component {
       })
     }
     fetch(CLUB_URL, reqObj)
-    .then(resp => resp.json())
+    .then(resp => resp.json(console.log("***added clubs after fetch", this.props)))
     .then(clubsData => {
-        console.log("updated clubs", clubsData)
-        this.props.addClubs(clubsData)
+        let userData = {
+          user: this.props.user,
+          userId: this.props.userId,
+          email: this.props.email,
+          handicap: this.props.handicap
+        }
+        this.props.addClubs(clubsData, userData)
     })
   }
 
@@ -493,6 +498,7 @@ export class ProfileEdit extends Component {
 
 const mapStateToProps = state => {
   return { 
+    user: state.users.user,
     userId: state.users.userId,
     email: state.users.email,
     handicap: state.users.handicap,
