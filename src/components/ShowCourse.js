@@ -274,7 +274,8 @@ class ShowCourse extends Component {
         </Menu.Item>
   
         <Modal size='tiny' trigger={<Menu.Item>
-          <Button animated='fade' onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='medium' floated='right' inverted color="grey">
+          <Button animated='fade' 
+          onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='medium' floated='right' inverted color="grey">
             <Button.Content visible>
               <Icon name='sun'/>
               </Button.Content>

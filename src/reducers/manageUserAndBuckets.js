@@ -42,7 +42,7 @@ function usersReducer(state = { user: '', userId: 0, email: '', handicap: 0 }, a
       }
     case "ADD_CLUBS":
       //add clubs to user in store
-      let newUserClubs = [{club1: action.clubsUser.club_1, club1Carry: action.clubsUser.club1_carry,
+      let newUserClubs = [{id: action.clubsUser.id, club1: action.clubsUser.club_1, club1Carry: action.clubsUser.club1_carry,
         club2: action.clubsUser.club_2, club2Carry: action.clubsUser.club2_carry,
         club3: action.clubsUser.club_3, club3Carry: action.clubsUser.club3_carry,
         club4: action.clubsUser.club_4, club4Carry: action.clubsUser.club4_carry,

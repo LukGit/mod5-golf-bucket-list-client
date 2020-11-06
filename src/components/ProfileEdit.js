@@ -136,6 +136,9 @@ export class ProfileEdit extends Component {
   }
 
   updateClubs = (userId) => {
+    if (this.props.clubs.length > 0) {
+      const CLUB_URL = `http://localhost:3000/clubs/`
+    }
     const CLUB_URL = `http://localhost:3000/clubs`
     const reqObj = {
       method: 'POST',
