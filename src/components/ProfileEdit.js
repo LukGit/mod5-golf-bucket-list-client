@@ -8,6 +8,7 @@ export class ProfileEdit extends Component {
   state = {
     email: "",
     handicap: 0,
+    clubId: null,
     club1: "",
     club1Carry: 0,
     club2: "",
@@ -44,7 +45,8 @@ export class ProfileEdit extends Component {
     } else {
       console.log(this.props.clubs)
       let clubsState = (this.props.clubs.length > 0 ?
-        {club1: this.props.clubs[0].club_1, club1Carry: this.props.clubs[0].club1_carry,
+        {clubdId: this.props.clubs[0].id, 
+        club1: this.props.clubs[0].club_1, club1Carry: this.props.clubs[0].club1_carry,
         club2: this.props.clubs[0].club_2, club2Carry: this.props.clubs[0].club2_carry,
         club3: this.props.clubs[0].club_3, club3Carry: this.props.clubs[0].club3_carry,
         club4: this.props.clubs[0].club_4, club4Carry: this.props.clubs[0].club4_carry,
@@ -57,7 +59,8 @@ export class ProfileEdit extends Component {
         club11: this.props.clubs[0].club_11, club11Carry: this.props.clubs[0].club11_carry,
         club12: this.props.clubs[0].club_12, club12Carry: this.props.clubs[0].club12_carry,
         club13: this.props.clubs[0].club_13, club13Carry: this.props.clubs[0].club13_carry} 
-        : {club1: "", club1Carry: 0,
+        : {clubId: null,
+        club1: "", club1Carry: 0,
         club2: "", club2Carry: 0,
         club3: "", club3Carry: 0,
         club4: "", club4Carry: 0,
@@ -136,7 +139,7 @@ export class ProfileEdit extends Component {
   }
 
   updateClubs = (userId) => {
-    console.log("update clubs start", this.props)
+    console.log("update clubs start", this.state.clubId)
     // if (this.props.clubs.length > 0) {
     //   const CLUB_URL = `http://localhost:3000/clubs/`
     // }
