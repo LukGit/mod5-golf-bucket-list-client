@@ -136,9 +136,10 @@ export class ProfileEdit extends Component {
   }
 
   updateClubs = (userId) => {
-    if (this.props.clubs.length > 0) {
-      const CLUB_URL = `http://localhost:3000/clubs/`
-    }
+    console.log("update clubs start", this.props)
+    // if (this.props.clubs.length > 0) {
+    //   const CLUB_URL = `http://localhost:3000/clubs/`
+    // }
     const CLUB_URL = `http://localhost:3000/clubs`
     const reqObj = {
       method: 'POST',
@@ -179,7 +180,7 @@ export class ProfileEdit extends Component {
     fetch(CLUB_URL, reqObj)
     .then(resp => resp.json(console.log("***added clubs after fetch", this.props)))
     .then(clubsData => {
-        let userData = {
+        const userData = {
           user: this.props.user,
           userId: this.props.userId,
           email: this.props.email,
