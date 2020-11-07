@@ -140,46 +140,83 @@ export class ProfileEdit extends Component {
 
   updateClubs = (userId) => {
     console.log("update clubs start", this.state.clubId)
-    // if (this.props.clubs.length > 0) {
-    //   const CLUB_URL = `http://localhost:3000/clubs/`
-    // }
-    const CLUB_URL = `http://localhost:3000/clubs`
-    const reqObj = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      },
-      body: JSON.stringify({
-        user_id: userId, 
-        club_1: this.state.club1,
-        club1_carry: this.state.club1Carry,
-        club_2: this.state.club2,
-        club2_carry: this.state.club2Carry,
-        club_3: this.state.club3,
-        club3_carry: this.state.club3Carry,
-        club_4: this.state.club4,
-        club4_carry: this.state.club4Carry,
-        club_5: this.state.club5,
-        club5_carry: this.state.club5Carry,
-        club_6: this.state.club6,
-        club6_carry: this.state.club6Carry,
-        club_7: this.state.club7,
-        club7_carry: this.state.club7Carry,
-        club_8: this.state.club8,
-        club8_carry: this.state.club8Carry,
-        club_9: this.state.club9,
-        club9_carry: this.state.club9Carry,
-        club_10: this.state.club10,
-        club10_carry: this.state.club10Carry,
-        club_11: this.state.club11,
-        club11_carry: this.state.club11Carry,
-        club_12: this.state.club12,
-        club12_carry: this.state.club12Carry,
-        club_13: this.state.club13,
-        club13_carry: this.state.club13Carry
-      })
-    }
+    if (this.state.clubId !== null) {
+      const CLUB_URL = `http://localhost:3000/clubs/${this.state.clubId}`
+      const reqObj = {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          user_id: userId, 
+          club_1: this.state.club1,
+          club1_carry: this.state.club1Carry,
+          club_2: this.state.club2,
+          club2_carry: this.state.club2Carry,
+          club_3: this.state.club3,
+          club3_carry: this.state.club3Carry,
+          club_4: this.state.club4,
+          club4_carry: this.state.club4Carry,
+          club_5: this.state.club5,
+          club5_carry: this.state.club5Carry,
+          club_6: this.state.club6,
+          club6_carry: this.state.club6Carry,
+          club_7: this.state.club7,
+          club7_carry: this.state.club7Carry,
+          club_8: this.state.club8,
+          club8_carry: this.state.club8Carry,
+          club_9: this.state.club9,
+          club9_carry: this.state.club9Carry,
+          club_10: this.state.club10,
+          club10_carry: this.state.club10Carry,
+          club_11: this.state.club11,
+          club11_carry: this.state.club11Carry,
+          club_12: this.state.club12,
+          club12_carry: this.state.club12Carry,
+          club_13: this.state.club13,
+          club13_carry: this.state.club13Carry
+        })
+      }
+    } else {
+      const CLUB_URL = `http://localhost:3000/clubs`
+      const reqObj = {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          user_id: userId, 
+          club_1: this.state.club1,
+          club1_carry: this.state.club1Carry,
+          club_2: this.state.club2,
+          club2_carry: this.state.club2Carry,
+          club_3: this.state.club3,
+          club3_carry: this.state.club3Carry,
+          club_4: this.state.club4,
+          club4_carry: this.state.club4Carry,
+          club_5: this.state.club5,
+          club5_carry: this.state.club5Carry,
+          club_6: this.state.club6,
+          club6_carry: this.state.club6Carry,
+          club_7: this.state.club7,
+          club7_carry: this.state.club7Carry,
+          club_8: this.state.club8,
+          club8_carry: this.state.club8Carry,
+          club_9: this.state.club9,
+          club9_carry: this.state.club9Carry,
+          club_10: this.state.club10,
+          club10_carry: this.state.club10Carry,
+          club_11: this.state.club11,
+          club11_carry: this.state.club11Carry,
+          club_12: this.state.club12,
+          club12_carry: this.state.club12Carry,
+          club_13: this.state.club13,
+          club13_carry: this.state.club13Carry
+        })
+      }
+  }
     fetch(CLUB_URL, reqObj)
     .then(resp => resp.json(console.log("***added clubs after fetch", this.props)))
     .then(clubsData => {
