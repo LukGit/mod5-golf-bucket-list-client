@@ -42,8 +42,8 @@ class ShowBucket extends Component {
     })
   }
   // this function is to send email via EmailJS service
-  sendEmail = (event, bucket) => {
-    event.preventDefault()
+  sendEmail = (e, bucket) => {
+    e.preventDefault()
     
     const serviceID = 'ivan.luk028@gmail.com'
     const templateID = 'luk_email_for_react'
@@ -73,8 +73,8 @@ class ShowBucket extends Component {
     window.emailjs.send(
       serviceID, templateID, 
       templateParams
-      ).then(res => {
-        console.log('Email successfully sent!')
+      ).then(resp => {
+        console.log('Email successfully sent!', resp)
       })
       // Handle errors here however you like, or use a React error boundary
       .catch(err => console.error('Oh well, you failed. Here some thoughts on the error that occured:', err))

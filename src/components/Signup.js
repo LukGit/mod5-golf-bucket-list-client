@@ -8,16 +8,14 @@ import { Form, Header, Icon, Label} from 'semantic-ui-react'
 
 
 class Signup extends Component {
-  constructor() {
-    super()
-    this.state = {
+ 
+  state = {
       username: '',
       password: '',
       retype: "",
       email: '',
       badpw: false,
       bademail: false
-    }
   }
 
   handleChangeUser = (e) => {

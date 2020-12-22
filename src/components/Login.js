@@ -8,12 +8,10 @@ import { Form, Header, Icon } from 'semantic-ui-react'
 
 
 class Login extends Component {
-  constructor() {
-    super()
-    this.state = {
+ 
+  state = {
       username: '',
       password: ''
-    }
   }
 
   // this function is called when component is initially loaded

@@ -139,10 +139,12 @@ export class ProfileEdit extends Component {
   }
 
   updateClubs = (userId) => {
+    let CLUB_URL = ""
+    let reqObj = {}
     console.log("update clubs start", this.state.clubId)
     if (this.state.clubId !== null) {
-      const CLUB_URL = `http://localhost:3000/clubs/${this.state.clubId}`
-      const reqObj = {
+      CLUB_URL = `http://localhost:3000/clubs/${this.state.clubId}`
+      reqObj = {
         method: 'PATCH',
         headers: {
           'content-type': 'application/json',
@@ -179,8 +181,8 @@ export class ProfileEdit extends Component {
         })
       }
     } else {
-      const CLUB_URL = `http://localhost:3000/clubs`
-      const reqObj = {
+      CLUB_URL = `http://localhost:3000/clubs`
+      reqObj = {
         method: 'POST',
         headers: {
           'content-type': 'application/json',

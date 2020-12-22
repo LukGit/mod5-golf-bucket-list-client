@@ -76,7 +76,7 @@ class ShowCourse extends Component {
       const hole = parseInt(value)
       const teeGps = {lat: this.state.thisCourse.holes[hole - 1].tee_lat, lng: this.state.thisCourse.holes[hole - 1].tee_lng}
       const greenGps = {lat: this.state.thisCourse.holes[hole - 1].green_lat, lng: this.state.thisCourse.holes[hole - 1].green_lng}
-      const desc = ` Hole: ${hole}    Par  ${this.state.thisCourse.holes[hole - 1].par}   ${this.state.thisCourse.holes[hole - 1].yardage} yds`
+      const desc = ` Hole: ${hole} | Par  ${this.state.thisCourse.holes[hole - 1].par}   ${this.state.thisCourse.holes[hole - 1].yardage} yds`
       const holeInfo = `Hole ${hole}`
       this.setState({
         gps1: teeGps,
