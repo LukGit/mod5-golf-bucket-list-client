@@ -101,7 +101,6 @@ class Login extends Component {
     fetch(FOUR_URL, {headers: {'Authorization': `Bearer ${token}`}})
       .then(resp => resp.json())
       .then(foursomes => {
-        console.log("fetch foursomes", foursomes)
         this.props.addAllFoursomes(foursomes)
         // this.props.history.push('/foursomes')
     })

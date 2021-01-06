@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Navbar from './Navbar';
 import ShowFoursome from './ShowFoursome'
 import { Header, Grid, Menu, Button, Checkbox, Dropdown } from 'semantic-ui-react'
-// import NumberPicker from 'semantic-ui-react-numberpicker'
 import { DatesRangeInput } from 'semantic-ui-calendar-react'
 
 class Foursomes extends Component {
@@ -181,9 +180,6 @@ class Foursomes extends Component {
           value={this.state.sCourse}
           />
         </Menu.Item> 
-        {/* <Menu.Item>
-          <NumberPicker style={{width: 100}} min={0} placeholder='min handicap'/>
-        </Menu.Item> */}
          <Menu.Item >
           {/* this dropdown list all the courses available */}
           <Checkbox 
@@ -221,7 +217,9 @@ class Foursomes extends Component {
         <br></br> 
         <Grid columns="4">
         {sortedF.map(fSome => {
-          return <ShowFoursome foursome={fSome} key={fSome.id} updateThisFoursome={this.updateThisFoursome} removeThisFoursome={this.removeThisFoursome}/>
+          return <ShowFoursome foursome={fSome} key={fSome.id} 
+          updateThisFoursome={this.updateThisFoursome} 
+          removeThisFoursome={this.removeThisFoursome}/>
         })}
         </Grid>
       </div>

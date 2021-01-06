@@ -53,7 +53,6 @@ class ShowFoursome extends Component {
     .then(foursomeData => {
       this.props.updateFoursome(foursomeData)
       this.props.updateThisFoursome(foursomeData)
-      // this.props.history.push('/buckets')
     })
   }
 
