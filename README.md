@@ -1,5 +1,5 @@
 # The Golf Bucket List
-
+![alt text](https://github.com/https://github.com/LukGit/mod5-golf-bucket-list-client/blob/master/src/img/Golf_Bucket_screenshot.png?raw=true)
 This is an app for users to maintain a bucket list of golf courses they would like to play in. It provides the ability to research a course hole by hole. The other feature is to let users create foursomes on the foursome board so that other users can join. 
 
 ## Technical information
