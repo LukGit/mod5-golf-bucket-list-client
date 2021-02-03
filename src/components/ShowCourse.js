@@ -114,8 +114,9 @@ class ShowCourse extends Component {
   }
 
   // this is called to obtain weather data from api based on gps location
+  // https also works
   getWeather = (gps) => {
-    const W_URL = "http://api.weatherapi.com/v1/current.json?key=0def2099dc364881957133838202806&q=" + gps
+    const W_URL = "https://api.weatherapi.com/v1/current.json?key=0def2099dc364881957133838202806&q=" + gps
     fetch(W_URL)
     .then(resp => resp.json())
     .then(weather => {

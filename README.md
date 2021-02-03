@@ -14,6 +14,8 @@ While in the bucket list item page, user can create a foursome by clicking the "
 
 User can check off a bucket list item on the item detail page after he/she has played a course. After entering a date and a scrore, the saved bucket list item cannot be removed. User can also elect to share the result of the event with friends via email with one or more email addresses (separated by comma) and click the mail button. 
 
+A profile edit page is added to allow user to include all their clubs with carry distance. This is to be used in the future to suggest club selection based on distance to flag.
+
 ## Technical Notes
 
 In order to use Google Maps, all components must be first imported from google-map-reacts: 
@@ -40,5 +42,6 @@ To use EmailJS, the following must be specified in the index.html file along wit
    })();
 </script>
 ```
-
+In order to obtain current weather condition via Weather API, use this link: "http://api.weatherapi.com/v1/current.json?key=apikey&q=gps" (substitute apikey with your own key and gps with lat and long in decimal)
+```
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
