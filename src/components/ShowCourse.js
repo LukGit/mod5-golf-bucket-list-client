@@ -122,10 +122,13 @@ class ShowCourse extends Component {
   // https also works
   getWeather = (gps) => {
     const W_URL = "https://api.weatherapi.com/v1/forecast.json?key=0def2099dc364881957133838202806&days=3&q=" + gps
+    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     fetch(W_URL)
     .then(resp => resp.json())
     .then(weather => {
-      const weatherLine1 = ["Current", "Today", "Tomorrow", "Day After"]
+      let d = new Date(weather.forecast.forecastday[2].date)
+      let n = d.getDay()
+      const weatherLine1 = ["Current", "Today", "Tomorrow", weekdays[n]]
       const weatherLine2 = [weather.current.condition.text, weather.forecast.forecastday[0].day.condition.text,
       weather.forecast.forecastday[1].day.condition.text, weather.forecast.forecastday[2].day.condition.text]
       const weatherLine3 = [weather.current.condition.icon, weather.forecast.forecastday[0].day.condition.icon,
