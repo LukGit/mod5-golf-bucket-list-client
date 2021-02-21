@@ -42,6 +42,6 @@ To use EmailJS, the following must be specified in the index.html file along wit
    })();
 </script>
 ```
-In order to obtain current weather condition via Weather API, use this link: "http://api.weatherapi.com/v1/current.json?key=apikey&q=gps" (substitute apikey with your own key and gps with lat and long in decimal)
+In order to obtain current weather condition via Weather API, use this link: "https://api.weatherapi.com/v1/current.json?key=apikey&q=gps" (substitute apikey with your own key and gps with lat and long in decimal)
 ```
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

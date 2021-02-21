@@ -4,7 +4,7 @@ import MapContainer from './MapContainer'
 import { connect } from 'react-redux';
 import { addBucket } from '../actions';
 import Golfimg from '../img/golf.jpg'
-import { Icon, Label, Menu, Dropdown, Button, Modal, Embed } from 'semantic-ui-react'
+import { Icon, Label, Menu, Dropdown, Button, Modal, Embed, Segment, Divider, Grid, Header, Item } from 'semantic-ui-react'
 
 
 class ShowCourse extends Component {
@@ -15,9 +15,13 @@ class ShowCourse extends Component {
     zoom: 0,
     desc: "",
     init: "c",
-    weather: "",
     hole: "",
-    inBkt: false
+    inBkt: false,
+    weatherLine1: [],
+    weatherLine2: [],
+    weatherLine3: [],
+    weatherLine4: [],
+    weatherLine5: []
   }
 
   // when the component is initially loaded, set local state with course, gps, weather, and other info
@@ -116,13 +120,26 @@ class ShowCourse extends Component {
   // this is called to obtain weather data from api based on gps location
   // https also works
   getWeather = (gps) => {
-    const W_URL = "https://api.weatherapi.com/v1/current.json?key=0def2099dc364881957133838202806&q=" + gps
+    const W_URL = "https://api.weatherapi.com/v1/forecast.json?key=0def2099dc364881957133838202806&days=3&q=" + gps
     fetch(W_URL)
     .then(resp => resp.json())
     .then(weather => {
-      const weather_desc = `Temp: ${weather.current.temp_f}F | ${weather.current.condition.text} | Humidity: ${weather.current.humidity}% | Wind: ${weather.current.wind_mph}mph ${weather.current.wind_dir} | Gust: ${weather.current.gust_mph}mph`
+      const weatherLine1 = ["Current", "Today", "Tomorrow", "Day After"]
+      const weatherLine2 = [weather.current.condition.text, weather.forecast.forecastday[0].day.condition.text,
+      weather.forecast.forecastday[1].day.condition.text, weather.forecast.forecastday[2].day.condition.text]
+      const weatherLine3 = [weather.current.condition.icon, weather.forecast.forecastday[0].day.condition.icon,
+      weather.forecast.forecastday[1].day.condition.icon, weather.forecast.forecastday[2].day.condition.icon]
+      const weatherLine4 = [`Wind: ${weather.current.wind_mph} ${weather.current.wind_dir}`, `Max wind: ${weather.forecast.forecastday[0].day.maxwind_mph}mph`,
+      `Max wind: ${weather.forecast.forecastday[1].day.maxwind_mph}mph`, `Max wind: ${weather.forecast.forecastday[2].day.maxwind_mph}mph`]
+      const weatherLine5 = [`Temp: ${weather.current.temp_f}F`, `High: ${weather.forecast.forecastday[0].day.maxtemp_f}F Low: ${weather.forecast.forecastday[0].day.mintemp_f}F`,
+      `High: ${weather.forecast.forecastday[1].day.maxtemp_f}F Low: ${weather.forecast.forecastday[1].day.mintemp_f}F`,
+      `High: ${weather.forecast.forecastday[2].day.maxtemp_f}F Low: ${weather.forecast.forecastday[2].day.mintemp_f}F`]
       this.setState({
-        weather: weather_desc
+        weatherLine1: weatherLine1,
+        weatherLine2: weatherLine2,
+        weatherLine3: weatherLine3,
+        weatherLine4: weatherLine4,
+        weatherLine5: weatherLine5
       })
     })
   }
@@ -285,7 +302,81 @@ class ShowCourse extends Component {
             </Button.Content>
           </Button></Menu.Item>} closeIcon>
           <Modal.Content>
-            <Label>{this.state.weather}</Label>
+            <Segment placeholder>
+              <Grid columns={4} stackable textAlign='center'>
+              <Divider vertical></Divider>
+              <Grid.Row verticalAlign='middle'>
+                <Grid.Column>
+                  <Header>
+                    {this.state.weatherLine1[0]}
+                    </Header>
+                  <Label>
+                    {this.state.weatherLine2[0]}
+                    </Label>
+                  <Item>
+                    <Item.Image src={this.state.weatherLine3[0]} size="tiny" />
+                    </Item>  
+                  <Label>
+                    {this.state.weatherLine4[0]}
+                    </Label>
+                  <Label>
+                    {this.state.weatherLine5[0]}
+                    </Label>
+                  </Grid.Column>
+                <Grid.Column>
+                  <Header>
+                    {this.state.weatherLine1[1]}
+                    </Header>
+                  <Label>
+                    {this.state.weatherLine2[1]}
+                    </Label>
+                  <Item>
+                    <Item.Image src={this.state.weatherLine3[1]} size="tiny" />
+                    </Item>  
+                  <Label>
+                    {this.state.weatherLine4[1]}
+                    </Label>
+                  <Label>
+                    {this.state.weatherLine5[1]}
+                    </Label>
+                  </Grid.Column>
+                <Grid.Column>
+                  <Header>
+                    {this.state.weatherLine1[2]}
+                    </Header>
+                  <Label>
+                    {this.state.weatherLine2[2]}
+                    </Label>
+                  <Item>
+                    <Item.Image src={this.state.weatherLine3[2]} size="tiny" />
+                    </Item>  
+                  <Label>
+                    {this.state.weatherLine4[2]}
+                    </Label>
+                  <Label>
+                    {this.state.weatherLine5[2]}
+                    </Label>
+                  </Grid.Column>
+                <Grid.Column>
+                  <Header>
+                    {this.state.weatherLine1[3]}
+                    </Header>
+                  <Label>
+                    {this.state.weatherLine2[3]}
+                    </Label>
+                  <Item>
+                    <Item.Image src={this.state.weatherLine3[3]} size="tiny" />
+                    </Item>  
+                  <Label>
+                    {this.state.weatherLine4[3]}
+                    </Label>
+                  <Label>
+                    {this.state.weatherLine5[3]}
+                    </Label>
+                  </Grid.Column>
+              </Grid.Row>
+                </Grid>
+             </Segment> 
           </Modal.Content>
         </Modal>
         
