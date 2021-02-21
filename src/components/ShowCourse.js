@@ -21,7 +21,8 @@ class ShowCourse extends Component {
     weatherLine2: [],
     weatherLine3: [],
     weatherLine4: [],
-    weatherLine5: []
+    weatherLine5: [],
+    weatherLine6: []
   }
 
   // when the component is initially loaded, set local state with course, gps, weather, and other info
@@ -134,12 +135,15 @@ class ShowCourse extends Component {
       const weatherLine5 = [`Temp: ${weather.current.temp_f}F`, `High: ${weather.forecast.forecastday[0].day.maxtemp_f}F Low: ${weather.forecast.forecastday[0].day.mintemp_f}F`,
       `High: ${weather.forecast.forecastday[1].day.maxtemp_f}F Low: ${weather.forecast.forecastday[1].day.mintemp_f}F`,
       `High: ${weather.forecast.forecastday[2].day.maxtemp_f}F Low: ${weather.forecast.forecastday[2].day.mintemp_f}F`]
+      const weatherLine6 = [`Feels like: ${weather.current.feelslike_f}F`, `Rain: ${weather.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+      `Rain: ${weather.forecast.forecastday[1].day.daily_chance_of_rain}%`, `Rain: ${weather.forecast.forecastday[2].day.daily_chance_of_rain}%`]
       this.setState({
         weatherLine1: weatherLine1,
         weatherLine2: weatherLine2,
         weatherLine3: weatherLine3,
         weatherLine4: weatherLine4,
-        weatherLine5: weatherLine5
+        weatherLine5: weatherLine5,
+        weatherLine6: weatherLine6
       })
     })
   }
@@ -304,7 +308,7 @@ class ShowCourse extends Component {
           <Modal.Content>
             <Segment placeholder>
               <Grid columns={4} stackable textAlign='center'>
-              <Divider vertical></Divider>
+              <Divider vertical hidden ></Divider>
               <Grid.Row verticalAlign='middle'>
                 <Grid.Column>
                   <Header>
@@ -321,6 +325,9 @@ class ShowCourse extends Component {
                     </Label>
                   <Label>
                     {this.state.weatherLine5[0]}
+                    </Label>
+                  <Label>
+                    {this.state.weatherLine6[0]}
                     </Label>
                   </Grid.Column>
                 <Grid.Column>
@@ -339,6 +346,9 @@ class ShowCourse extends Component {
                   <Label>
                     {this.state.weatherLine5[1]}
                     </Label>
+                  <Label>
+                    {this.state.weatherLine6[1]}
+                    </Label>
                   </Grid.Column>
                 <Grid.Column>
                   <Header>
@@ -356,6 +366,9 @@ class ShowCourse extends Component {
                   <Label>
                     {this.state.weatherLine5[2]}
                     </Label>
+                  <Label>
+                    {this.state.weatherLine6[2]}
+                    </Label>
                   </Grid.Column>
                 <Grid.Column>
                   <Header>
@@ -372,6 +385,9 @@ class ShowCourse extends Component {
                     </Label>
                   <Label>
                     {this.state.weatherLine5[3]}
+                    </Label>
+                  <Label>
+                    {this.state.weatherLine6[3]}
                     </Label>
                   </Grid.Column>
               </Grid.Row>
