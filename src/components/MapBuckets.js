@@ -16,9 +16,6 @@ export class MapBuckets extends Component {
   }
 
   onMouseoverMarker = (props, marker, e) => {
-    console.log("marker is", marker)
-    console.log("event is", e)
-    console.log("props is", props)
     this.setState({
       mouseMarker: marker,
       showInfo: true,

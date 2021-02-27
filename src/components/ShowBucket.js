@@ -191,7 +191,7 @@ class ShowBucket extends Component {
             </Button.Content>
             </Button>
             <Modal size='medium' trigger={
-          <Button animated='fade' size='medium' inverted color="grey">
+          <Button animated='fade' size='small' inverted color="grey">
             <Button.Content visible>
               <Icon name='plus circle'/>
               </Button.Content>
