@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {Map, Marker, GoogleApiWrapper, Polyline} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper, Polyline, InfoWindow} from 'google-maps-react';
 import TeeIcon from '../img/tee.png'
 import FlagIcon from '../img/flag.png'
 import ClubIcon from '../img/club.png'
 import CartIcon from '../img/golfcart.png'
 import GolferIcon from '../img/golfer.png'
+import { Item } from 'semantic-ui-react'
 
 export class MapContainer extends Component {
   state = {
@@ -13,17 +14,19 @@ export class MapContainer extends Component {
     toTee: 0,
     toFlag: 0,
     icon: CartIcon,
-    polyPath: []
+    polyPath: [],
+    showInfo: false
   }
 
-  // this is to clear last hole's marker and polyline
+  // this is to clear last hole's marker, polyline, and the infowindow flag
   componentDidUpdate (preProps) {
     
     if (this.props.gps1 !== preProps.gps1){
       this.setState({
         lat: 0,
         lng: 0,
-        polyPath: []
+        polyPath: [],
+        showInfo: false
       })
     }
 
@@ -78,6 +81,13 @@ export class MapContainer extends Component {
     }
   }
 
+  // this function is for setting the infowindow flag to true when user mouseover the marker
+  mouseMarker = (props, marker, e) => {
+    this.setState({
+      showInfo: true
+    })
+  }
+
   render() {
     const opt = this.props.init
     const center = {lat: (Number(this.props.gps1.lat) + Number(this.props.gps2.lat)) / 2, lng: (Number(this.props.gps1.lng) + Number(this.props.gps2.lng)) / 2}
@@ -109,9 +119,10 @@ export class MapContainer extends Component {
           </Marker>
         }
         {/* this marker will display when a point on map is clicked. it displays the distaince to tee and green */}
+        {/* use mouseover event to display the from tee and to flag yardage */}
         <Marker position={this.state}
           icon={this.state.icon}
-          label={`From tee: ${Math.floor(this.state.toTee)}yd \n To flag: ${Math.floor(this.state.toFlag)}yd`}
+          onMouseover={this.mouseMarker}
           />
         {/* this polyline connects the click point to tee and green marker */}
         <Polyline
@@ -122,6 +133,25 @@ export class MapContainer extends Component {
           strokeOpacity: 1.0,
           strokeWeight: 2,
         }}/> 
+        <InfoWindow
+          position={this.state}
+          visible={this.state.showInfo}
+          >
+            <Item.Group>
+              <Item>
+               <Item.Content> 
+                <Item.Header>From tee:</Item.Header>
+              </Item.Content>
+              <Item.Content content={` ${Math.floor(this.state.toTee)} yd`}/>
+              </Item>
+              <Item>
+               <Item.Content> 
+              <Item.Header>To flag:</Item.Header>
+              </Item.Content>
+              <Item.Content content={` ${Math.floor(this.state.toFlag)} yd`}/>
+              </Item>
+              </Item.Group>
+            </InfoWindow>
       </Map>
     );
   }
