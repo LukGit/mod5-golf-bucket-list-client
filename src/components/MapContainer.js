@@ -140,15 +140,15 @@ export class MapContainer extends Component {
             <Item.Group>
               <Item>
                <Item.Content> 
-                <Item.Header>From tee:</Item.Header>
+                <Item.Header>To Flag:</Item.Header>
               </Item.Content>
-              <Item.Content content={` ${Math.floor(this.state.toTee)} yd`}/>
+              <Item.Content content={` ${Math.floor(this.state.toFlag)} yd`}/>
               </Item>
               <Item>
                <Item.Content> 
-              <Item.Header>To flag:</Item.Header>
+              <Item.Header>From Tee:</Item.Header>
               </Item.Content>
-              <Item.Content content={` ${Math.floor(this.state.toFlag)} yd`}/>
+              <Item.Content content={` ${Math.floor(this.state.toTee)} yd`}/>
               </Item>
               </Item.Group>
             </InfoWindow>
