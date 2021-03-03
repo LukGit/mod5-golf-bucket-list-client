@@ -45,7 +45,8 @@ class ShowBucket extends Component {
   sendEmail = (e, bucket) => {
     e.preventDefault()
     
-    const serviceID = 'ivan.luk028@gmail.com'
+    // const serviceID = 'ivan.luk028@gmail.com'
+    const serviceID = process.env.REACT_APP_EMAIL_SERVICE_ID
     const templateID = 'luk_email_for_react'
     let fmtD 
     const date1 = new Date(bucket.played_on)
@@ -190,7 +191,7 @@ class ShowBucket extends Component {
               Remove
             </Button.Content>
             </Button>
-            <Modal size='medium' trigger={
+            <Modal size='small' trigger={
           <Button animated='fade' size='small' inverted color="grey">
             <Button.Content visible>
               <Icon name='plus circle'/>
