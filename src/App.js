@@ -10,6 +10,7 @@ import ProfileEdit from './components/ProfileEdit'
 import Foursomes from './components/Foursomes'
 import Signup from './components/Signup'
 import { Route, Switch } from 'react-router-dom'
+console.log("api key app.js", process.env.REACT_APP_GOOGLE_API_KEY)
 
 const App = () => { 
   // Login is to handle user login

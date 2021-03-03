@@ -6,7 +6,6 @@ import { addBucket } from '../actions';
 import Golfimg from '../img/golf.jpg'
 import { Icon, Label, Menu, Dropdown, Button, Modal, Embed, Segment, Divider, Grid, Header, Item } from 'semantic-ui-react'
 
-
 class ShowCourse extends Component {
   state = {
     thisCourse: {},
@@ -121,7 +120,8 @@ class ShowCourse extends Component {
   // this is called to obtain weather data from api based on gps location
   // https also works
   getWeather = (gps) => {
-    const W_URL = "https://api.weatherapi.com/v1/forecast.json?key=0def2099dc364881957133838202806&days=3&q=" + gps
+    // api key in .env file
+    const W_URL = "https://api.weatherapi.com/v1/forecast.json?key=" + process.env.REACT_APP_WEATHER_API_KEY + "&days=3&q=" + gps
     const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     fetch(W_URL)
     .then(resp => resp.json())

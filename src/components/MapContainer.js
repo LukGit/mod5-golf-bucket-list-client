@@ -158,6 +158,7 @@ export class MapContainer extends Component {
 }
 
 // this is the apiKey generated on goople for maps
+// api key in .env file
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDAAA0HEZLvUa2hQ-54gAG5TXheH1-pEZY'
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY
 })(MapContainer)
