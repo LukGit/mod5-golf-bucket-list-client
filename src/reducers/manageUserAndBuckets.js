@@ -115,7 +115,6 @@ function coursesReducer(state = [], action) {
 }
 
 function foursomesReducer(state = [], action) {
-  console.log("in foursome reducer", action)
   switch (action.type) {
     // when logout clear store
     case "LOGOUT":
