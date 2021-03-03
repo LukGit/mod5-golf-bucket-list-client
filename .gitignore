@@ -24,4 +24,3 @@ yarn-error.log*
 
 # api keys index.html ignored due to emailjs user key
 .env
-index.html
