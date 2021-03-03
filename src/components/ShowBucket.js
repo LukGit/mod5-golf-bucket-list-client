@@ -43,9 +43,7 @@ class ShowBucket extends Component {
   }
   // this function is to send email via EmailJS service
   sendEmail = (e, bucket) => {
-    e.preventDefault()
-    
-    // const serviceID = 'ivan.luk028@gmail.com'
+    e.preventDefault()    
     const serviceID = process.env.REACT_APP_EMAIL_SERVICE_ID
     const templateID = 'luk_email_for_react'
     let fmtD 
