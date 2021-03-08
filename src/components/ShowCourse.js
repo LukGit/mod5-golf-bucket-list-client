@@ -4,7 +4,7 @@ import MapContainer from './MapContainer'
 import { connect } from 'react-redux';
 import { addBucket } from '../actions';
 import Golfimg from '../img/golf.jpg'
-import { Icon, Label, Menu, Dropdown, Button, Modal, Embed, Segment, Divider, Grid, Header, Item } from 'semantic-ui-react'
+import { Icon, Label, Menu, Dropdown, Button, Modal, Embed, Segment, Divider, Grid, Header, Item, Popup } from 'semantic-ui-react'
 
 class ShowCourse extends Component {
   state = {
@@ -283,6 +283,7 @@ class ShowCourse extends Component {
         />
         </Menu.Item>
         <Menu.Item>
+        <Popup content='Click to add to bucket list' trigger={
         <Button
           animated='fade'
           disabled={this.state.inBkt}
@@ -295,10 +296,11 @@ class ShowCourse extends Component {
           <Button.Content hidden>
           Add
           </Button.Content>
-        </Button> 
+        </Button>} /> 
         </Menu.Item>
   
         <Modal size='tiny' trigger={<Menu.Item>
+          <Popup content='Click to see area weather forecast' trigger={
           <Button animated='fade' 
           onClick={() => this.getWeather(`${this.state.thisCourse.lat},${this.state.thisCourse.lng}`)} size='medium' floated='right' inverted color="grey">
             <Button.Content visible>
@@ -307,7 +309,7 @@ class ShowCourse extends Component {
             <Button.Content hidden>
             Weather
             </Button.Content>
-          </Button></Menu.Item>} closeIcon>
+          </Button>} /></Menu.Item>} closeIcon>
           <Modal.Content>
             <Segment placeholder>
               <Grid columns={4} stackable textAlign='center'>
@@ -400,6 +402,7 @@ class ShowCourse extends Component {
         </Modal>
         
         <Modal trigger={<Menu.Item>
+          <Popup content='Click to see a video of the course' trigger={
           <Button animated='fade' size='medium' position='right' inverted color="grey">
             <Button.Content visible>
               <Icon name='video camera'/>
@@ -407,7 +410,7 @@ class ShowCourse extends Component {
             <Button.Content hidden>
             Video
             </Button.Content>
-          </Button></Menu.Item>} closeIcon>
+          </Button>}/></Menu.Item>} closeIcon>
           <Modal.Content>
           <Embed
             id={this.state.thisCourse.video_id}
